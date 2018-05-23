@@ -10,7 +10,7 @@ create table korisnik
 		ime varchar(50) not null,
 		prezime varchar(50) not null,
 		username varchar(50) not null,
-		oib int(20),
+		oib int(20) not null,
 		email varchar(50) not null,
 		mobitel varchar(50),
 		ponuda int,
@@ -38,7 +38,6 @@ create table ponuda
 create table dogovor
 	(
 		id int primary key not null auto_increment,
-		vrijeme_zavrsetka datetime,
 		ocjena int,
 		komentar text,
 		vrijeme_placanja datetime,
