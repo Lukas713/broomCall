@@ -23,16 +23,14 @@ create table potraznja
 		grad varchar(50) not null,
 		adresa varchar(50) not null,
 		opis text not null,
-		razina_prljavstine int,
-		korisnik int 
+		razina_prljavstine int
 	);
 
 create table ponuda
 	(
 		id int primary key not null auto_increment,
 		grad varchar(50) not null,
-		ziro_racun varchar(20) not null,
-		korisnik int
+		ziro_racun varchar(20) not null
 	);
 
 create table dogovor
@@ -42,7 +40,6 @@ create table dogovor
 		ocjena int,
 		komentar text,
 		vrijeme_placanja datetime,
-		racun int,
 		ponuda int,
 		potraznja int
 	);
@@ -57,14 +54,12 @@ create table racun
 	);
 
 alter table korisnik add foreign key (potraznja) references potraznja(id);
-alter table potraznja add foreign key (korisnik) references korisnik(id);
 
 alter table korisnik add foreign key (ponuda) references ponuda(id);
-alter table ponuda add foreign key (korisnik) references korisnik(id);
 
 alter table dogovor add foreign key (ponuda) references ponuda(id);
 alter table dogovor add foreign key (potraznja) references potraznja(id);
-alter table dogovor add foreign key (racun) references racun(id) ;
+
 
 alter table racun add foreign key (dogovor) references dogovor(id) ;
 
