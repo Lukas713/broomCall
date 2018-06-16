@@ -12,9 +12,7 @@ create table korisnik
 		username varchar(50) not null,
 		oib int(20) not null,
 		email varchar(50) not null,
-		mobitel varchar(50),
-		ponuda int,
-		potraznja int
+		mobitel varchar(50)
 	);
 
 create table potraznja
@@ -23,14 +21,16 @@ create table potraznja
 		grad varchar(50) not null,
 		adresa varchar(50) not null,
 		opis text not null,
-		razina_prljavstine int
+		razina_prljavstine int,
+		korisnik int
 	);
 
 create table ponuda
 	(
 		id int primary key not null auto_increment,
 		grad varchar(50) not null,
-		ziro_racun varchar(20) not null
+		ziro_racun varchar(20) not null,
+		korisnik int
 	);
 
 create table dogovor
@@ -52,9 +52,8 @@ create table racun
 		cijena decimal(18,2)
 	);
 
-alter table korisnik add foreign key (potraznja) references potraznja(id);
-
-alter table korisnik add foreign key (ponuda) references ponuda(id);
+alter table potraznja add foreign key (korisnik) references korisnik(id);
+alter table ponuda add foreign key (korisnik) references korisnik(id);
 
 alter table dogovor add foreign key (ponuda) references ponuda(id);
 alter table dogovor add foreign key (potraznja) references potraznja(id);
