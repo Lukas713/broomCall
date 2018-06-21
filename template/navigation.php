@@ -3,7 +3,7 @@
   <div class="title-bar-title"><?php echo $nameAPP; ?></div>
 </div>
 
-<div class="top-bar" id="nav">
+<div class="top-bar" id="nav" <?php echo $colorMenu;  ?>>
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
       <li class="menu-text"><a href="<?php echo $pathAPP; ?>index.php"><i class="fas fa-home fa-2x " style="color: #2a6182;"></i></a></li>
