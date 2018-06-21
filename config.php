@@ -7,6 +7,10 @@ switch($_SERVER["HTTP_HOST"]){
     $pathAPP="/class-project/";
     $colorMenu="style=\"background-color: blue;\"";
     break;
+    case "lukas713.byethost17.com":
+    $pathAPP="/class-project/";
+    $colorMenu="";
+    break;
 }
 
 
