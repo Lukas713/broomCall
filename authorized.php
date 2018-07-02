@@ -13,7 +13,7 @@ if(!isset($_POST["email"])){
 
         //pusti dalje
         session_start();
-        $_SESSION["operater"] = $_POST["email"]; 
+        $_SESSION["operator"] = $_POST["email"]; 
         header("location: private/crudBoard.php");
     }else {
         header("location: login.php"); 

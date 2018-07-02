@@ -12,9 +12,10 @@
     <?php include_once "../template/navigation.php" ?>
 
    
-    <?php
-      session_start(); 
-      echo $_SESSION["operater"].'<br>'; 
+    <?php 
+      if(isset($_SESSION["operator"])){
+        echo $_SESSION["operator"].'<br>';
+      } 
     ?>
     CRUD BOARD
 

@@ -1,4 +1,5 @@
 <?php
+session_start(); 
 
 $nameAPP="BroomCall V1";
 

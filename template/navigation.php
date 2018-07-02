@@ -15,7 +15,11 @@
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-    <li style="width:100%; text-align: center; padding:1.2rem 0;"><a href="<?php echo $pathAPP; ?>login.php">Login</a></li>
+    <?php if(isset($_SESSION["operator"])): ?>
+      <li style="width:100%; text-align: center; padding:1.2rem 0;"><a href="<?php echo $pathAPP; ?>logout.php">Logout</a></li> 
+    <?php else: ?>
+      <li style="width:100%; text-align: center; padding:1.2rem 0;"><a href="<?php echo $pathAPP; ?>login.php">Login</a></li>
+    <?php endif ?>
     </ul>
   </div>
 </div>
