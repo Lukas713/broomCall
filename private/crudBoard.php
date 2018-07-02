@@ -12,7 +12,11 @@
     <?php include_once "../template/navigation.php" ?>
 
    
-  	Index
+    <?php
+      session_start(); 
+      echo $_SESSION["operater"].'<br>'; 
+    ?>
+    CRUD BOARD
 
     <?php include_once "../template/footer.php" ?>
 

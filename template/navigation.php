@@ -3,7 +3,7 @@
   <div class="title-bar-title"><?php echo $nameAPP; ?></div>
 </div>
 
-<div class="top-bar" id="nav" <?php echo $colorMenu;  ?>>
+<div class="top-bar" id="nav" style="border: 1px solid black">
   <div class="top-bar-left">
     <ul class="dropdown menu" data-dropdown-menu>
       <li class="menu-text"><a href="<?php echo $pathAPP; ?>index.php"><i class="fas fa-home fa-2x " style="color: #2a6182;"></i></a></li>
@@ -15,7 +15,7 @@
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-    <li style="width:100%; text-align: center;"><a href="#">Login</a></li>
+    <li style="width:100%; text-align: center; padding:1.2rem 0;"><a href="<?php echo $pathAPP; ?>login.php">Login</a></li>
     </ul>
   </div>
 </div>
