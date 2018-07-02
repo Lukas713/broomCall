@@ -29,8 +29,7 @@
             <label for="loginPassword">Password
                 <input type="password" id="loginPassword" name="password" autocomplete="new-password" placeholder="Password">
             </label>
-            <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
-            <p><input type="submit" class="button expanded" value="Log in"></input></p>
+            <p><input type="submit" name="loginSubmit" class="button expanded" value="Log in"></input></p>
             <p class="text-center"><a href="#">Forgot your password?</a></p>
         </form>
     </div>

@@ -2,6 +2,7 @@
 session_start(); 
 
 $nameAPP="BroomCall V1";
+include_once "function.php"; 
 
 switch($_SERVER["HTTP_HOST"]){
     case "localhost":
