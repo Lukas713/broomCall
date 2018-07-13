@@ -43,7 +43,7 @@ if(!isset($_SESSION[$appID."operater"])){
               <a onclick="return confirm('Delete -><?php echo $row->levelName; ?>?')" href="delete.php?id=<?php echo $row->id; ?>">
                <i class="fas fa-2x fa-trash-alt"></i>
               </a>  
-                <a href="rewriteCleanLevel.php?id=<?php echo $row->id; ?>"><i class="fas fa-2x fa-edit"></i></a>
+                <a href="rewrite.php?id=<?php echo $row->id; ?>"><i class="fas fa-2x fa-edit"></i></a>
               </td>
             </tr>
         <?php endforeach; ?>
