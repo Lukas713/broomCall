@@ -10,18 +10,20 @@
         menuItem($pathAPP, "index.php", "<i class='fas fa-2x fa-home'></i>"); 
         menuItem($pathAPP, "aboutUs.php", "<i class='fas fa-2x fa-copy'></i> About us");
         menuItem($pathAPP, "contact.php", "<i class='fas fa-2x fa-address-book'></i> Contact");
-        if(isset($_SESSION[$appID."operater"])){
-          menuItem($pathAPP, "private/controlBoard.php", "<i class='fas fa-2x fa-laptop'></i>Control board");
-        }
-      ?>
-        <li>
-        <a href="#">One</a>
+
+        if(isset($_SESSION[$appID."operater"])):
+          menuItem($pathAPP, "private/controlBoard.php", "<i class='fas fa-2x fa-laptop'></i>Control board"); 
+      ?> 
+      <li>
+        <a href="#"><i class="fas fa-2x fa-archive"></i> Information list</a>
         <ul class="menu vertical">
-          <li><a href="#">One</a></li>
-          <li><a href="#">Two</a></li>
-          <li><a href="#">Three</a></li>
+          <li><a href="#">Departments</a></li>
+          <li><a href="#">Squads</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Clean level</a></li>
         </ul>
       </li>
+        <?php endif; ?>
     </ul>
   </div>
   <div class="top-bar-right">
