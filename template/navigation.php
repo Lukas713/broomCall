@@ -8,18 +8,32 @@
     <ul class="dropdown menu" data-dropdown-menu>
       <?php 
         menuItem($pathAPP, "index.php", "<i class='fas fa-2x fa-home'></i>"); 
-        menuItem($pathAPP, "aboutUs.php", "About us");
-        menuItem($pathAPP, "contact.php", "Contact");
+        menuItem($pathAPP, "aboutUs.php", "<i class='fas fa-2x fa-copy'></i> About us");
+        menuItem($pathAPP, "contact.php", "<i class='fas fa-2x fa-address-book'></i> Contact");
         if(isset($_SESSION[$appID."operater"])){
-          menuItem($pathAPP, "private/controlBoard.php", "Control board");
+          menuItem($pathAPP, "private/controlBoard.php", "<i class='fas fa-2x fa-laptop'></i>Control board");
         }
       ?>
-
+        <li>
+        <a href="#">One</a>
+        <ul class="menu vertical">
+          <li><a href="#">One</a></li>
+          <li><a href="#">Two</a></li>
+          <li><a href="#">Three</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      <li><a href="login.php">Login</a></li>
+      <?php
+        if(isset($_SESSION[$appID."operater"])){
+
+          echo "<li><a href='$pathAPP/logout.php'><i class='fas fa-2x fa-unlock-alt'></i> Logout</a></li>";
+        } else {
+          echo "<li><a href='$pathAPP/login.php'><i class='fas fa-2x fa-user-lock'></i> Login</a></li>";
+        }
+      ?>
     </ul>
   </div>
 </div>
