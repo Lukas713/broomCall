@@ -2,5 +2,13 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
 }
 
+.fa-trash-alt:before{
+    color: #b71d1d;
+}
+
+.fa-edit:before {
+    color: #000000;
+}
+
 
 

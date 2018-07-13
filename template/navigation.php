@@ -17,10 +17,10 @@
       <li>
         <a href="#"><i class="fas fa-2x fa-archive"></i> Information list</a>
         <ul class="menu vertical">
-          <li><a href="#">Departments</a></li>
-          <li><a href="#">Squads</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Clean level</a></li>
+          <li><a href="<?php echo $pathAPP.'private/department/index.php'?>">Departments</a></li>
+          <li><a href="<?php echo $pathAPP.'private/cleanLevel/index.php'?>">Clean Level</a></li>
+          <li><a href="<?php echo $pathAPP.'private/service/index.php'?>">Services</a></li>
+          <li><a href="<?php echo $pathAPP.'private/squad/index.php'?>">Squads</a></li>
         </ul>
       </li>
         <?php endif; ?>
