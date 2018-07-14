@@ -16,7 +16,7 @@ if(isset($_POST["change"])){
     unset($_POST["change"]);
     $query->execute($_POST);
     header("location: index.php"); 
-}else {
+}else{
     $query = $conn->prepare("select * from cleanlevel where id=:id");
     $query->execute($_GET);
     $result = $query->fetch(PDO::FETCH_OBJ);  

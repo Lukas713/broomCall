@@ -22,13 +22,14 @@ if(!isset($_SESSION[$appID."operater"])){
    $result = $query->fetchAll(PDO::FETCH_OBJ); 
 
   ?>
-  <h3>Clean levels</h3><hr>
+
   <div class="grid-container"> 
+  <h3>Clean levels</h3><hr>
   <a href="new.php" class="button">Create new</a> 
   <div class="grid-x grid-margin-x">
       <table>
         <thead>
-          <tr>
+          <tr style="color:#1779ba;">
             <th>Level name</th>
             <th>Price coefficient</th>
             <th>Action</th>
