@@ -17,12 +17,12 @@ if(!isset($_SESSION[$appID."operater"])){
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
   <?php
-   $query =  $conn->prepare("select a.id, a.depName, count(b.id) as number 
+   $query =  $conn->prepare("select a.id, a.depName, count(b.id) as numberOfEmployees 
                             from department a
                             left outer join employees b 
                             on a.id = b.department
                             group by a.depName
-                            order by number DESC");
+                            order by numberOfEmployees DESC");
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ); 
 
@@ -36,7 +36,7 @@ if(!isset($_SESSION[$appID."operater"])){
         <thead>
           <tr style="color:#1779ba;">
             <th>Department name</th>
-            <th># of employees</th>
+            <th>number of employees</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -44,7 +44,7 @@ if(!isset($_SESSION[$appID."operater"])){
           <?php foreach($result as $row): ?>
             <tr>
               <td><?php echo $row->depName; ?></td>
-              <td><?php echo $row->number; ?></td>
+              <td><?php echo $row->numberOfEmployees; ?></td>
               <td>
               <a onclick="return confirm('Delete -><?php echo $row->depName; ?>?')" href="delete.php?id=<?php echo $row->id; ?>">
                <i class="fas fa-2x fa-trash-alt"></i>
