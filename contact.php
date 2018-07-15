@@ -16,17 +16,20 @@
   <div class="grid-container">
   <h3>Map</h3><hr>
     <div class="grid-x grid-margin-x">
-      <div id="map">
+    <div id="googleMap" style="width:100%;height:400px;"></div>
         <script>
-            function initMap(){
-              //location
-              var uluru = {lat: -25.344, lng: 131.036};
-              var map = new google.maps.Map(
-                        document.getElementById('map'), {zoom: 4, center: uluru});
-              var marker = new google.maps.Marker({position: uluru, map: map});
-            }
+            function myMap() {
+              var myCenter = new google.maps.LatLng(45.560455,18.680983);
+              var mapCanvas = document.getElementById("googleMap");
+              var mapOptions = {center: myCenter, zoom: 15};
+              var map = new google.maps.Map(mapCanvas, mapOptions);
+              var marker = new google.maps.Marker({position:myCenter});
+              marker.setMap(map);
+            }   
+
+
+
         </script>
-      </div>
     </div> 
   </div>
 
