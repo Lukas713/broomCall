@@ -28,45 +28,7 @@
                 marker.setMap(map);
               }  
           </script>
-      </div><hr><br>
-      <h4>Contact informations</h4>
-    <div class="grid-x">
-          <div class="cell" style="width:2rem">
-            <i class="fas fa-map-marker-alt" style="color:green"></i>
-          </div>
-          <div class="cell medium-4 small-4">
-            Ulica Lorenza Jegera 5<br>
-            31000, Osijek<br>
-          </div>
-    </div> 
-    <br>
-    <div class="grid-x">
-          <div class="cell" style="width:2rem">
-          <i class="fas fa-phone" style="color:green"></i>
-          </div>
-          <div class="cell medium-4 small-4">
-            +385 91 551 7903<br>
-            +385 31 551 932<br>
-          </div>
-    </div>
-    <br>
-    <div class="grid-x">
-          <div class="cell" style="width:2rem">
-          <i class="fas fa-envelope" style="color:green"></i>
-          </div>
-          <div class="cell medium-4 small-4">
-            lukas.scharmitzer@gmail.com<br>
-          </div> 
-    </div>
-    <br>
-    <div class="grid-x">
-          <div class="cell" style="width:2rem">
-          <i class="fas fa-globe" style="color:green"></i>
-          </div>
-          <div class="cell medium-4 small-4">
-            www.broomCall.com<br>
-          </div>
-    </div>
+      </div>   
   </div>
 
   <?php include_once "template/scripts.php"; ?>
