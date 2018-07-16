@@ -28,7 +28,7 @@
                 marker.setMap(map);
               }  
           </script>
-      </div>   
+      </div>  
   </div>
 
   <?php include_once "template/scripts.php"; ?>
