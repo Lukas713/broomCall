@@ -1,6 +1,11 @@
 <?php
 
-
+/*
+* 3 param
+* creates navigation bar links
+* no return value
+*
+*/
 function menuItem($pathAPP, $currentPage, $label){
     ?>
     <li<?php 

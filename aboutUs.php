@@ -6,8 +6,11 @@
   </head>
   <body>
 
-  <?php include_once "template/navigation.php"; ?>  
-        ABOUT US
+  <?php include_once "template/navigation.php"; ?> 
+  <br> <hr> 
+  <div class="grid-container">
+    About us
+  </div>
 
   <?php include_once "template/scripts.php"; ?>
 

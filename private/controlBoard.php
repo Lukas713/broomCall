@@ -7,9 +7,10 @@
   <body>
 
     <?php include_once "../template/navigation.php"; ?>  
-
-          Control board
-          <?php print_r($_SESSION);  ?>
+    <br> <hr>
+          <div class="grid-container">
+              Control board <?php print_r($_SESSION); ?>
+          </div>
     <?php include_once "../template/scripts.php"; ?>
 
     <?php include_once "../template/footer.php"; ?>
