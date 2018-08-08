@@ -32,20 +32,11 @@ if(isset($_POST["add"])){
                             <label>Ordinal number
                                 <input type="number" step="1" name="squadNumber">
                             </label>
-                            <label>Squad color
-                                <select name="squadColor">
-                                <option style="color:red" value="red">Red</option>
-                                <option style="color:orange" value="orange">Orange</option>
-                                <option style="color:yellow" value="yellow">Yellow</option>
-                                <option style="color:green" value="green">Green</option>
-                                <option style="color:blue" value="blue">Blue</option>
-                                <option style="color:purple" value="purple">Purple</option>
-                                <option style="color:brown" value="brown">Brown</option>
-                                <option style="color:grey" value="grey">Grey</option>                                   
-                                <option value="black">Black</option>
-                                </select>
-                            </label>
+                            
                             <br>
+                            <label>Squad color
+                                <input type="color" name="squadColor">
+                            </label>
                             <input type="submit" name="add" class="button" value="Submit"></input>
                             <a href="index.php" class="alert button">Cancel</a>
                 </form>
