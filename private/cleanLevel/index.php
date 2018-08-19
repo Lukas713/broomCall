@@ -17,7 +17,7 @@ if(!isset($_SESSION[$appID."operater"])){
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
   <?php
-   $query =  $conn->prepare("select * from cleanLevel a;");
+   $query =  $conn->prepare("select * from cleanLevel;");
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ); 
 

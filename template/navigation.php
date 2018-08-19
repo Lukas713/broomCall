@@ -28,14 +28,11 @@
   </div>
   <div class="top-bar-right">
     <ul class="menu">
-      <?php
-        if(isset($_SESSION[$appID."operater"])){
-
-          echo "<li><a href='$pathAPP/logout.php'><i class='fas fa-2x fa-unlock-alt'></i> Logout</a></li>";
-        } else {
-          echo "<li><a href='$pathAPP/login.php'><i class='fas fa-2x fa-user-lock'></i> Login</a></li>";
-        }
-      ?>
+      <?php if(isset($_SESSION[$appID."operater"])):?>
+        <li><a href="<?php echo $pathAPP;?>logout.php"><i class='fas fa-2x fa-unlock-alt'></i> Logout</a></li>
+      <?php else: ?>
+        <li><a href="<?php echo $pathAPP;?>login.php"><i class='fas fa-2x fa-user-lock'></i> Login</a></li>
+      <?php endif; ?>
     </ul>
   </div>
 </div>
