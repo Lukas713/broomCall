@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-info text-white">
+  <a class="navbar-brand" href="index.php">Logo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <?php
+        menuItem($pathAPP, "index.php", "Home");
+        menuItem($pathAPP, "aboutUs.php", "About us");
+        menuItem($pathAPP, "contact.php", "Contact");
+        if(isset( $_SESSION[$appID."operater"])):
+          menuItem($pathAPP,"private/controlBoard.php","Dashboard");   
+      ?>
+        <li class="nav-item dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company info</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/department/index.php'?>">Department</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/squad/index.php'?>">Squad</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/cleanLevel/index.php'?>">Clean level</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/services/index.php'?>">Services</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </li>
+        <?php endif; ?>
+      
+</div>
+    </ul>
+    <ul class="nav justify-content-end">
+      <?php if(isset($_SESSION[$appID."operater"])):?>
+        <li><a href="<?php echo $pathAPP;?>logout.php"><i class='fas fa-user-lock'></i> Logout</a></li>
+      <?php else: ?>
+        <li><a href="<?php echo $pathAPP;?>login.php"><i class='fas fa-unlock-alt'></i> Login</a></li>
+      <?php endif; ?>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0; 
+}
+
+a {
+    color: #fff;
+}
+
+a:hover{
+    text-decoration: none; 
+}
+
+.navbar-nav, .nav {
+    font-size: 1.3rem; 
+}
+
+.navbar-nav, li {
+    margin:0rem 1rem; 
+}
+
+#footer a {
+    color: #000;
+}
+
