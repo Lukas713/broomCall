@@ -3,12 +3,40 @@ include_once "../../config.php";
 if(!isset($_SESSION[$appID."operater"])){
   header('location:'.$pathAPP.'logout.php');
 } 
+
+$query = $conn->prepare("describe department");
+$query->execute();
+$result = $query->fetchAll(PDO::FETCH_OBJ);
+$array = array();  
+
+foreach($result as $row){
+    if($row->Field == "id"){
+        continue;
+    }
+
+    $array[] = $row->Field; 
+}
+
+
 if(isset($_POST["add"])){
-    $query = $conn->prepare("insert into department(id, depName) values
-                            (null, :depName)");
+
+    $firstLineBracket = "";
+    $secondLineBracket = "";
+
+    foreach($array as $row){
+        $firstLineBracket = $row.",";
+        $secondLineBraket = ":".$row.",";
+    }
+
+    $firstLineBracket = substr($firstLineBracket, 0, strlen($firstLineBracket)-1);
+    $secondLineBraket = substr($secondLineBraket, 0, strlen($secondLineBraket)-1);
+
+
+    $query = $conn->prepare("insert into department(".$firstLineBracket.") values
+                            (".$secondLineBraket.")");
     unset($_POST["add"]);
     $query->execute($_POST); 
-    header("location: index.php"); 
+    header("location: index.php");
 }
 ?>
 
@@ -25,10 +53,12 @@ if(isset($_POST["add"])){
   <h3>Add new department</h3><hr>
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+<?php foreach($array as $row):  ?>
         <div class="form-group">
-            <label for="depName">Department name</label>
-            <input type="text" class="form-control" id="depName" name="depName" aria-describedby="emailHelp">
+            <label for="<?php echo $row;?>"><?php echo $row;?></label>
+            <input type="text" class="form-control" id="<?php echo $row;?>" name="<?php echo $row;?>">
         </div>
+<?php endforeach;?>
         <input type="submit" class="btn btn-primary" value="Submit" name="add">
         <a href="index.php" class="btn btn-danger">Cancel</a>
     </form>
