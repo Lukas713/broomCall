@@ -16,16 +16,16 @@ foreach($result as $row){
     $array[] = $row->Field; 
 }
 
-
 if(isset($_POST["add"])){
 
     $firstListBracket="";
     $secondListBracket="";
-
+    
     foreach($array as $row){
         $firstListBracket.= $row . ",";
         $secondListBracket.=":" . $row . ",";
     }
+    
 
     $firstListBracket=substr($firstListBracket,0,strlen($firstListBracket)-1);
     $secondListBracket=substr($secondListBracket,0,strlen($secondListBracket)-1);
@@ -58,10 +58,11 @@ if(isset($_POST["add"])){
       foreach($array as $row):
       ?>
         <div class="form-group">
-            <label for="<?php echo $row;?>">Service name</label>
+            <label for="<?php echo $row;?>"><?php echo $row;?></label>
             <input type="text" class="form-control" id="<?php echo $row;?>" name="<?php echo $row;?>">
         </div>
-      <?php endforeach;?>
+      <?php endforeach; print_r($row); echo "<hr>";?>
+      
         <input type="submit" class="btn btn-primary" value="Submit" name="add">
         <a href="index.php" class="btn btn-danger">Cancel</a>
     </form>
