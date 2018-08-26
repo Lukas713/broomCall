@@ -3,14 +3,41 @@ include_once "../../config.php";
 if(!isset($_SESSION[$appID."operater"])){
   header('location:'.$pathAPP.'logout.php');
 } 
+
+$query=$conn->prepare("describe squad");
+$query->execute(); 
+$result = $query->fetchAll(PDO::FETCH_OBJ);
+$array = array();
+
+foreach($result as $row){
+    if($row->Field == "id"){
+        continue;
+    }
+    $array[] = $row->Field; 
+}
+
 if(isset($_POST["add"])){
-    $query = $conn->prepare("insert into squad(squadNumber, squadColor) values
-                            (:squadNumber, :squadColor)");
+
+    $firstListBracket = "";
+    $secondListBracket = "";
+
+    foreach($array as $row){
+        $firstListBracket.=$row.",";
+        $secondListBracket.=":".$row.",";
+    }
+
+    $firstListBracket = substr($firstListBracket,0,strlen($firstListBracket)-1);
+    $secondListBracket = substr($secondListBracket, 0, strlen($secondListBracket)-1);
+    $query = $conn->prepare("insert into squad(".$firstListBracket.") values
+                            (".$secondListBracket.")");
+                          
     unset($_POST["add"]);
     $query->execute($_POST); 
     header("location: index.php"); 
 }
 ?>
+
+
 
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
@@ -29,7 +56,7 @@ if(isset($_POST["add"])){
             <label for="squadNumber">Squad number</label>
             <input type="number" class="form-control" step="1" name="squadNumber">
         <div class="form-group">
-            <label for="squadColor">Price</label>
+            <label for="squadColor">Squad color</label>
             <input type="color" id="squadColor" class="form-control" name="squadColor">
         </div>
         <input type="submit" class="btn btn-primary" value="Submit" name="add">
