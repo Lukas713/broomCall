@@ -19,8 +19,7 @@ if(!isset($_SESSION[$appID."operater"])){
   <?php
    $query =  $conn->prepare("select * from cleanLevel;");
    $query->execute(); 
-   $result = $query->fetchAll(PDO::FETCH_OBJ); 
-
+   $result = $query->fetchAll(PDO::FETCH_OBJ);  
   ?>
 
   <div class="grid-container"> 
@@ -39,7 +38,7 @@ if(!isset($_SESSION[$appID."operater"])){
             <?php foreach($result as $row): ?>
               <tr>
                 <td><?php echo $row->levelName; ?></td>
-                <td><?php echo $row->priceCoeficient; ?></td>
+                <td><?php echo $row->priceCoeficient;?></td>
                 <td>
                 <a onclick="return confirm('Delete -><?php echo $row->levelName; ?>?')" href="delete.php?id=<?php echo $row->id; ?>">
                 <i class="fas fa-2x fa-trash-alt"></i>
