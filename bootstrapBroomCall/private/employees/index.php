@@ -17,10 +17,12 @@ if(!isset($_SESSION[$appID."operater"])){
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
   <?php
-   $query =  $conn->prepare("select b.firstName, b.lastName, b.email, a.phoneNumber, d.depName
-                              from employees a 
-                              inner join person b on a.person = b.id
-                              inner join department d on a.department = d.id"); 
+   $query =  $conn->prepare("select a.firstName, a.lastName, a.email, b.phoneNumber, c.depName, d.squadColor
+                            from person a 
+                            inner join employees b on a.id=b.person
+                            inner join department c on c.id=b.department
+                            left outer join squad d on d.id=b.squad"
+                          ); 
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ); 
     
@@ -38,6 +40,7 @@ if(!isset($_SESSION[$appID."operater"])){
               <th>Email</th>
               <th>Phone number</th>
               <th>Department</th>
+              <th>Squad</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +51,7 @@ if(!isset($_SESSION[$appID."operater"])){
                 <td><?php echo $row->email; ?></td>
                 <td><?php echo $row->phoneNumber; ?></td>
                 <td><?php echo $row->depName; ?></td>
+                <td><i class="fas fa-circle" style="color:<?php echo $row->squadColor;?>"></i></td> <!--PROBLEM-->
                 <td>
                   <a onclick="return confirm('Delete -><?php echo $row->serviceName; ?>?')" href="delete.php?id=<?php echo $row->id; ?>">
                   <i class="fas fa-2x fa-trash-alt text-danger"></i>
