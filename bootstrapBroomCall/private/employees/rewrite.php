@@ -45,11 +45,11 @@ if(isset($_POST["change"])){
     }
 
 }else {
-    $query = $conn->prepare("select a.id, a.firstName, a.lastName, a.email, b.phoneNumber, b.IBAN
-                            from person a
-                            inner join employees b
-                            on a.id=b.person 
-                            where b.id = :id");
+    $query = $conn->prepare("select a.id, a.phoneNumber, a.IBAN, b.firstName, b.lastName, b.email
+                            from employees a 
+                            inner join person b
+                            on a.person = b.id
+                            where a.id = :id");
     $query->execute($_GET);
     $o=$query->fetch(PDO::FETCH_OBJ); 
 }
