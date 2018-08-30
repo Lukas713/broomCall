@@ -20,12 +20,14 @@ if(isset($_POST["add"])){
 
      
         $personID = $conn->lastInsertId();
-        $query = $conn->prepare("insert into employees(IBAN, phoneNumber, person) values
-                                (:IBAN, :phoneNumber, :person)");
+        $query = $conn->prepare("insert into employees(IBAN, phoneNumber, person, squad, department) values
+                                (:IBAN, :phoneNumber, :person, :squad, :department)");
         $query->execute(array(
             "person" => $personID,
             "IBAN" => $_POST["IBAN"],
             "phoneNumber" => $_POST["phoneNumber"],
+            "squad" => $_POST["squad"],
+            "department" => $_POST["department"]
         ));
 
         $conn->commit(); //close beginTransaction()
@@ -33,6 +35,23 @@ if(isset($_POST["add"])){
    } catch(PDOexeption $e){
        $query->rollBack(); 
    }
+}else {
+    try{
+        $conn->beginTransaction();
+        $query = $conn->prepare("SELECT * from department"); 
+        $query->execute();
+        $department = $query->fetchAll(PDO::FETCH_OBJ); 
+        
+        $query = $conn->prepare("SELECT * from squad");
+        $query->execute(); 
+        $squad = $query->fetchAll(PDO::FETCH_OBJ); 
+
+        $conn->commit();
+
+    }catch(PDOexeption $e){
+        $query->rollBack(); 
+    }
+    
 }
 ?>
 
@@ -48,7 +67,7 @@ if(isset($_POST["add"])){
   <?php include_once "../../template/navigation.php"; ?><br>
   <!-- Form for creating new  -->
   <div class="container">
-  <h3>New squad</h3><hr>
+  <h3>New employee</h3><hr>
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
         <div class="form-group">
@@ -69,6 +88,28 @@ if(isset($_POST["add"])){
         <div class="form-group">
             <label for="IBAN">IBAN</label>
             <input type="text" class="form-control" id="IBAN" name="IBAN">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="department">Department</label>
+                    <select class="form-control" id="department" name="department">
+                        <?php
+                        foreach($department as $row){
+                            echo "<option value=".$row->id.">".$row->depName."</option>"; 
+                        }
+                        ?>
+                    </select>
+            </div>
+            <div class="form-group col-md-6">
+            <label for="squad">Squad</label>
+                <select class="form-control" id="squad" name="squad">
+                    <?php
+                    foreach($squad as $row){
+                        echo "<option value=".$row->id.">".$row->squadNumber."</option>";
+                    }
+                    ?>
+                </select>
+            </div>
         </div>
         <input type="submit" class="btn btn-primary" value="Submit" name="add">
         <a href="index.php" class="btn btn-danger">Cancel</a>
