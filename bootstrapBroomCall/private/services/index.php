@@ -27,7 +27,7 @@ if(!isset($_SESSION[$appID."operater"])){
     <h3>Services</h3><hr>
     <a href="new.php" class="btn btn-success mb-3">Create new</a>
 
-    <table class="table">
+    <table class="table table-striped">
           <thead>
             <tr>
               <th>Service name</th>
