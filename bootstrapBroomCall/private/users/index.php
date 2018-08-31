@@ -17,28 +17,30 @@ if(!isset($_SESSION[$appID."operater"])){
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
   <?php
-   $query =  $conn->prepare("select  a.firstName, a.lastName, a.email, b.phoneNumber, count(c.users) as numberOfAgreements
-                                from person a 
-                                inner join users b on a.id=b.person
-                                inner join agreement c on b.id = c.users
-                                group by c.users"); 
+   $query =  $conn->prepare("select  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, (d.priceCoeficient * e.price) as total
+                            from person a 
+                            inner join users b on a.id=b.person
+                            left outer join agreement c on b.id = c.users
+                            left outer join cleanlevel d on d.id = c.cleanlevel
+                            left outer join services e on e.id = c.services
+                            order by total desc"); 
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ); 
     
   ?>
 
  <div class="container">
-    <h3>Employees</h3><hr>
+    <h3>Users</h3><hr>
     <a href="new.php" class="btn btn-success mb-3">Create new</a>
 
-    <table class="table">
+    <table class="table table-striped">
           <thead>
             <tr>
               <th>First name</th>
               <th>Last name</th>
               <th>Email</th>
               <th>Phone number</th>
-              <th>Number of agreements</th>
+              <th>Amount spent</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -49,7 +51,7 @@ if(!isset($_SESSION[$appID."operater"])){
                 <td><?php echo $row->lastName; ?></td>
                 <td><?php echo $row->email; ?></td>
                 <td><?php echo $row->phoneNumber; ?></td>
-                <td style="text-align: center;"><?php echo $row->numberOfAgreements; ?></td>
+                <td style="text-align: center;"><?php if($row->total == null){echo "0";} echo $row->total; ?> €</td>
                 <td>
                   <a onclick="return confirm('Are you sure?')" href="delete.php?id=<?php echo $row->id; ?>">
                     <i class="fas fa-2x fa-trash-alt text-danger"></i>
