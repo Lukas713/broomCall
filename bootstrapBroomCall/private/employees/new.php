@@ -14,10 +14,24 @@ if(isset($_POST["add"])){
     $error["phoneNumber"] =  errorHandling($_POST, "phoneNumber");
     $error["IBAN"] =  errorHandling($_POST, "IBAN");
 
+    if($_POST["department"] === "0"){
+        $error["department"] = "Please select the department";
+    }else {
+        $query = $conn->prepare("select count(id) from department where id=:id");
+        $query ->execute(array(
+            "id"=>$_POST["department"]
+        ));
+        $result = $query->fetchColumn(); 
+        if($result == 0){
+            $error["department"] = "rofl"; 
+        }
+    }
 
-    if($error["firstName"] == "" || $error["lastName"] == "" || $error["email"] == ""
-       || $error["phoneNumber"] == "" || $error["IBAN"] == ""){
 
+    if(empty($error["firstName"]) && empty($error["lastName"]) 
+       && empty($error["email"]) && empty($error["phoneNumber"])
+       && empty($error["IBAN"]) && empty($error["department"])){
+            
             try{ //try - catch logic, if breaks in try, deals with exeption in catch
 
                 $conn->beginTransaction();
@@ -33,13 +47,18 @@ if(isset($_POST["add"])){
                 $personID = $conn->lastInsertId();
                 $query = $conn->prepare("insert into employees(IBAN, phoneNumber, person, squad, department) values
                                         (:IBAN, :phoneNumber, :person, :squad, :department)");
-                $query->execute(array(
-                    "person" => $personID,
-                    "IBAN" => $_POST["IBAN"],
-                    "phoneNumber" => $_POST["phoneNumber"],
-                    "squad" => $_POST["squad"],
-                    "department" => $_POST["department"]
-                ));
+                
+                if($_POST["department"] != 1){
+                    $query->bindValue(":squad", null, PDO::PARAM_INT);
+                }else {
+                    $query->binParam(":squad", $_POST["squad"]);
+                }
+
+                $query->bindParam(":IBAN", $_POST["IBAN"]);
+                $query->bindParam(":phoneNumber", $_POST["phoneNumber"]);
+                $query->bindValue(":person", $personID, PDO::PARAM_INT);
+                $query->bindParam(":department", $_POST["department"]);
+                $query->execute();
     
                 $conn->commit(); //close beginTransaction()
                 header("location: index.php"); 
@@ -47,8 +66,10 @@ if(isset($_POST["add"])){
              } catch(PDOexeption $e){
                     $query->rollBack(); 
                 }
-        }
+                
+    }
 }
+
 ?>
 
 
@@ -61,26 +82,29 @@ if(isset($_POST["add"])){
   <body>
 
   <?php include_once "../../template/navigation.php"; ?><br>
-  <!-- Form for creating new  -->
+  <!-- Form for creating new  employee-->
   <div class="container">
   <h3>New employee</h3><hr>
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
+
         <div class="form-group">
             <label for="firstName">First name</label>
-        <?php if(!isset($error["firstName"])): ?>
+        <?php if(empty($error["firstName"])): ?>
             <input type="text" id="firstName" name="firstName" class="form-control">
         </div>
         <?php else:  ?>
-        <input type="text" id="lastName" name="lastName" class="form-control is-invalid" value="<?php echo $_POST["lastName"];?>">
+        <input type="text" id="firstName" name="firstName" class="form-control is-invalid" value="<?php echo $_POST["firstName"];?>">
             <div class="invalid-feedback">
                  <?php echo $error["lastName"];  ?>
             </div>
         </div>
 <?php endif;  ?>
+
+
         <div class="form-group">
             <label for="lastName">Last name</label>
-<?php if(!isset($error["lastName"])): ?>
+<?php if(empty($error["lastName"])): ?>
             <input type="text" id="lastName" name="lastName" class="form-control ">
         </div>
 <?php else:  ?>
@@ -90,9 +114,11 @@ if(isset($_POST["add"])){
             </div>
         </div>
 <?php endif;  ?>
+
+
         <div class="form-group">
             <label for="email">Email</label>
-            <?php if(!isset($error["lastName"])): ?>
+            <?php if(empty($error["lastName"])): ?>
             <input type="email" id="email" name="email" class="form-control">
         </div>
 <?php else:  ?>
@@ -102,9 +128,11 @@ if(isset($_POST["add"])){
             </div>
         </div>
 <?php endif;  ?>
+
+
         <div class="form-group">
             <label for="phoneNumber">Phone number</label>
-            <?php if(!isset($error["phoneNumber"])): ?>
+            <?php if(empty($error["phoneNumber"])): ?>
             <input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
         </div>
 <?php else:  ?>
@@ -114,9 +142,11 @@ if(isset($_POST["add"])){
             </div>
         </div>
 <?php endif;  ?>
+
+
         <div class="form-group">
             <label for="IBAN">IBAN</label>
-            <?php if(!isset($error["phoneNumber"])): ?>
+            <?php if(empty($error["phoneNumber"])): ?>
             <input type="text" class="form-control" id="IBAN" name="IBAN">
         </div>
 <?php else:  ?>
@@ -127,49 +157,52 @@ if(isset($_POST["add"])){
             </div>
         </div>
 <?php endif;  ?>
+
+
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="department">Department</label>
-                    <select class="form-control" id="department" name="department">
+                    <select class="form-control <?php if(isset($error["department"]))
+                    echo ' is-invalid'; ?>" id="department" name="department">
+                        <option value="0">Pick a department</option>
                         <?php
                          $query = $conn->prepare("SELECT * from department"); 
                          $query->execute();
-                         $department = $query->fetchAll(PDO::FETCH_OBJ);
-                        foreach($department as $row){
-                            echo "<option value=".$row->id.">".$row->depName."</option>"; 
-                        }
-                        ?>
-                    </select>
+                         $result = $query->fetchAll(PDO::FETCH_OBJ);
+                         foreach($result as $row):?>
+                         <option
+                         <?php
+                              if(isset($_POST["department"]) && $_POST["department"]==$row->id){
+                                 echo ' selected="selected" ';
+                              }
+                         ?>
+                         value="<?php echo $row->id ?>"><?php echo $row->depName ?></option>  
+                         <?php endforeach; ?>
+                 </select>
+                 <?php  if(isset($error["department"])){
+                     echo '<div class="invalid-feedback">'.$error["department"].'</div>'; 
+                 }  ?>
             </div>
-            <?php if(!isset($error["squad"])):?>
                 <div class="form-group col-md-6">
                     <label for="squad">Squad</label>
                         <select class="form-control" id="squad" name="squad">
+                        <option value="0">Pick a squad number</option>
                             <?php
                             $query = $conn->prepare("SELECT * from squad");
                             $query->execute(); 
-                            $squad = $query->fetchAll(PDO::FETCH_OBJ);
-                            foreach($squad as $row){
-                                echo "<option value=".$row->id.">".$row->squadNumber."</option>";
-                            }
+                            $result = $query->fetchAll(PDO::FETCH_OBJ);
+                        foreach($result as $row):?>
+                            <option 
+                            <?php
+                                 if(isset($_POST["squad"]) && $_POST["squad"]==$row->id){
+                                    echo ' selected="selected" ';
+                                 }
                             ?>
+                            value="<?php echo $row->id ?>"><?php echo $row->squadNumber ?></option>  
+                            <?php endforeach; ?>
                     </select>
                 </div>
-                    <?php else:  ?>
-                <div class="form-group col-md-6">
-                <label for="squad">Squad</label>
-                    <select class="form-control" id="squad" name="squad">
-                        <?php
-                        $query = $conn->prepare("SELECT * from squad");
-                        $query->execute(); 
-                        $squad = $query->fetchAll(PDO::FETCH_OBJ);
-                        foreach($squad as $row){
-                            echo "<option value=".$row->id.">".$row->squadNumber."</option>";
-                        }
-                        ?>
-                </select>
-            </div>
-                    <?php endif;  ?>
+                
         </div>
         <input type="submit" class="btn btn-primary" value="Submit" name="add">
         <a href="index.php" class="btn btn-danger">Cancel</a>
