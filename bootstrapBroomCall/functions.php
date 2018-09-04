@@ -15,6 +15,28 @@ function menuItem($pathAPP, $currentPage, $label){
     <?php
 }
 
+/**
+ * 
+ * 2 params
+ * $_POST array and KEY value
+ * checks if input is ok
+ * return array with string 
+ */
+function errorHandling(array $post, $key){
+
+  $errors = array();
+
+  if(trim($post[$key])==""){
+      $errors = "Your input is empty!";
+      return $errors;  
+  }else if(strlen($post[$key]) > 50){
+      $errors = 'You entered '.strlen($post[$key]).' characters, and maximum is 50.'; 
+      return $errors;
+  }
+
+  return;
+}
+
 ?>
 
 
