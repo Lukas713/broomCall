@@ -51,7 +51,7 @@ if(isset($_POST["add"])){
                 if($_POST["department"] != 1){
                     $query->bindValue(":squad", null, PDO::PARAM_INT);
                 }else {
-                    $query->binParam(":squad", $_POST["squad"]);
+                    $query->bindParam(":squad", $_POST["squad"]);
                 }
 
                 $query->bindParam(":IBAN", $_POST["IBAN"]);
@@ -88,75 +88,39 @@ if(isset($_POST["add"])){
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
 
-        <div class="form-group">
+<div class="form-group">
             <label for="firstName">First name</label>
-        <?php if(empty($error["firstName"])): ?>
-            <input type="text" id="firstName" name="firstName" class="form-control">
+            <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["firstName"])?  "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
         </div>
-        <?php else:  ?>
-        <input type="text" id="firstName" name="firstName" class="form-control is-invalid" value="<?php echo $_POST["firstName"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["lastName"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-group">
             <label for="lastName">Last name</label>
-<?php if(empty($error["lastName"])): ?>
-            <input type="text" id="lastName" name="lastName" class="form-control ">
+            <input type="text" id="lastName" name="lastName" <?php echo empty($error["lastName"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["lastName"])?  "" : ' <div class="invalid-feedback"> '.$error["lastName"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="text" id="lastName" name="lastName" class="form-control is-invalid" value="<?php echo $_POST["lastName"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["lastName"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-group">
             <label for="email">Email</label>
-            <?php if(empty($error["lastName"])): ?>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="email" id="email" name="email" <?php echo empty($error["email"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["email"])?  "" : ' <div class="invalid-feedback"> '.$error["email"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="email" id="email" name="email" class="form-control is-invalid" value="<?php echo $_POST["email"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["email"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-group">
-            <label for="phoneNumber">Phone number</label>
-            <?php if(empty($error["phoneNumber"])): ?>
-            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" <?php echo empty($error["phoneNumber"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["phoneNumber"])?  "" : ' <div class="invalid-feedback"> '.$error["phoneNumber"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control is-invalid" value="<?php echo $_POST["phoneNumber"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["phoneNumber"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-group">
             <label for="IBAN">IBAN</label>
-            <?php if(empty($error["phoneNumber"])): ?>
-            <input type="text" class="form-control" id="IBAN" name="IBAN">
+            <input type="text" id="IBAN" name="IBAN" <?php echo empty($error["IBAN"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["IBAN"])?  "" : ' <div class="invalid-feedback"> '.$error["IBAN"].'</div>' ;?>
         </div>
-<?php else:  ?>
-<div class="form-group">
-            <input type="text" id="IBAN" name="IBAN" class="form-control is-invalid" value="<?php echo $_POST["IBAN"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["IBAN"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-row">

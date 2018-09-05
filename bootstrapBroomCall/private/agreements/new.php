@@ -130,42 +130,22 @@ if(isset($_POST["add"])){
 
         <div class="form-group">
             <label for="firstName">First name</label>
-        <?php if(empty($error["firstName"])): ?>
-            <input type="text" id="firstName" name="firstName" class="form-control">
+            <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"]) ?  'class="form-control"' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["firstName"])? "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
         </div>
-        <?php else:  ?>
-        <input type="text" id="firstName" name="firstName" class="form-control is-invalid" value="<?php echo $_POST["firstName"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["lastName"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
+
 
         <div class="form-group">
             <label for="lastName">Last name</label>
-<?php if(empty($error["lastName"])): ?>
-            <input type="text" id="lastName" name="lastName" class="form-control ">
+            <input type="text" id="lastName" name="lastName" <?php echo empty($error["lastName"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["lastName"])?  "" : ' <div class="invalid-feedback"> '.$error["lastName"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="text" id="lastName" name="lastName" class="form-control is-invalid" value="<?php echo $_POST["lastName"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["lastName"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 <div class="form-group">
             <label for="email">Email</label>
-            <?php if(empty($error["lastName"])): ?>
-            <input type="email" id="email" name="email" class="form-control">
+            <input type="email" id="email" name="email" <?php echo empty($error["email"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["email"])?  "" : ' <div class="invalid-feedback"> '.$error["email"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="email" id="email" name="email" class="form-control is-invalid" value="<?php echo $_POST["email"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["email"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-group">
@@ -184,31 +164,16 @@ if(isset($_POST["add"])){
 
         <div class="form-group">
             <label for="city">City</label>
-            <?php if(empty($error["city"])): ?>
-            <input type="text" id="city" name="city" class="form-control">
+            <input type="text" id="city" name="city" <?php echo empty($error["city"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["city"])?  "" : ' <div class="invalid-feedback"> '.$error["city"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="text" id="city" name="city" class="form-control is-invalid" value="<?php echo $_POST["city"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["city"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
-        <div class="form-group">
+       <div class="form-group">
             <label for="adress">Adress</label>
-            <?php if(empty($error["adress"])): ?>
-            <input type="text" class="form-control" id="adress" name="adress">
+            <input type="text" id="adress" name="adress" <?php echo empty($error["adress"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["adress"])?  "" : ' <div class="invalid-feedback"> '.$error["adress"].'</div>' ;?>
         </div>
-<?php else:  ?>
-<div class="form-group">
-            <input type="text" id="adress" name="adress" class="form-control is-invalid" value="<?php echo $_POST["adress"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["adress"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
 
 
         <div class="form-row">
