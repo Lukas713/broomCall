@@ -7,13 +7,6 @@ if(!isset($_SESSION[$appID."operater"])){
 
 if(isset($_POST["add"])){
 
-    $error = array(); 
-    $error["firstName"] =  errorHandling($_POST, "firstName");
-    $error["lastName"] =  errorHandling($_POST, "lastName");
-    $error["email"] =  errorHandling($_POST, "email");
-    $error["phoneNumber"] =  errorHandling($_POST, "phoneNumber");
-    $error["IBAN"] =  errorHandling($_POST, "IBAN");
-
     if($_POST["department"] === "0"){
         $error["department"] = "Please select the department";
     }else {
@@ -21,16 +14,12 @@ if(isset($_POST["add"])){
         $query ->execute(array(
             "id"=>$_POST["department"]
         ));
+
         $result = $query->fetchColumn(); 
         if($result == 0){
             $error["department"] = "rofl"; 
         }
     }
-
-
-    if(empty($error["firstName"]) && empty($error["lastName"]) 
-       && empty($error["email"]) && empty($error["phoneNumber"])
-       && empty($error["IBAN"]) && empty($error["department"])){
             
             try{ //try - catch logic, if breaks in try, deals with exeption in catch
 
@@ -66,9 +55,11 @@ if(isset($_POST["add"])){
              } catch(PDOexeption $e){
                     $query->rollBack(); 
                 }
-                
-    }
+              
+    
+
 }
+
 
 ?>
 
@@ -88,39 +79,18 @@ if(isset($_POST["add"])){
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
 
-<div class="form-group">
-            <label for="firstName">First name</label>
-            <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
-            <?php echo empty($error["firstName"])?  "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
-        </div>
 
+        <?php 
+            errorHandling($_POST, "firstName");
 
-        <div class="form-group">
-            <label for="lastName">Last name</label>
-            <input type="text" id="lastName" name="lastName" <?php echo empty($error["lastName"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
-            <?php echo empty($error["lastName"])?  "" : ' <div class="invalid-feedback"> '.$error["lastName"].'</div>' ;?>
-        </div>
+            errorHandling($_POST, "lastName");
 
+            errorHandling($_POST, "email");
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" <?php echo empty($error["email"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
-            <?php echo empty($error["email"])?  "" : ' <div class="invalid-feedback"> '.$error["email"].'</div>' ;?>
-        </div>
+            errorHandling($_POST, "IBAN");
 
-
-        <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" <?php echo empty($error["phoneNumber"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
-            <?php echo empty($error["phoneNumber"])?  "" : ' <div class="invalid-feedback"> '.$error["phoneNumber"].'</div>' ;?>
-        </div>
-
-
-        <div class="form-group">
-            <label for="IBAN">IBAN</label>
-            <input type="text" id="IBAN" name="IBAN" <?php echo empty($error["IBAN"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
-            <?php echo empty($error["IBAN"])?  "" : ' <div class="invalid-feedback"> '.$error["IBAN"].'</div>' ;?>
-        </div>
+            errorHandling($_POST, "phoneNumber");
+        ?>
 
 
         <div class="form-row">

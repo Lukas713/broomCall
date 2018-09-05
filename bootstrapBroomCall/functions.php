@@ -20,21 +20,40 @@ function menuItem($pathAPP, $currentPage, $label){
  * 2 params
  * $_POST array and KEY value
  * checks if input is ok
- * return array with string 
+ * no return value 
  */
 function errorHandling(array $post, $key){
 
-  $errors = array();
+    if(empty($post)){
+        echo '<div class="form-group">
+                <label for='.$key.'>'.$key.'</label>
+                <input type="text" id='.$key.' name='.$key.' class="form-control">
+              </div>' ;
+        return;
+    }else if(strlen($post[$key]) > 50){
+        echo '<div class="form-group">
+                <label for='.$key.'>'.$key.'</label>
+                <input type="text" id='.$key.' name='.$key.' class="form-control is-invalid">
+                <div class="invalid-feedback"> "You entered '.strlen($post[$key]).' characters, maximum is 50." </div>
+              </div>' ;
+        return;
+    }else if($post[$key] == ""){
+        echo '<div class="form-group">
+                <label for='.$key.'>'.$key.'</label>
+                <input type="text" id='.$key.' name='.$key.' class="form-control is-invalid">
+                <div class="invalid-feedback"> "Your input is empty!" </div>
+              </div>' ;
+    }else {
+        echo '<div class="form-group">
+                <label for='.$key.'>'.$key.'</label>
+                <input type="text" id='.$key.' name='.$key.' class="form-control" value='.$post[$key].'>
+              </div>' ;
+    }
+        return;
 
-  if(trim($post[$key])==""){
-      $errors = "Your input is empty!";
-      return $errors;  
-  }else if(strlen($post[$key]) > 50){
-      $errors = 'You entered '.strlen($post[$key]).' characters, and maximum is 50.'; 
-      return $errors;
-  }
-
-  return;
+  
+  
+   
 }
 
 ?>
