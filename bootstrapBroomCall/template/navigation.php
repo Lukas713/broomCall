@@ -21,7 +21,9 @@
       <a class="dropdown-item" href="<?php echo $pathAPP.'private/cleanLevel/index.php'?>">Clean level</a>
       <a class="dropdown-item" href="<?php echo $pathAPP.'private/services/index.php'?>">Services</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/employees/index.php'?>">Employees</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/users/index.php'?>">Users</a>
+      <a class="dropdown-item" href="<?php echo $pathAPP.'private/agreements/index.php'?>">Agreements</a>
     </div>
   </li>
         <?php endif; ?>
