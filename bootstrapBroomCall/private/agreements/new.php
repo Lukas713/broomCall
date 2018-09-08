@@ -8,11 +8,12 @@ if(!isset($_SESSION[$appID."operater"])){
 if(isset($_POST["add"])){
 
     $error = array(); 
-    $error["firstName"] =  errorHandling($_POST, "firstName");
-    $error["lastName"] =  errorHandling($_POST, "lastName");
-    $error["email"] =  errorHandling($_POST, "email");
-    $error["city"] =  errorHandling($_POST, "city");
-    $error["adress"] =  errorHandling($_POST, "adress");
+    $error["firstName"] =  inputErrorHandling($_POST, "firstName");
+    $error["lastName"] =  inputerrorHandling($_POST, "lastName");
+    $error["email"] =  inputErrorHandling($_POST, "email");
+    $error["city"] =  inputErrorHandling($_POST, "city");
+    $error["adress"] =  inputerrorHandling($_POST, "adress");
+    $error["serviceDate"] =  DateErrorHandling($_POST, "serviceDate");
 
     if($_POST["cleanlevel"] === "0"){
         $error["cleanlevel"] = "Please select the clean level";
@@ -53,19 +54,12 @@ if(isset($_POST["add"])){
         }
     }
 
-    if(!empty($_POST["serviceDate"])){
-        $dateTime = DateTime::createFromFormat('Y-m-d', $_POST["serviceDate"]);
-        if(!$dateTime){
-          $error["serviceDate"]="Date format is not correct, please enter dd.MM.yyyy. (e.g. for today " . date("d.m.Y.") . ")";
-        }
-      }
-
 
     if(empty($error["firstName"]) && empty($error["lastName"]) 
        && empty($error["serviceDate"]) && empty($error["services"])
        && empty($error["city"]) && empty($error["adress"])
        && empty($error["cleanlevel"]) && empty($error["squad"])
-       && empty($error["email"])){
+       && empty($error["email"]) && $error["serviceDate"] == 0){
             
             try{ //try - catch logic, if breaks in try, deals with exeption in catch
 
@@ -150,16 +144,10 @@ if(isset($_POST["add"])){
 
         <div class="form-group">
             <label for="serviceDate">Date</label>
-            <?php if(empty($error["serviceDate"])): ?>
-            <input type="date" id="serviceDate" name="serviceDate" class="form-control">
+            <input type="date" id="serviceDate" name="serviceDate" <?php echo empty($error["serviceDate"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["serviceDate"])?  "" : ' <div class="invalid-feedback"> '.$error["serviceDate"].'</div>' ;?>
         </div>
-<?php else:  ?>
-            <input type="serviceDate" id="serviceDate" name="serviceDate" class="form-control is-invalid" value="<?php echo $_POST["serviceDate"];?>">
-            <div class="invalid-feedback">
-                 <?php echo $error["serviceDate"];  ?>
-            </div>
-        </div>
-<?php endif;  ?>
+        <?php print_r($error);   ?>
 
 
         <div class="form-group">
