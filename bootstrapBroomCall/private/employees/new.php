@@ -13,29 +13,61 @@ if(isset($_POST["add"])){
    $error["phoneNumber"] = inputErrorHandling($_POST, "phoneNumber");
    $error["email"] = inputErrorHandling($_POST, "email");
 
+   if(empty($error["firstName"]) && empty($error["lastName"]) && empty($error["IBAN"]) 
+      && empty($error["phoneNumber"])  && empty($error["email"])){
 
-   if($_POST["department"] === "0"){	    
-    $error["department"] = "Please select the department";	        
-}else {	    
-    $query = $conn->prepare("select count(id) from department where id=:id");	       
-    $query ->execute(array(	       
-        "id"=>$_POST["department"]	            
-    ));	      
-     $result = $query->fetchColumn(); 	       
-     if($result == 0){	       
-        $erro["department"] = "rofl"; 	           
-    }	       
+            if($_POST["department"] === "0"){	    
+                $error["department"] = "Please select the department";	        
+            }else {	    
+                $query = $conn->prepare("select count(id) from department where id=:id");	       
+                $query ->execute(array(	       
+                    "id"=>$_POST["department"]	            
+                ));	      
+                $result = $query->fetchColumn(); 	       
+                if($result == 0){	       
+                    $erro["department"] = "rofl"; 	           
+                }	       
+            }
+
+            try{
+                $conn->beginTransaction();
+
+                $query = $conn->prepare("insert into person(firstName, lastName, email)
+                                        values (:firstName, :lastName, :email)");
+                $query->execute(array(
+                    "firstName" => $_POST["firstName"],
+                    "lastName" => $_POST["lastName"],
+                    "email" => $_POST["email"]
+                ));
+                $personID = $conn->lastInsertId();
+
+                $query = $conn->prepare("insert into employees(person, phoneNumber, IBAN, department, squad) values 
+                                                              (:person, :phoneNumber, :IBAN, :department, :squad )");
+                
+                   
+                $query->bindParam(":person", $personID, PDO::PARAM_INT);                                                
+                $query->bindParam(":phoneNumber", $_POST["phoneNumber"], PDO::PARAM_STR);   
+                $query->bindParam(":IBAN", $_POST["IBAN"], PDO::PARAM_STR);   
+                $query->bindParam(":department", $_POST["department"], PDO::PARAM_INT);
+                if($_POST["department"] != 1){
+                    $query->bindValue(":squad", null, PDO::PARAM_NULL);
+                } else {
+                    $query->bindParam(":squad", $_POST["squad"], PDO::PARAM_INT);
+                }                                              
+                                                            
+                $query->execute(); 
+
+
+                $conn->commit(); 
+                header("location: index.php"); 
+            }catch(PDOexeption $e){
+                $conn->rollBack();
+            }
+
+    
+            }
+
 }
-
-        if(empty($error["firstName"]) && empty($error["lastName"]) && empty($error["IBAN"])
-        && empty($error["phoneNumber"]) && empty($error["email"])){
-
-        }
-
-
-}
-
-
     
 
 ?>
@@ -57,11 +89,12 @@ if(isset($_POST["add"])){
 
              <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
 
+
                 <div class="form-group">	
-                <label for="firstName">First name</label>	
-                <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"]) ?  'class="form-control"' : ' class="form-control is-invalid" ' ;?>>
-                <?php echo empty($error["firstName"])? "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
-            </div>
+                    <label for="firstName">First name</label>	
+                    <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"]) ?  'class="form-control"' : ' class="form-control is-invalid" ' ;?>>
+                    <?php echo empty($error["firstName"])? "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
+                </div>
            
 
          <div class="form-group">	
