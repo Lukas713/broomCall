@@ -1,8 +1,8 @@
 drop database IF EXISTS 1broomcall;
 
-create database 1broomCall;
+create database 1broomCall character set UTF8;
 
-/* c:\xampp\mysql\bin\mysql.exe -ulukas -p123456789 < C:\xampp\htdocs\bootstrapBroomCall\script.sql*/
+/* c:\xampp\mysql\bin\mysql.exe -uedunova -pedunova  --default_character_set=utf8 < C:\xampp\htdocs\bootstrapBroomCall\script.sql*/
 
 USE 1broomCall ;
 
@@ -49,10 +49,13 @@ CREATE TABLE agreement (
   serviceDate DATETIME,
   city VARCHAR(20),
   adress VARCHAR(50),
+  mark int,
+  review varchar(255),
   squad INT,
   users INT,
   cleanLevel INT,
-  services int
+  services int,
+  approved boolean
 );
 
 CREATE TABLE department 
@@ -210,3 +213,35 @@ insert into users (id, phoneNumber, person) values (32, '295-594-7465', 47);
 insert into users (id, phoneNumber, person) values (33, '290-868-5540', 48);
 insert into users (id, phoneNumber, person) values (34, '584-660-9300', 49);
 insert into users (id, phoneNumber, person) values (35, '391-961-1687', 50);
+
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-12-31 22:56:38', 'Longchi', '50 Express Center', 1, 15, 3, 2, 1, null);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-12-25 21:45:19', 'Filipstad', '65120 Welch Point', 1, 20, 3, 2, 2, 'tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-08-08 00:19:20', 'Besançon', '6916 Summerview Terrace', 1, 32, 3, 1, 2, 'in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-10-27 08:57:02', 'Yangliu', '952 Rieder Junction', 2, 35, 2, 3, 5, 'pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-02-26 06:27:14', 'Sarpang', '85 Jana Parkway', 1, 30, 3, 2, 1, 'bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-07-05 02:45:15', 'Mekarsari', '0 Hagan Place', 2, 11, 2, 2, 4, 'purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-12-24 23:07:05', 'San Pedro', '1338 Novick Park', 2, 4, 2, 1, 2, null);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-08-19 20:55:22', 'Nakano', '2929 Namekagon Way', 2, 14, 2, 2, 4, 'augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-03-15 17:10:01', 'Shuiting', '958 Maple Avenue', 2, 22, 2, 3, 5, 'justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-11-17 19:21:40', 'Kirovgrad', '84430 Troy Trail', 1, 16, 3, 1, 4, 'vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-07-23 14:10:07', 'Bununu Dass', '0 Sugar Road', 1, 12, 1, 3, 5, 'at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-11-09 02:32:19', 'Mehrān', '3744 American Ash Crossing', 1, 10, 2, 3, 5, 'et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-03-02 02:32:57', 'Qingshu', '215 Hudson Road', 2, 15, 1, 1, 2, 'felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2017-11-20 14:59:53', 'Zhujiang', '302 Lyons Circle', 1, 31, 1, 3, 1, 'blandit non interdum in ante vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-09-07 22:35:35', 'Chillán', '1 Oneill Road', 2, 17, 3, 1, 1, 'in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-08-14 15:00:22', 'Moyogalpa', '2397 Cody Center', 2, 20, 1, 3, 2, 'nisi eu orci mauris lacinia sapien quis libero nullam sit amet');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-05-30 13:40:44', 'Jakšić', '474 Rieder Parkway', 2, 22, 2, 2, 4, 'ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-07-16 03:20:03', 'Ntonggu', '86944 Sundown Avenue', 1, 27, 2, 1, 2, 'suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-07-26 16:34:33', 'Sorang', '351 Hoffman Place', 2, 16, 3, 2, 5, 'posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin');
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, mark, review) values ('2018-08-03 05:23:21', 'Biasong', '815 Drewry Place', 2, 6, 2, 2, 1, 'morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae');
+
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2017-12-04 13:45:49', 'Solna', '6480 Melvin Pass', 15, 3, 2, true, 4, 'non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2017-12-06 15:57:26', 'Roioen', '717 Tennessee Avenue', 32, 3, 3, false, 4, 'lectus pellentesque eget nunc donec quis orci eget orci vehicula');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-03-03 05:29:04', 'Berlin', '7242 Leroy Place', 21, 2, 1, false, 1, 'felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-02-16 21:49:27', 'Ringinrejo', '3891 Bayside Crossing', 7, 1, 3, true, 3, 'nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-04-15 00:37:38', 'Malakwāl', '9 Kipling Point', 10, 2, 2, true, 4, 'cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-07-06 03:07:52', 'Palana', '08 Delaware Hill', 6, 1, 2, false, 3, 'at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2017-11-27 19:10:43', 'Nantes', '8 Waubesa Court', 10, 1, 2, true, 5, 'malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-04-08 14:31:30', 'Shangmachang', '68 Almo Point', 28, 3, 2, false, 2, 'sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2018-01-29 11:57:17', 'Paringin', '81 Schmedeman Place', 19, 1, 3, true, 3, 'semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero');
+insert into agreement (serviceDate, city, adress, users, cleanLevel, services, approved, mark, review) values ('2017-11-13 16:56:37', 'Youdian', '6 Forster Drive', 33, 3, 1, false, 3, 'maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices');
