@@ -30,9 +30,30 @@ function inputErrorHandling(array $post, $key){
     } else if(strlen($post[$key]) > 50){
         return 'You entered '.strlen($post[$key]).' character, maximum is 50.';
     }
-    
-    
+      
 }
+
+function dateErrorHandling(array $post, $key){
+
+    if(!empty($post[$key])){
+        $dateTime = DateTime::createFromFormat('Y-m-d', $post[$key]);
+       
+        if(!$dateTime){
+          return "Date format is not correct, please enter dd.MM.yyyy. (e.g. for today " . date("d.m.Y.") . ")";
+        }else {
+            return 0; 
+        }
+
+      }else {
+        return "Service date is not entered."; 
+      }
+
+      
+      
+}
+
+
+
 
 
 
