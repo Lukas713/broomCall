@@ -28,29 +28,80 @@ if(isset($_POST["change"])){
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
-  <?php include_once "../../template/head.php"; ?>
+    <?php include_once "../../template/head.php"; ?>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   </head>
   <body>
 
   <?php include_once "../../template/navigation.php"; ?><br>
   <!-- Form for creating new  -->
 <div class="container">
-    <div class="row justify-content-md-center">
-
+    <div class="row justify-content-center">
                 <form class="" method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
                     <div class="form-group">
                         <label for="depName">Department name</label>
                         <input type="depName" class="form-control" value="<?php echo $result->depName;?>" name="depName" >
                     </div>
                         <input type="hidden" name="id" value="<?php echo $result->id ?>" />
-                        <input type="submit" name="change" class="btn btn-primary" value="Submit"></input>
+                        <input type="submit" name="change" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-danger">Cancel</a>
-                </form>
-    </div>
-</div>
-  <?php include_once "../../template/scripts.php"; ?>
+                        <hr>
+                        <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name" id="condition" name="condition">
+                
+                        <table class="table table-striped">
+                            <?php
+                                $query=$conn->prepare("select a.firstName, a.lastName, a.email
+                                                        from person a
+                                                        inner join employees b on a.id = b.person
+                                                        inner join department c on c.id = b.department
+                                                        where department = :department 
+                                                        order by a.lastName, a.firstName");
 
-  <?php include_once "../../template/footer.php"; ?>
-  
+                                $query->execute(array(
+                                    "department" => $_GET["id"]));
+                                $result = $query->fetchAll(PDO::FETCH_OBJ); 
+                            ?>
+                            <thead>
+                                <tr>
+                                    <th>First name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data">
+                                <?php foreach($result as $row):?>
+                                <tr>
+                                    <td> <?php echo $row->firstName?> </td>
+                                    <td> <?php echo $row->lastName?> </td>
+                                    <td> <?php echo $row->email?> </td>
+                                    <td> <i class="fas fa-2x fa-trash-alt text-danger"></i> </td>
+                                </tr>
+                                <?php endforeach;   ?>
+                            </tbody>
+                        </table>
+                    </form>
+        </div><hr>
+</div>
+ <?php include_once "../../template/footer.php"; ?>
+
+  <?php include_once "../../template/scripts.php"; ?>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+      $("#condition").autocomplete({
+          source:"findEmployee.php",
+          minLength: 2,
+    		focus: function(event,ui){
+    			event.preventDefault();
+    		},
+    		select: function(event,ui){
+    			event.preventDefault();
+
+    		}
+      }).data("ui-autocomplete")._renderItem=function(ul,objekt){
+        return $("<li><img src=\"https://picsum.photos/50/50\" />").append("<a>"
+         + objekt.firstName + " " + objekt.lastName + "</a>").appendTo(ul);
+      }
+  </script>
   </body>
 </html>
