@@ -42,12 +42,12 @@ if(isset($_POST["change"])){
                         <label for="depName">Department name</label>
                         <input type="depName" class="form-control" value="<?php echo $result->depName;?>" name="depName" >
                     </div>
+                    <br>
                         <input type="hidden" name="id" value="<?php echo $result->id ?>" />
                         <input type="submit" name="change" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-danger">Cancel</a>
                         <hr>
-                        <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name" id="condition" name="condition">
-                
+                            <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name" id="condition" name="condition">
                         <table class="table table-striped">
                             <?php
                                 $query=$conn->prepare("select a.firstName, a.lastName, a.email
@@ -83,25 +83,62 @@ if(isset($_POST["change"])){
                     </form>
         </div><hr>
 </div>
- <?php include_once "../../template/footer.php"; ?>
 
-  <?php include_once "../../template/scripts.php"; ?>
+ <?php include_once "../../template/footer.php"; ?>
+ <?php include_once "../../template/scripts.php"; ?>
+
+
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
-      $("#condition").autocomplete({
-          source:"findEmployee.php",
-          minLength: 2,
-    		focus: function(event,ui){
+    $("#condition").autocomplete({
+        source:"findEmployee.php?id=<?php echo $_GET["id"];?>",
+        focus: function(event,ui){
     			event.preventDefault();
-    		},
-    		select: function(event,ui){
+    	},
+    	select: function(event,ui){
     			event.preventDefault();
-
-    		}
+                saveRecord(ui.item);
+    	}
       }).data("ui-autocomplete")._renderItem=function(ul,objekt){
-        return $("<li><img src=\"https://picsum.photos/50/50\" />").append("<a>"
-         + objekt.firstName + " " + objekt.lastName + "</a>").appendTo(ul);
+        return $("<li>").append("<a>" + objekt.firstName + " " + objekt.lastName + "</a>").appendTo(ul); 
+        }
+
+    function saveRecord(employee){
+        $.ajax({
+            type: "POST",
+            url: "addEmployee.php",
+            data: "department=<?php echo $_GET["id"];?>&employeeID="+employee.employeeID,
+            success: function(serverReturn){
+                if(serverReturn === "good job"){
+                    $("#data").append(
+                    "<tr>" + 
+                    "<td>" + employee.firstName + "</td>" + 
+                    "<td>" + employee.lastName + "</td>" +
+                    '<td><i id=s_' + employee.employeeID + 'class="fas fa-trash fa-2x delete" style="color: red;"></i></td>' + 
+                    + '</tr>');
+                } 
+            }
+        });
+    }
+
+    function deleteRecord(){
+        $(".delete").click(function(){
+            var x = $(this);
+          $.ajax({
+            type: "POST",
+            url: "deleteEmployee.php",
+            data: "employeeID="+x.attr("id").split("_")[1],
+            success: function(serverReturn){
+              if (serverReturn === "good job"){
+                x.parent().parent().remove();
+              }
+              
+            }
+          });
+        });
       }
   </script>
+
+
   </body>
 </html>
