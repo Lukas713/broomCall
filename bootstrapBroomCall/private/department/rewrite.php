@@ -28,8 +28,13 @@ if(isset($_POST["change"])){
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
-    <?php include_once "../../template/head.php"; ?>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <?php include_once "../../template/head.php"; ?>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <style>
+            .delete:hover{
+                cursor:pointer; 
+            }
+        </style>
   </head>
   <body>
 
@@ -50,7 +55,7 @@ if(isset($_POST["change"])){
                             <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name" id="condition" name="condition">
                         <table class="table table-striped">
                             <?php
-                                $query=$conn->prepare("select a.firstName, a.lastName, a.email
+                                $query=$conn->prepare("select b.id as employeeID, a.firstName, a.lastName, a.email
                                                         from person a
                                                         inner join employees b on a.id = b.person
                                                         inner join department c on c.id = b.department
@@ -75,7 +80,7 @@ if(isset($_POST["change"])){
                                     <td> <?php echo $row->firstName?> </td>
                                     <td> <?php echo $row->lastName?> </td>
                                     <td> <?php echo $row->email?> </td>
-                                    <td> <i class="fas fa-2x fa-trash-alt text-danger"></i> </td>
+                                    <td> <i id="s_<?php echo $row->employeeID;?>" class="fas fa-2x fa-trash-alt text-danger delete"></i> </td>
                                 </tr>
                                 <?php endforeach;   ?>
                             </tbody>
@@ -114,8 +119,9 @@ if(isset($_POST["change"])){
                     "<tr>" + 
                     "<td>" + employee.firstName + "</td>" + 
                     "<td>" + employee.lastName + "</td>" +
-                    '<td><i id=s_' + employee.employeeID + 'class="fas fa-trash fa-2x delete" style="color: red;"></i></td>' + 
+                    "<td>" + '<i id="s_"' + employee.employeeID + ' class="fas fa-2x fa-trash-alt text-danger delete" style="color: red;"></i></td>' + 
                     + '</tr>');
+                    deleteRecord();
                 } 
             }
         });
@@ -137,6 +143,8 @@ if(isset($_POST["change"])){
           });
         });
       }
+
+      deleteRecord();
   </script>
 
 
