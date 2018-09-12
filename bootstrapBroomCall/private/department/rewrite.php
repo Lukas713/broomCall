@@ -52,10 +52,10 @@ if(isset($_POST["change"])){
                         <input type="submit" name="change" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-danger">Cancel</a>
                         <hr>
-                            <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name" id="condition" name="condition">
+                            <input type="text" autocomplete="off" class="form-control" placeholder="Enter name or last name to move employee into <?php echo $result->depName;?>" id="condition" name="condition">
                         <table class="table table-striped">
                             <?php
-                                $query=$conn->prepare("select b.id as employeeID, a.firstName, a.lastName, a.email
+                                $query=$conn->prepare("select b.id as employeeID, concat(a.firstName, ' ', a.lastName) as person, a.email
                                                         from person a
                                                         inner join employees b on a.id = b.person
                                                         inner join department c on c.id = b.department
@@ -68,8 +68,7 @@ if(isset($_POST["change"])){
                             ?>
                             <thead>
                                 <tr>
-                                    <th>First name</th>
-                                    <th>Last Name</th>
+                                    <th>Person</th>
                                     <th>Email</th>
                                     <th>Action</th>
                                 </tr>
@@ -77,9 +76,8 @@ if(isset($_POST["change"])){
                             <tbody id="data">
                                 <?php foreach($result as $row):?>
                                 <tr>
-                                    <td> <?php echo $row->firstName?> </td>
-                                    <td> <?php echo $row->lastName?> </td>
-                                    <td> <?php echo $row->email?> </td>
+                                    <td> <?php echo $row->person; ?> </td>
+                                    <td> <?php echo $row->email; ?> </td>
                                     <td> <i id="s_<?php echo $row->employeeID;?>" class="fas fa-2x fa-trash-alt text-danger delete"></i> </td>
                                 </tr>
                                 <?php endforeach;   ?>
@@ -96,7 +94,7 @@ if(isset($_POST["change"])){
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script>
     $("#condition").autocomplete({
-        source:"findEmployee.php?id=<?php echo $_GET["id"];?>",
+        source:"jQuery/findEmployee.php?id=<?php echo $_GET["id"];?>",
         focus: function(event,ui){
     			event.preventDefault();
     	},
@@ -111,12 +109,11 @@ if(isset($_POST["change"])){
     function saveRecord(employee){
         $.ajax({
             type: "POST",
-            url: "addEmployee.php",
+            url: "jQuery/addEmployee.php",
             data: "department=<?php echo $_GET["id"];?>&employeeID="+employee.employeeID,
             success: function(serverReturn){
                 if(serverReturn === "good job"){
-                    $("#data").append(
-                    "<tr>" + 
+                    $("#data").append("<tr>" + 
                     "<td>" + employee.firstName + "</td>" + 
                     "<td>" + employee.lastName + "</td>" +
                     "<td>" + '<i id="s_"' + employee.employeeID + ' class="fas fa-2x fa-trash-alt text-danger delete" style="color: red;"></i></td>' + 
@@ -132,7 +129,7 @@ if(isset($_POST["change"])){
             var x = $(this);
           $.ajax({
             type: "POST",
-            url: "deleteEmployee.php",
+            url: "jQuery/deleteEmployee.php",
             data: "employeeID="+x.attr("id").split("_")[1],
             success: function(serverReturn){
               if (serverReturn === "good job"){
