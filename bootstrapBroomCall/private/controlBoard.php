@@ -11,7 +11,7 @@
         <div class="container">
             <h3>Pending agreements</h3><hr>
                 <?php
-                $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.serviceDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
+                $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.serviceDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
                                             from agreement a
                                             inner join users b on a.users = b.id
                                             inner join person c on b.person = c.id
@@ -19,7 +19,7 @@
                                             inner join services e on a.services = e.id
                                             where approved = false;");
                 $query->execute();
-                $result=$query->fetchAll(PDO::FETCH_OBJ);   
+                $result=$query->fetchAll(PDO::FETCH_OBJ);  
                 ?>
                 <div class="row justify-content-center">
                     <?php foreach($result as $row): ?>
@@ -36,18 +36,37 @@
                                     <li><b>Phone: </b> <?php echo $row->phoneNumber; ?></li>
                                     <li><b>Clean level: </b><?php echo $row->levelName.': '.$row->priceCoeficient; ?></li>
                                     <li><b>Service: </b><?php echo $row->serviceName.': '.$row->price; ?> €</li>
+                                    <li><?php echo $row->approved; ?></li>
+                                    <li><b>Chose a squad:</b></li>
+                                    <li>
+                                    <div class="input-group mb-3 justify-content-center" id="approveItem">
+                                        <?php
+                                        
+                                            $query = $conn->prepare("select * from squad");
+                                            $query->execute();
+                                            $result = $query->fetchAll(PDO::FETCH_OBJ); 
+                                            foreach($result as $li){   
+                                                echo '<input type="button" class="btn btn-secondary squadColor" style=background-color:'.$li->squadColor.' value='.$li->squadNumber.'>';
+                                            } 
+                                        ?>
+                                    </div>
+                                    </li>
                                     </ul><hr>
-                                    <button type="button" class="btn btn-success">Approve</button>
+                                        <input type="button" class="btn btn-success agreementID" value="<?php echo $row->id;?>">
                                 </div>
                             </div>
                     </div>
                     <?php endforeach;?> 
                     </div> 
                 </div>
-        </div>
-
+        </div>           
         <?php include_once "../template/scripts.php"; ?>
-
         <?php include_once "../template/footer.php"; ?>
+
+        <script>
+    
+
+
+        </script>
     </body>
 </html>

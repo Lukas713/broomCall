@@ -6,7 +6,8 @@ if(!isset($_SESSION[$appID."operater"])){
 }
 
 
-//$query = $conn->prepare("UPDATE employees set squad = null where id = :employeeID");
+$query = $conn->prepare("update employees 
+                        set squad = 4
+                        where id=:employeeID");
 $query->execute($_POST);
- 
 echo "good job"; 

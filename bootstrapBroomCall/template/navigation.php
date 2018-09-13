@@ -11,7 +11,7 @@
         menuItem($pathAPP, "aboutUs.php", "About us");
         menuItem($pathAPP, "contact.php", "Contact");
         if(isset( $_SESSION[$appID."operater"])):
-          menuItem($pathAPP,"private/controlBoard.php","Dashboard");   
+          menuItem($pathAPP,"private/controlBoard.php","Control board");   
       ?>
         <li class="nav-item dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company info</a>

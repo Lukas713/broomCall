@@ -147,7 +147,6 @@ if(isset($_POST["add"])){
             <input type="date" id="serviceDate" name="serviceDate" <?php echo empty($error["serviceDate"])? ' class="form-control" ' : ' class="form-control is-invalid" ' ;?>>
             <?php echo empty($error["serviceDate"])?  "" : ' <div class="invalid-feedback"> '.$error["serviceDate"].'</div>' ;?>
         </div>
-        <?php print_r($error);   ?>
 
 
         <div class="form-group">
@@ -228,7 +227,7 @@ if(isset($_POST["add"])){
                                     echo ' selected="selected" ';
                                  }
                             ?>
-                            value="<?php echo $row->id ?>"><?php echo $row->serviceName."=".$row->price." €"; ?></option>  
+                            value="<?php echo $row->id ?>"><?php echo $row->serviceName.",  ".$row->price." €"; ?></option>  
                             <?php endforeach; ?>
                     </select>
                     <?php  if(isset($error["services"])){

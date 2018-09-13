@@ -53,7 +53,7 @@ if(!isset($_SESSION[$appID."operater"])){
                    <?php if($row->squad === null): ?>
                 <td></td> 
                         <?php else:?>
-                <td><i class="fas fa-circle" style="color:<?php echo $row->squadColor?>"></i></td>
+                <td><?php echo ($row->squad == 4) ? '<i class="far fa-circle"' : '<i class="fas fa-circle ?>';?><i class="fas fa-circle" style="color:<?php echo $row->squadColor?>"></i></td>
                         <?php endif; ?>
                 <td>
                   <a onclick="return confirm('Are you sure?')" href="delete.php?id=<?php echo $row->id; ?>">

@@ -104,7 +104,7 @@ if(isset($_POST["change"])){
     	}
       }).data("ui-autocomplete")._renderItem=function(ul,objekt){
         return $("<li>").append("<a>" + objekt.firstName + " " + objekt.lastName + "</a>").appendTo(ul); 
-        }
+        }   
 
     function saveRecord(employee){
         $.ajax({

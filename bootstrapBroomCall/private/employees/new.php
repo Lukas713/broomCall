@@ -50,7 +50,7 @@ if(isset($_POST["add"])){
                 $query->bindParam(":IBAN", $_POST["IBAN"], PDO::PARAM_STR);   
                 $query->bindParam(":department", $_POST["department"], PDO::PARAM_INT);
                 if($_POST["department"] != 1){
-                    $query->bindValue(":squad", null, PDO::PARAM_NULL);
+                    $query->bindValue(":squad", 4, PDO::PARAM_INT);
                 } else {
                     $query->bindParam(":squad", $_POST["squad"], PDO::PARAM_INT);
                 }                                              
@@ -90,11 +90,11 @@ if(isset($_POST["add"])){
              <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
 
 
-                <div class="form-group">	
-                    <label for="firstName">First name</label>	
-                    <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"]) ?  'class="form-control"' : ' class="form-control is-invalid" ' ;?>>
-                    <?php echo empty($error["firstName"])? "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
-                </div>
+        <div class="form-group">	
+            <label for="firstName">First name</label>	
+            <input type="text" id="firstName" name="firstName" <?php echo empty($error["firstName"]) ?  'class="form-control"' : ' class="form-control is-invalid" ' ;?>>
+            <?php echo empty($error["firstName"])? "" : ' <div class="invalid-feedback"> '.$error["firstName"].'</div>' ;?>
+        </div>
            
 
          <div class="form-group">	
@@ -138,7 +138,7 @@ if(isset($_POST["add"])){
                                             echo ' selected="selected" ';	                                   
                                         }	                           
                                     ?>	                      
-                                    value="<?php echo $row->id ?>"><?php echo $row->depName ?></option>  	            
+                                    value="<?php echo $row->id ?>"><?php echo ($row->id==5) ? "without department" :  $row->depName; ?></option>  	            
                                     <?php endforeach; ?>	                         
                             </select>	                       
                             <?php  if(isset($error["department"])){                        
@@ -160,7 +160,7 @@ if(isset($_POST["add"])){
                                                 echo ' selected="selected" ';	
                                             }	
                                         ?>	
-                                        value="<?php echo $row->id ?>"><?php echo $row->squadNumber ?></option>  	
+                                        value="<?php echo $row->id;?>"><?php echo ($row->id==4) ? "without squad" :  $row->squadNumber; ?></option>  	
                                         <?php endforeach; ?>	
                                 </select>	
                             </div>	
