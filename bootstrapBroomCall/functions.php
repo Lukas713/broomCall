@@ -7,8 +7,6 @@
 *
 */
 function menuItem($pathAPP, $currentPage, $label){
-
- 
      ?>
 
     <li <?php 

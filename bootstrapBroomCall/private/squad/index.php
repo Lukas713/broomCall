@@ -46,7 +46,7 @@ if(!isset($_SESSION[$appID."operater"])){
             <?php foreach($result as $row): ?>
               <tr>
                 <td><?php echo $row->squadNumber; ?></td>
-                <td><i class="fas fa-circle" style="color:<?php echo $row->squadColor;?>"></i></td>
+                <td><?php echo ($row->id == 4) ? '<i class="far fa-circle"' : '<i class="fas fa-circle ?>';?><i class="fas fa-circle" style="color:<?php echo $row->squadColor?>"></i></</td>
                 <td><?php echo $row->numberOfMembers; ?></td>
                 <td>
                   <a onclick="return confirm('Delete -><?php echo $row->squadNumber; ?>?')" href="delete.php?id=<?php echo $row->id; ?>">

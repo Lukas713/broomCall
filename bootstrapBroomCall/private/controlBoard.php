@@ -36,7 +36,6 @@
                                     <li><b>Phone: </b> <?php echo $row->phoneNumber; ?></li>
                                     <li><b>Clean level: </b><?php echo $row->levelName.': '.$row->priceCoeficient; ?></li>
                                     <li><b>Service: </b><?php echo $row->serviceName.': '.$row->price; ?> €</li>
-                                    <li><?php echo $row->approved; ?></li>
                                     <li><b>Chose a squad:</b></li>
                                     <li>
                                     <div class="input-group mb-3 justify-content-center" id="approveItem">
@@ -45,8 +44,13 @@
                                             $query = $conn->prepare("select * from squad");
                                             $query->execute();
                                             $result = $query->fetchAll(PDO::FETCH_OBJ); 
-                                            foreach($result as $li){   
-                                                echo '<input type="button" class="btn btn-secondary squadColor" style=background-color:'.$li->squadColor.' value='.$li->squadNumber.'>';
+                                            foreach($result as $li){  
+                                                
+                                                if($li->squadNumber == 4){
+                                                    echo "";
+                                                }else {
+                                                    echo '<input type="button" class="btn btn-secondary squadColor" style=background-color:'.$li->squadColor.' value='.$li->squadNumber.'>';
+                                                }
                                             } 
                                         ?>
                                     </div>

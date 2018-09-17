@@ -2,7 +2,7 @@ drop database IF EXISTS 1broomcall;
 
 create database 1broomCall;
 
-/* c:\xampp\mysql\bin\mysql.exe -ulukas -p123456789 < C:\xampp\htdocs\bootstrapBroomCall\script.sql*/
+/* c:\xampp\mysql\bin\mysql.exe -ulukas -p123456789 --default_character_set=utf8 < C:\xampp\htdocs\bootstrapBroomCall\script.sql*/
 
 USE 1broomCall ;
 
@@ -18,7 +18,7 @@ create table person
     id int primary key not null auto_increment,
     firstName varchar(50) not null,
     lastName varchar(50) not null,
-    email varchar(50) not null
+    email varchar(50) not null 
   );
 
 
@@ -52,7 +52,8 @@ CREATE TABLE agreement (
   squad INT,
   users INT,
   cleanLevel INT,
-  services int
+  services int,
+  approved boolean
 );
 
 CREATE TABLE department 
@@ -90,13 +91,15 @@ CREATE TABLE employees
 insert into squad(id, squadNumber, squadColor) values 
 (null, 1, "#256645"),
 (null, 2, "#AA0000"),
-(null, 3, "#0000FF");
+(null, 3, "#0000FF"),
+(null, 4, "-");
 
 insert into department(id, depName) values 
 (null, "Cleaners"),
 (null, "Logistics"),
 (null, "Administration"),
-(null, "Technics");
+(null, "Technics"),
+(null, "No department");
 
 insert into services(id, serviceName, price) values 
 (null, "1 bedroom", 100),
@@ -117,11 +120,7 @@ insert into person (firstName, lastName, email) values ('Gilberte', 'Franchyonok
 insert into person (firstName, lastName, email) values ('Abel', 'Merriment', 'amerriment6@comsenz.com');
 insert into person (firstName, lastName, email) values ('Joann', 'Faulconbridge', 'jfaulconbridge7@wp.com');
 insert into person (firstName, lastName, email) values ('Amandi', 'Cereceres', 'acereceres8@bloglovin.com');
-insert into person (firstName, lastName, email) values ('Claiborne', 'Lavrinov', 'clavrinov9@t-online.de');
-insert into person (firstName, lastName, email) values ('Oren', 'Kirwood', 'okirwooda@vk.com');
-insert into person (firstName, lastName, email) values ('Salim', 'Pymer', 'spymerb@tripadvisor.com');
 insert into person (firstName, lastName, email) values ('Goldi', 'Slayton', 'gslaytonc@nydailynews.com');
-insert into person (firstName, lastName, email) values ('Harold', 'Kensy', 'hkensyd@mozilla.org');
 insert into person (firstName, lastName, email) values ('Yule', 'Reynoollds', 'yreynoolldse@businessinsider.com');
 insert into person (firstName, lastName, email) values ('Melamie', 'Titman', 'mtitmanf@merriam-webster.com');
 insert into person (firstName, lastName, email) values ('Frasquito', 'Baraja', 'fbarajag@1und1.de');
@@ -160,11 +159,6 @@ insert into person (firstName, lastName, email) values ('Alice', 'Plumer', 'aplu
 insert into person (firstName, lastName, email) values ('Josh', 'Cottu', 'jcottu1d@about.com');
 
 insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('313-372-5137', 'Kresna', '2833', '75995 Grover Parkway', '15-3981673', 'PL17 4645 4069 2937 0502 6385 9072', 'TjEY0See', 14, 1, 1);
-insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('623-188-1209', 'Brondong', '2833', '6439 Orin Terrace', '61-6184772', 'DO77 RTLX 6964 3329 9302 2306 3077', 'TzsxiPmb2E2E', 13, null, 2);
-insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('312-285-1798', 'Izingolweni', '4261', '2 Fair Oaks Road', '47-6166650', 'IE21 IOQG 7097 8218 6145 86', 'DMEi4SUcc', 12, null, 3);
-insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('387-181-8581', 'Alcanena', '2380-015', '7385 Cody Hill', '08-5197907', 'FR49 4593 7466 4704 ZSBE XOCZ G56', 'cd4SR1sSmEr', 11, null, 4);
-insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('761-126-7177', 'El Paraíso', '2833', '63537 Hoard Lane', '63-8531776', 'PK90 LEVH PDTX OVVM QHDZ ECO3', 'i4wwI2GCpKPq', 10, null, 2);
-insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('316-677-8453', 'Alto de São Sebastião', '2860-305', '69300 Washington Crossing', '74-0493265', 'DO58 JEOJ 2293 8741 0734 6895 0970', 'IzbhU10g', 15, null, 4);
 insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('470-249-8889', 'Tualangcut', '2833', '3 Erie Center', '09-1795687', 'PL81 0279 9333 2850 7568 5455 5960', 'ishoie', 9, 1, 1);
 insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('260-653-6154', 'Whittlesea', '5630', '091 Susan Way', '56-0993407', 'FR85 9084 6633 13N9 FSNL JJ3T N77', 'Df31DG0H', 8, 1, 1);
 insert into employees (phoneNumber, city, zipCode, adress, oib, IBAN, passwrd, person, squad, department) values ('718-688-2165', 'Ulme', '2140-368', '38937 Anhalt Crossing', '38-3129012', 'DO49 R3QG 5822 3303 2602 5304 9740', 'rxC6MF7u25q', 7, 1, 1);
@@ -201,12 +195,36 @@ insert into users (id, phoneNumber, person) values (23, '535-220-9891', 38);
 insert into users (id, phoneNumber, person) values (24, '592-381-5664', 39);
 insert into users (id, phoneNumber, person) values (25, '362-115-0721', 40);
 insert into users (id, phoneNumber, person) values (26, '676-693-4846', 41);
-insert into users (id, phoneNumber, person) values (27, '103-253-6230', 42);
-insert into users (id, phoneNumber, person) values (28, '619-918-2333', 43);
-insert into users (id, phoneNumber, person) values (29, '856-695-4633', 44);
-insert into users (id, phoneNumber, person) values (30, '929-498-0818', 45);
-insert into users (id, phoneNumber, person) values (31, '963-629-9945', 46);
-insert into users (id, phoneNumber, person) values (32, '295-594-7465', 47);
-insert into users (id, phoneNumber, person) values (33, '290-868-5540', 48);
-insert into users (id, phoneNumber, person) values (34, '584-660-9300', 49);
-insert into users (id, phoneNumber, person) values (35, '391-961-1687', 50);
+
+
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-03 13:13:49', 'Ilyich', '2 Northport Court', 1, 15, 1, 1, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-08-09 06:46:17', 'Benniu', '9 Rockefeller Way', 2, 10, 2, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-06-14 13:30:50', 'Clarin', '63 Mitchell Park', 1, 4, 1, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-09 11:24:22', 'Parung', '21 Elmside Pass', 2, 6, 2, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-19 02:36:32', 'Kariaí', '54 Sutteridge Hill', 2, 13, 3, 2, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-01-06 06:48:06', 'San Jose', '1 Coolidge Plaza', 2, 13, 3, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-02-19 14:25:31', 'Šid', '34301 Norway Maple Trail', 1, 13, 3, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-04-20 22:21:48', 'Cagayan', '46714 Stoughton Drive', 2, 4, 3, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-08-18 02:30:13', 'Eixo', '4595 Dapin Crossing', 1, 14, 3, 3, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-06-17 10:59:48', 'Xiaxindian', '15 Troy Terrace', 1, 20, 2, 1, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2017-12-15 15:03:57', 'Bayanbaogede', '9 Vera Point', 2, 24, 1, 3, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-05-01 16:34:20', 'Calaba', '187 Marquette Pass', 1, 7, 2, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-04-24 18:42:59', 'Ribnica na Pohorju', '96 Nancy Terrace', 1, 22, 1, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-05-21 08:39:19', 'Nova Friburgo', '46 Scofield Alley', 1, 12, 2, 1, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-09 01:21:57', 'Крива Паланка', '02962 Lighthouse Bay Terrace', 1, 6, 1, 1, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-03-17 11:55:17', 'Chełm', '9 Mesta Avenue', 2, 11, 1, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-06-12 21:50:32', 'Betaf', '9957 Bunting Hill', 2, 5, 1, 3, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-01 16:55:47', 'Saukkola', '11237 Gale Lane', 1, 17, 3, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2017-10-31 00:09:01', 'Wanmu', '5 Ronald Regan Plaza', 2, 9, 3, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-05-05 13:35:53', 'Lansing', '36 Doe Crossing Terrace', 2, 2, 3, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-08-05 09:19:11', 'Brasília', '60 Cambridge Street', 1, 15, 3, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-01-16 15:02:05', 'Jönköping', '4 Porter Lane', 1, 1, 2, 1, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-08-23 11:05:45', 'Retorta', '3 Oneill Point', 1, 2, 2, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-09-09 18:11:42', 'Bondowoso', '9 Talmadge Court', 1, 14, 3, 3, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-01-03 11:27:55', 'Trondheim', '322 Claremont Hill', 2, 22, 3, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2017-11-03 08:36:43', 'Shibli', '184 Melvin Park', 1, 15, 3, 2, true);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-02-08 22:48:26', 'Gao’an', '32134 Bellgrove Alley', 2, 15, 1, 2, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-08-23 15:04:02', 'Eiriz', '83668 Acker Point', 2, 7, 3, 3, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2017-09-15 19:10:06', 'Curug', '74 Rigney Parkway', 2, 1, 2, 2, false);
+insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved) values ('2018-07-15 12:53:15', 'Modimolle', '3049 Shoshone Park', 1, 3, 3, 1, false);
+
