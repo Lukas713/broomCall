@@ -1,6 +1,6 @@
 <?php 
 include_once "../../config.php";
-if(!isset($_SESSION[$appID."operater"])){
+if(!isset($_SESSION[$appID."admin"])){
   header('location:'.$pathAPP.'logout.php');
 }  
 

@@ -9,7 +9,7 @@
         <?php include_once "template/navigation.php"; ?>
         <br> <hr>
         <div class="grid-container">
-        Indeks
+        <?php print_r($_SESSION);   ?>
         </div>
         <?php include_once "template/scripts.php"; ?>
 

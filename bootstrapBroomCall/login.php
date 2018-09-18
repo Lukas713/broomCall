@@ -14,8 +14,8 @@
                     <h3>Login</h3> <hr>
                     <form action="authorization.php" method="post">
                         <div class="form-group">
-                            <label for="username">Enter username</label>
-                            <input type="username" class="form-control" id="username"  placeholder="admin" name="username">
+                            <label for="email">Enter email</label>
+                            <input type="email" class="form-control" id="email"  placeholder="admin@admin.com" name="email">
                             <small id="emailHelp" class="form-text text-muted">Dont share your privacy informations.</small>
                         </div>
                         <div class="form-group">
@@ -23,7 +23,7 @@
                             <input type="password" class="form-control" id="password" placeholder="a" autocomplete="new-password" name="password">
                         </div>
                         <br>
-                            <input type="submit" class="btn btn-primary" name="submit" value="Submit"></input>
+                            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
                     </form>
 
                      <?php
