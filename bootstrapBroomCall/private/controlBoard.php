@@ -67,7 +67,6 @@
         <?php include_once "../template/footer.php"; ?>
 
         <script>
-
             $(".squadColor").click(function(){
                 var o = $(this); 
                 var x = $(this).attr('id');
@@ -84,11 +83,7 @@
                         }
                     }
                 });
-
             });
-
-            
-
         </script>
     </body>
 </html>
