@@ -1,9 +1,26 @@
 <?php 
 include_once "../../config.php";
-if(!isset($_SESSION[$appID."operater"])){
+if(!isset($_SESSION[$appID."admin"])){
   header('location:'.$pathAPP.'logout.php');
 } 
 
+$pages = 1;
+if(isset($_GET["pages"])){
+  $pages = $_GET["pages"]; 
+}
+
+$query = $conn->prepare("select count(a.id)
+                        from agreement a");
+$query->execute();
+$totalAgreements = $query->fetchColumn();
+$totalPages = ceil($totalAgreements / 10); 
+if($pages > $totalPages){
+  $pages = $totalPages; 
+}
+
+if($pages == 0){
+  $pages = 1;
+}
 ?>
 
 <!doctype html>
@@ -26,8 +43,10 @@ if(!isset($_SESSION[$appID."operater"])){
                               inner join cleanlevel d on a.cleanlevel = d.id
                               inner join services e on a.services = e.id
                               inner join squad f on a.squad = f.id
-                              order by total desc"
+                              order by total desc
+                              limit :pages, 10"
                             ); 
+   $query->bindValue("pages", ($pages * 10) - 10, PDO::PARAM_INT);
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ);
   ?>
@@ -67,6 +86,20 @@ if(!isset($_SESSION[$appID."operater"])){
           <?php endforeach; ?>
           </tbody>
       </table>
+      <div class="row justify-content-center">
+        <?php
+          if($totalPages == 0){
+            $totalPages = 1; 
+          }
+        ?>
+        <nav aria-label="pagination">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages-1;?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages+1;?>">Next</a></li>
+          </ul>
+        </nav>
+      </div>
 </div>
     <?php include_once "../../template/scripts.php"; ?>
 

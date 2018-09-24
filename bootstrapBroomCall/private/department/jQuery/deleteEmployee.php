@@ -9,5 +9,4 @@ if(!isset($_SESSION[$appID."admin"])){
 
 $query = $conn->prepare("UPDATE employees set department = 5 where id = :employeeID");
 $query->execute($_POST);
- 
-echo "good job"; 
+echo 'ok';  

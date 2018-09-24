@@ -4,6 +4,27 @@ if(!isset($_SESSION[$appID."admin"])){
   header('location:'.$pathAPP.'logout.php');
 } 
 
+$pages = 1;
+if(isset($_GET["pages"])){
+  $pages = $_GET["pages"]; 
+}
+
+$query = $conn->prepare("select count(a.id) 
+                        from employees a
+                        inner join person b 
+                        on a.person = b.id"
+                      );
+$query->execute();
+$totalEmployees = $query->fetchColumn();
+$totalPages = ceil($totalEmployees / 10); 
+if($pages > $totalPages){
+  $pages = $totalPages; 
+}
+
+if($pages == 0){
+  $pages = 1;
+}
+
 ?>
 
 <!doctype html>

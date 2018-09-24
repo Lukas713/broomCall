@@ -112,7 +112,7 @@ if(isset($_POST["change"])){
             url: "jQuery/addEmployee.php",
             data: "department=<?php echo $_GET["id"];?>&employeeID="+employee.employeeID,
             success: function(serverReturn){
-                if(serverReturn === "good job"){
+                if(serverReturn === "ok"){
                     $("#data").append("<tr>" + 
                     "<td>" + employee.firstName + "</td>" + 
                     "<td>" + employee.lastName + "</td>" +
@@ -132,7 +132,7 @@ if(isset($_POST["change"])){
             url: "jQuery/deleteEmployee.php",
             data: "employeeID="+x.attr("id").split("_")[1],
             success: function(serverReturn){
-              if (serverReturn === "good job"){
+              if (serverReturn === "ok"){
                 x.parent().parent().remove();
               }
               

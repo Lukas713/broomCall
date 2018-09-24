@@ -9,9 +9,8 @@ if(!isset($_POST["department"])){
     return;
 }
 
-$query = $conn->prepare("update employees 
+$query = $conn->prepare("UPDATE employees 
                         set department = :department
                         where id=:employeeID");
 $query->execute($_POST);
-
-echo "good job";
+echo 'ok';

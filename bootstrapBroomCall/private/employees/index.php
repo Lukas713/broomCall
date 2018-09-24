@@ -4,6 +4,27 @@ if(!isset($_SESSION[$appID."admin"])){
   header('location:'.$pathAPP.'logout.php');
 } 
 
+$pages = 1;
+if(isset($_GET["pages"])){
+  $pages = $_GET["pages"]; 
+}
+
+$query = $conn->prepare("select count(a.id) 
+                        from employees a
+                        inner join person b 
+                        on a.person = b.id"
+                      );
+$query->execute();
+$totalEmployees = $query->fetchColumn();
+$totalPages = ceil($totalEmployees / 10); 
+if($pages > $totalPages){
+  $pages = $totalPages; 
+}
+
+if($pages == 0){
+  $pages = 1;
+}
+
 ?>
 
 <!doctype html>
@@ -21,11 +42,11 @@ if(!isset($_SESSION[$appID."admin"])){
                             from person a 
                             inner join employees b on a.id=b.person
                             left outer join department c on c.id=b.department
-                            left outer join squad d on d.id=b.squad"
+                            left outer join squad d on d.id=b.squad limit :pages,10"
                           ); 
+   $query->bindValue("pages", ($pages * 10) - 10, PDO::PARAM_INT);
    $query->execute(); 
-   $result = $query->fetchAll(PDO::FETCH_OBJ); 
-    
+   $result = $query->fetchAll(PDO::FETCH_OBJ);  
   ?>
 
  <div class="container">
@@ -67,6 +88,20 @@ if(!isset($_SESSION[$appID."admin"])){
           <?php endforeach; ?>
           </tbody>
       </table>
+      <div class="row justify-content-center">
+        <?php
+          if($totalPages == 0){
+            $totalPages = 1; 
+          }
+        ?>
+        <nav aria-label="pagination">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages-1;?>">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages+1;?>">Next</a></li>
+          </ul>
+        </nav>
+      </div>
 </div>
     <?php include_once "../../template/scripts.php"; ?>
 
