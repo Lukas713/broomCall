@@ -41,9 +41,9 @@ if(!isset($_SESSION[$appID."admin"])){
       <div class="row justify-content-center">
         <nav aria-label="pagination">
           <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#" id="previous">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#"> <span id="current">da</span>/<span id="total"></span></a></li>
-            <li class="page-item"><a class="page-link" href="#" id="next">Next</a></li>
+            <li class="page-item"><a class="page-link" href="" id="previous">Previous</a></li>
+            <li class="page-item"><a class="page-link" href=""> <span id="current">da</span>/<span id="total"></span></a></li>
+            <li class="page-item"><a class="page-link" href="" id="next">Next</a></li>
           </ul>
         </nav>
       </div>
@@ -58,7 +58,10 @@ if(!isset($_SESSION[$appID."admin"])){
 
         $("#next").click(function(){
           page ++ ;
+          if(page > parseInt($("#total").html())){
 
+            page = parseInt($("#total").html());
+          }
           fetchData(page, $("#condition").val());
           return false; 
         });
@@ -86,7 +89,7 @@ if(!isset($_SESSION[$appID."admin"])){
             data: "pages=" + page + "&condition=" + condition,
             success: function(serverReturn){
               var allWeNeed = JSON.parse(serverReturn);
-              console.log(allWeNeed);
+              $("#total").html(allWeNeed.totalPages);
 
               var tbody = document.getElementById("data");
               while(tbody.firstChild){
@@ -107,7 +110,7 @@ if(!isset($_SESSION[$appID."admin"])){
                 var td = document.createElement("td");
                 var a = document.createElement("a");
                 a.setAttribute("href", 'delete.php?id=' + value.id); 
-                a.setAttribute("onclick", "return confirm(Are you sure?)");
+                a.setAttribute("onclick", "return confirm('Are you sure?')");
                 var i = document.createElement("i");
                 i.setAttribute("class", "fas fa-2x fa-trash-alt text-danger");
                 a.appendChild(i);
