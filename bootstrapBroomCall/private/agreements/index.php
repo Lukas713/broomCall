@@ -53,7 +53,7 @@ if($pages == 0){
                             inner join cleanlevel d on a.cleanlevel = d.id
                             inner join services e on a.services = e.id
                             inner join squad f on a.squad = f.id
-                            where concat(c.firstName, ' ', c.lastName) like :condition
+                            where concat(c.firstName, ' ', c.lastName, ' ', a.serviceDate, ' ', concat(a.city, '-',a.adress)) like :condition
                             order by total desc
                             limit :pages, 10"
                             ); 
@@ -70,7 +70,7 @@ if($pages == 0){
     <form action="<?php echo $_SERVER["PHP_SELF"] ?>">
       <div class="form-group">
             <label for="condition"></label>                    
-            <input type="text" class="form-control" name="condition" id="condition">
+            <input type="text" class="form-control" name="condition" id="condition" value="<?php echo $condition; ?>">
         </div>
             <input type="submit" class="btn btn-primary btn-md btn-block" name="find" value="Search">
     </form>
