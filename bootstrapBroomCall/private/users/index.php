@@ -4,27 +4,6 @@ if(!isset($_SESSION[$appID."admin"])){
   header('location:'.$pathAPP.'logout.php');
 } 
 
-$pages = 1;
-if(isset($_GET["pages"])){
-  $pages = $_GET["pages"]; 
-}
-
-$query = $conn->prepare("select count(a.id) 
-                        from employees a
-                        inner join person b 
-                        on a.person = b.id"
-                      );
-$query->execute();
-$totalEmployees = $query->fetchColumn();
-$totalPages = ceil($totalEmployees / 10); 
-if($pages > $totalPages){
-  $pages = $totalPages; 
-}
-
-if($pages == 0){
-  $pages = 1;
-}
-
 ?>
 
 <!doctype html>
@@ -37,23 +16,13 @@ if($pages == 0){
   <?php include_once "../../template/navigation.php"; ?><br>
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
-  <?php
-   $query =  $conn->prepare("select  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, (d.priceCoeficient * e.price) as total
-                            from person a 
-                            inner join users b on a.id=b.person
-                            left outer join agreement c on b.id = c.users
-                            left outer join cleanlevel d on d.id = c.cleanlevel
-                            left outer join services e on e.id = c.services
-                            order by total desc"); 
-   $query->execute(); 
-   $result = $query->fetchAll(PDO::FETCH_OBJ); 
-    
-  ?>
 
  <div class="container">
     <h3>Users</h3><hr>
     <a href="new.php" class="btn btn-success mb-3">Create new</a>
 
+    <input type="text" class="form-control" id="condition"><br>
+    <a href="#" class="btn btn-primary btn-md btn-block" id="search">Search</a>
     <table class="table table-striped">
           <thead>
             <tr>
@@ -65,30 +34,111 @@ if($pages == 0){
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            <?php foreach($result as $row): ?>
-              <tr>
-                <td><?php echo $row->firstName; ?></td>
-                <td><?php echo $row->lastName; ?></td>
-                <td><?php echo $row->email; ?></td>
-                <td><?php echo $row->phoneNumber; ?></td>
-                <td style="text-align: center;"><?php if($row->total == null){echo "0";} echo $row->total; ?> €</td>
-                <td>
-                  <a onclick="return confirm('Are you sure?')" href="delete.php?id=<?php echo $row->id; ?>">
-                    <i class="fas fa-2x fa-trash-alt text-danger"></i>
-                  </a>  
-                  <a href="rewrite.php?id=<?php echo $row->id; ?>">
-                    <i class="fas fa-2x text-dark fa-edit"></i>
-                  </a>
-                </td>
-              </tr>
-          <?php endforeach; ?>
+          <tbody id="data">
+            
           </tbody>
       </table>
+      <div class="row justify-content-center">
+        <nav aria-label="pagination">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#" id="previous">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#"> <span id="current">da</span>/<span id="total"></span></a></li>
+            <li class="page-item"><a class="page-link" href="#" id="next">Next</a></li>
+          </ul>
+        </nav>
+      </div>
 </div>
+    <?php include_once "../../template/footer.php"; ?>
     <?php include_once "../../template/scripts.php"; ?>
 
-    <?php include_once "../../template/footer.php"; ?>
+    <script>
+        var page = 1 ;
+
+        $("#current").html(page); 
+
+        $("#next").click(function(){
+          page ++ ;
+
+          fetchData(page, $("#condition").val());
+          return false; 
+        });
+
+        $("#previous").click(function(){
+          page --;
+          if(page == 0){
+            page = 1;
+          }
+          fetchData(page, $("#condition").val()); 
+          return false;
+        });
+
+        $("#search").click(function(){
+          page = 1;
+
+          fetchData(page, $("#condition").val()); 
+          return false;
+        });
+
+        function fetchData(page, condition){
+          $.ajax({
+            type: "POST",
+            url: "jQuery/findUser.php",
+            data: "pages=" + page + "&condition=" + condition,
+            success: function(serverReturn){
+              var allWeNeed = JSON.parse(serverReturn);
+              console.log(allWeNeed);
+
+              var tbody = document.getElementById("data");
+              while(tbody.firstChild){
+                tbody.removeChild(tbody.firstChild);
+              }
+              $("#current").html(allWeNeed.totalPages);
+
+              $.each(allWeNeed.data, function(key, value){
+                var tr = document.createElement("tr"); 
+
+                tr.appendChild(createTableData(value.firstName));
+                tr.appendChild(createTableData(value.lastName));
+                tr.appendChild(createTableData(value.email));
+                tr.appendChild(createTableData(value.phoneNumber));
+                tr.appendChild(createTableData(value.total + " €"));
+                
+
+                var td = document.createElement("td");
+                var a = document.createElement("a");
+                a.setAttribute("href", 'delete.php?id=' + value.id); 
+                a.setAttribute("onclick", "return confirm(Are you sure?)");
+                var i = document.createElement("i");
+                i.setAttribute("class", "fas fa-2x fa-trash-alt text-danger");
+                a.appendChild(i);
+                td.appendChild(a);
+
+                a = document.createElement("a"); 
+                a.setAttribute("href", "rewrite.php?id=" + value.id);
+                i = document.createElement("i");
+                i.setAttribute("class", "fas fa-2x text-dark fa-edit");
+                a.appendChild(i);
+                td.appendChild(a);
+
+                tr.appendChild(td);
+
+                tbody.appendChild(tr);
+              })
+            }
+
+          });
+        }
+
+        fetchData(page, "");
+          
+          function createTableData(tekst){
+            var td = document.createElement("td");
+            var tekst = document.createTextNode(tekst==null ? "" : tekst);
+
+            td.appendChild(tekst);
+            return td;
+          }
+    </script>
   
   </body>
 </html>
