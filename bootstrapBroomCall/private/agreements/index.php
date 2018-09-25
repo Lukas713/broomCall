@@ -9,9 +9,19 @@ if(isset($_GET["pages"])){
   $pages = $_GET["pages"]; 
 }
 
+$condition = "";
+if(isset($_GET["condition"])){
+  $condition = $_GET["condition"]; 
+}
+
 $query = $conn->prepare("select count(a.id)
-                        from agreement a");
-$query->execute();
+                        from agreement b
+                        inner join users c on b.users = c.id 
+                        inner join person a on c.person = a.id
+                        where concat(a.firstName, ' ', a.lastName) like :condition ");
+$query->execute(array(
+  "condition" => "%" . $condition . "%" 
+));
 $totalAgreements = $query->fetchColumn();
 $totalPages = ceil($totalAgreements / 10); 
 if($pages > $totalPages){
@@ -36,25 +46,34 @@ if($pages == 0){
   <?php
    $query =  $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person,  a.serviceDate,
                             concat(a.city, '-',a.adress) as adress, f.squadColor, (d.priceCoeficient * e.price) as total,
-                              e.serviceName, d.levelName
-                              from agreement a
-                              inner join users b on a.users = b.id
-                              inner join person c on b.person = c.id
-                              inner join cleanlevel d on a.cleanlevel = d.id
-                              inner join services e on a.services = e.id
-                              inner join squad f on a.squad = f.id
-                              order by total desc
-                              limit :pages, 10"
+                            e.serviceName, d.levelName
+                            from agreement a
+                            inner join users b on a.users = b.id
+                            inner join person c on b.person = c.id
+                            inner join cleanlevel d on a.cleanlevel = d.id
+                            inner join services e on a.services = e.id
+                            inner join squad f on a.squad = f.id
+                            where concat(c.firstName, ' ', c.lastName) like :condition
+                            order by total desc
+                            limit :pages, 10"
                             ); 
    $query->bindValue("pages", ($pages * 10) - 10, PDO::PARAM_INT);
+   $query->bindValue("condition", "%" . $condition . "%");
    $query->execute(); 
    $result = $query->fetchAll(PDO::FETCH_OBJ);
   ?>
 
  <div class="container">
     <h3>Agreements</h3><hr>
-    <a href="new.php" class="btn btn-success mb-3">Create new</a>
-
+    <a href="new.php" class="btn btn-success mb-3">Create new</a><br>
+    
+    <form action="<?php echo $_SERVER["PHP_SELF"] ?>">
+      <div class="form-group">
+            <label for="condition"></label>                    
+            <input type="text" class="form-control" name="condition" id="condition">
+        </div>
+            <input type="submit" class="btn btn-primary btn-md btn-block" name="find" value="Search">
+    </form>
     <table class="table table-striped">
           <thead>
             <tr>
@@ -95,7 +114,7 @@ if($pages == 0){
         <nav aria-label="pagination">
           <ul class="pagination">
             <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages-1;?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#"><?php echo $pages.'/'.$totalPages;?></a></li>
             <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages+1;?>">Next</a></li>
           </ul>
         </nav>
