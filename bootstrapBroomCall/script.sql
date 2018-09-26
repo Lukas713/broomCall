@@ -54,6 +54,8 @@ CREATE TABLE cleanlevel
 
 CREATE TABLE agreement (
   id INT NOT NULL primary key AUTO_INCREMENT,
+  orderDate DATETIME,
+  approveDate DATETIME,
   serviceDate DATETIME,
   city VARCHAR(20),
   adress VARCHAR(50),
@@ -61,7 +63,7 @@ CREATE TABLE agreement (
   users INT,
   cleanLevel INT,
   services int,
-  approved boolean,
+  approved boolean DEFAULT false,
   checked boolean
 );
 
@@ -131,13 +133,14 @@ insert into person (firstName, lastName, email, passwrd, roles) values ('Marsiel
 insert into person (firstName, lastName, email, passwrd, roles) values ('Penny', 'Bilson', 'pbilson2@chronoengine.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 2);
 insert into person (firstName, lastName, email, passwrd, roles) values ('Kevina', 'Balmadier', 'kbalmadier3@weebly.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 2);
 insert into person (firstName, lastName, email, passwrd, roles) values ('Christen', 'Mills', 'cmills4@bloglines.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 2);
-insert into person (firstName, lastName, email, roles) values ('Ronnica', 'Martill', 'rmartill0@oakley.com', 3);
-insert into person (firstName, lastName, email, roles) values ('Maxie', 'Sauven', 'msauven1@bing.com', 3);
-insert into person (firstName, lastName, email, roles) values ('Bridie', 'Krolman', 'bkrolman2@tinyurl.com', 3);
-insert into person (firstName, lastName, email, roles) values ('Gib', 'McCarver', 'gmccarver3@etsy.com', 3);
-insert into person (firstName, lastName, email, roles) values ('Tomi', 'Carrabot', 'tcarrabot4@prnewswire.com', 3);
-insert into person (firstName, lastName, email, roles) values ('admin', 'admin', 'admin@admin.com', 1);
-
+insert into person (firstName, lastName, email, passwrd,  roles) values ('Ronnica', 'Martill', 'rmartill0@oakley.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('Maxie', 'Sauven', 'msauven1@bing.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('Bridie', 'Krolman', 'bkrolman2@tinyurl.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('Gib', 'McCarver', 'gmccarver3@etsy.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('Tomi', 'Carrabot', 'tcarrabot4@prnewswire.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('admin', 'admin', 'admin@admin.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 1);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('user', 'user', 'user@user.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 3);
+insert into person (firstName, lastName, email, passwrd,  roles) values ('operater', 'operater', 'operater@operater.com', '$2y$12$dIcWikfkOhvPCOujwNfuDuY1OezqCuU8kbezd8kKqRT.rnQnvMBjK', 2);
 
 insert into employees (phoneNumber, person, squad, department) values ('533-896-0630', 1, 2, 4);
 insert into employees (phoneNumber, person, squad, department) values ('871-361-2383', 2, 2, 3);

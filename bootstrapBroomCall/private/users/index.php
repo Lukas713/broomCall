@@ -109,13 +109,7 @@ if(!isset($_SESSION[$appID."admin"])){
 
                 var td = document.createElement("td");
                 var a = document.createElement("a");
-                a.setAttribute("href", 'delete.php?id=' + value.id); 
-                a.setAttribute("onclick", "return confirm('Are you sure?')");
                 var i = document.createElement("i");
-                i.setAttribute("class", "fas fa-2x fa-trash-alt text-danger");
-                a.appendChild(i);
-                td.appendChild(a);
-
                 a = document.createElement("a"); 
                 a.setAttribute("href", "rewrite.php?id=" + value.id);
                 i = document.createElement("i");

@@ -28,18 +28,6 @@ if(isset($_POST["add"])){
         }
     }
 
-    if($_POST["squad"] === "0"){
-        $error["squad"] = "Please select squad";
-    }else {
-        $query = $conn->prepare("select count(id) from squad where id=:id");
-        $query ->execute(array(
-            "id"=>$_POST["squad"]
-        ));
-        $result = $query->fetchColumn(); 
-        if($result == 0){
-            $error["squad"] = "rofl"; 
-        }
-    }
 
     if($_POST["services"] === "0"){
         $error["services"] = "Please select services";
@@ -58,8 +46,8 @@ if(isset($_POST["add"])){
     if(empty($error["firstName"]) && empty($error["lastName"]) 
        && empty($error["serviceDate"]) && empty($error["services"])
        && empty($error["city"]) && empty($error["adress"])
-       && empty($error["cleanlevel"]) && empty($error["squad"])
-       && empty($error["email"]) && $error["serviceDate"] == 0){
+       && empty($error["cleanlevel"]) && empty($error["email"]) 
+       && $error["serviceDate"] == 0){
             
             try{ //try - catch logic, if breaks in try, deals with exeption in catch
 
@@ -88,7 +76,6 @@ if(isset($_POST["add"])){
                     "serviceDate" => $_POST["serviceDate"],
                     "city"=> $_POST["city"],
                     "adress"=> $_POST["adress"],
-                    "squad"=> $_POST["squad"],
                     "users"=> $userID,
                     "cleanlevel" => $_POST["cleanlevel"],
                     "services" => $_POST["services"]
@@ -187,30 +174,6 @@ if(isset($_POST["add"])){
                      echo '<div class="invalid-feedback">'.$error["cleanlevel"].'</div>'; 
                  }  ?>
             </div>
-
-                <div class="form-group col-md-4">
-                    <label for="squad">Squad</label>
-                    <select class="form-control <?php if(isset($error["squad"]))
-                    echo ' is-invalid'; ?>" id="squad" name="squad">
-                        <option value="0">Squads:</option>
-                            <?php
-                            $query = $conn->prepare("SELECT * from squad");
-                            $query->execute(); 
-                            $result = $query->fetchAll(PDO::FETCH_OBJ);
-                        foreach($result as $row):?>
-                            <option 
-                            <?php
-                                 if(isset($_POST["squad"]) && $_POST["squad"]==$row->id){
-                                    echo ' selected="selected" ';
-                                 }
-                            ?>
-                            value="<?php echo $row->id ?>"><?php echo $row->squadNumber ?></option>  
-                            <?php endforeach; ?>
-                    </select>
-                    <?php  if(isset($error["squad"])){
-                     echo '<div class="invalid-feedback">'.$error["squad"].'</div>'; 
-                 }  ?>
-                </div>
                 <div class="form-group col-md-4">
                     <label for="services">Service</label>
                     <select class="form-control <?php if(isset($error["services"]))

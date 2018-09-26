@@ -63,7 +63,7 @@ if(isset($_POST["change"])){
   <?php include_once "../../template/navigation.php"; ?><br>
   <!-- Form for creating new  -->
   <div class="container">
-  <h3>New user</h3><hr>
+  <h3>Rewrite user</h3><hr>
       <div class="row justify-content-md-center"> 
       <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
         <div class="form-group">

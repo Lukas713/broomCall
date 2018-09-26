@@ -97,7 +97,7 @@ if($pages == 0){
         <nav aria-label="pagination">
           <ul class="pagination">
             <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages-1;?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#"><?php echo $pages.'/'.$totalPages;?></a></li>
             <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages+1;?>">Next</a></li>
           </ul>
         </nav>

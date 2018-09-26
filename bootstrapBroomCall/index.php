@@ -30,9 +30,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                <?php
-                                            print_r($_SESSION); 
-                                    ?>
+                               
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -46,8 +44,5 @@
         </div>
         <?php include_once "template/footer.php"; ?>
         <?php include_once "template/scripts.php"; ?>
-        <script>
-           
-        </script>
     </body>
 </html>

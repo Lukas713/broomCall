@@ -9,7 +9,7 @@ if(!isset($_POST["submit"])){
 include_once "config.php";
 
 //if entered username is empty
-if($_POST["email"] == ""){
+if($_POST["email"] == "" || $_POST["password"] == ""){
     header("location: login.php?msg=1");
     exit; 
 }
@@ -41,7 +41,7 @@ if($_POST["email"] == ""){
                     $result->passwrd="";
                     $_SESSION[$appID."user"]= $result->email;
             
-                    header("location: private/index.php");
+                    header("location: index.php");
             }else {
                 header("location: login.php?msg=2");
             }
