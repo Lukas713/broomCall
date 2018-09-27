@@ -35,7 +35,7 @@ try{
     if($userID != null){
     
         $query = $conn->prepare("INSERT INTO agreement(orderDate, city, adress, users, cleanLevel, services)
-                                values (:orderDate, :city, :adress:, users:, :cleanLevel, :services)");
+                                values (:orderDate, :city, :adress:, :users, :cleanLevel, :services)");
         $query->execute(array(
             "orderDate" => date("Y-m-d H:i:s"),
             "city" => $_POST["city"],
