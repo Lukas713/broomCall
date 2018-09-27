@@ -44,7 +44,7 @@ if($pages == 0){
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
   <?php
-   $query =  $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person,  a.serviceDate,
+   $query =  $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person,  a.orderDate, a.serviceDate,
                             concat(a.city, '-',a.adress) as adress, f.squadColor, (d.priceCoeficient * e.price) as total,
                             e.serviceName, d.levelName
                             from agreement a
@@ -53,7 +53,7 @@ if($pages == 0){
                             inner join cleanlevel d on a.cleanlevel = d.id
                             inner join services e on a.services = e.id
                             inner join squad f on a.squad = f.id
-                            where concat(c.firstName, ' ', c.lastName, ' ', a.serviceDate, ' ', concat(a.city, '-',a.adress)) like :condition
+                            where concat(c.firstName, ' ', c.lastName, ' ', a.orderDate, ' ', concat(a.city, '-',a.adress)) like :condition
                             order by total desc
                             limit :pages, 10"
                             ); 
@@ -78,7 +78,8 @@ if($pages == 0){
           <thead>
             <tr>
               <th>Person</th>
-              <th>Date and time</th>
+              <th>Order date</th>
+              <th>Service date</th>
               <th>Adress</th>
               <th>Squad</th>
               <th>Total amount</th>
@@ -89,6 +90,7 @@ if($pages == 0){
             <?php foreach($result as $row): ?>
               <tr>
                 <td><?php echo $row->person; ?></td>
+                <td><?php echo $row->orderDate; ?></td>
                 <td><?php echo $row->serviceDate; ?></td>
                 <td><?php echo $row->adress; ?></td>
                 <td><i class="fas fa-circle" style="color:<?php echo $row->squadColor?>"></i></td>

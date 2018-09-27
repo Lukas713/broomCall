@@ -154,15 +154,16 @@ insert into users (phoneNumber, person) values ('740-298-5119', 9);
 insert into users (phoneNumber, person) values ('806-271-3412', 7);
 insert into users (phoneNumber, person) values ('806-271-3412', 10);
 
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 1, 1, 3, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 2, 1, 3, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-21 18:09:03', 'Honoria', '72394 Sunfield Alley', 2, 3, 2, 1, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-01-12 05:58:41', 'Студеничани', '6999 Superior Plaza', 1, 4, 3, 1, false, true);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-17 13:13:44', 'Qiziltepa Shahri', '174 Lillian Place', 2, 5, 1, 2, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-07 17:16:53', 'Lumby', '59488 Walton Center', 2, 1, 1, 2, false, true);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-08-14 17:27:05', 'Blagaj', '82985 Bluestem Alley', 1, 2, 1, 1, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-02-03 15:31:00', 'Bradford', '78149 Thierer Terrace', 1, 3, 1, 2, true, true);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-05-07 17:26:28', 'Antes', '41326 Lindbergh Street', 2, 4, 1, 2, false, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-07-02 11:56:16', 'Kwangju', '1 Anzinger Way', 2, 4, 3, 2, true, false);
-insert into agreement (serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-10-11 18:58:15', 'Changshan', '177 Menomonie Hill', 1, 3, 1, 2, false, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 1, 1, 3, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 2, 1, 3, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-21 18:09:03', 'Honoria', '72394 Sunfield Alley', 2, 3, 2, 1, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-01-12 05:58:41', 'Студеничани', '6999 Superior Plaza', 1, 4, 3, 1, false, true);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-17 13:13:44', 'Qiziltepa Shahri', '174 Lillian Place', 2, 5, 1, 2, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-07 17:16:53', 'Lumby', '59488 Walton Center', 2, 1, 1, 2, false, true);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-08-14 17:27:05', 'Blagaj', '82985 Bluestem Alley', 1, 2, 1, 1, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-02-03 15:31:00', 'Bradford', '78149 Thierer Terrace', 1, 3, 1, 2, true, true);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-05-07 17:26:28', 'Antes', '41326 Lindbergh Street', 2, 4, 1, 2, false, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-07-02 11:56:16', 'Kwangju', '1 Anzinger Way', 2, 4, 3, 2, true, false);
+insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-10-11 18:58:15', 'Changshan', '177 Menomonie Hill', 1, 3, 1, 2, false, false);
+insert into agreement (orderDate, serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-10-11 18:58:15', '2017-10-11 18:58:15', 'Changshan', '177 Menomonie Hill', 1, 3, 1, 2, false, false);
 

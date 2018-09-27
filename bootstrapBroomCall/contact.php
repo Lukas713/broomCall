@@ -9,18 +9,10 @@
         <?php include_once "template/navigation.php"; ?>
 
         <div class="container">
-            
-               
-                    <h3>Map</h3> <hr>
-                        
-                         <hr>
-                   
-           
+            <h3>Map</h3> <hr> 
         </div>
-        <br>
-        <?php include_once "template/scripts.php"; ?>
 
         <?php include_once "template/footer.php"; ?>
-
+        <?php include_once "template/scripts.php"; ?>
     </body>
 </html>
