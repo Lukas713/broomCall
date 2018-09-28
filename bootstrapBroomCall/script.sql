@@ -1,6 +1,6 @@
 drop database IF EXISTS 1broomcall;
 
-create database 1broomCall;
+create database 1broomCall default character set utf8;
 
 /* c:\xampp\mysql\bin\mysql.exe -ulukas -p123456789 --default_character_set=utf8 < C:\xampp\htdocs\bootstrapBroomCall\script.sql*/
 
