@@ -17,7 +17,7 @@ if(isset($_SESSION[$appID."admin"])){
 
     $email = $_SESSION[$appID."user"]; 
 }
-
+ 
 try{
     $conn->beginTransaction();
 
@@ -33,9 +33,11 @@ try{
     $userID = $query->fetchColumn();
 
     if($userID != null){
-    
+        
         $query = $conn->prepare("INSERT INTO agreement(orderDate, city, adress, users, cleanLevel, services)
-                                values (:orderDate, :city, :adress:, :users, :cleanLevel, :services)");
+                                values (:orderDate, :city, :adress, :users, :cleanLevel, :services)");
+        
+
         $query->execute(array(
             "orderDate" => date("Y-m-d H:i:s"),
             "city" => $_POST["city"],
@@ -44,6 +46,8 @@ try{
             "cleanLevel" => $_POST["cleanLevel"],
             "services" => $_POST["services"]    
         ));  
+
+        $query->execute(); 
 
     }else{
 
@@ -67,9 +71,7 @@ try{
 
     $conn->commit();
     echo "good job"; 
-
 }catch(PDOexeption $e){
     $conn->rollBack();
 }
-
-
+?>
