@@ -3,6 +3,11 @@
 <html>
     <head>
         <?php include_once "template/head.php"; ?>
+        <style>
+            .reg {
+                color: black;
+            }
+        </style>
     </head>
 
     <body>
@@ -23,9 +28,16 @@
                             <input type="password" class="form-control" id="password" placeholder="a" autocomplete="new-password" name="password">
                         </div>
                         <br>
-                            <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" class="btn btn-primary" name="submit" value="Submit">
+                            </div>
+                            <div class="col">
+                                <a class="reg" href="register.php"><h5>Dont have account?</h5></a>
+                            </div>
+                            <hr>
+                        </div>
                     </form>
-
                      <?php
             //check if there is feedback msg
             if(isset($_GET['msg'])){
