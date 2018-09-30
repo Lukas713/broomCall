@@ -98,7 +98,6 @@
                         </div>
                 </div>
             </div>
-        </div>
         <?php include_once "template/footer.php"; ?>
         <?php include_once "template/scripts.php"; ?>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -109,9 +108,10 @@
 
             /*
             *
-            *
-            *
-            *
+            *catch parameters from form
+            *sends to check values
+            *no params
+            *no return
             */
             function catchParameters(){
                 var array = new Array();
@@ -128,12 +128,11 @@
                         url: "checkAgreement.php",
                         data: "city="+array[0]+"&adress="+array[1]+"&cleanLevel="+array[2]+"&services="+array[3],
                         success: function(serverReturn){
-                            console.log(serverReturn); 
+                            alert(serverReturn);
                         }
                     });  
                 });
             }
-
             catchParameters(); 
         </script>
     </body>

@@ -46,6 +46,8 @@ try{
             "cleanLevel" => $_POST["cleanLevel"],
             "services" => $_POST["services"]    
         ));  
+
+
     }else{
 
         $query = $conn->prepare("INSERT INTO users(person) VALUES(:person);");

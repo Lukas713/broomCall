@@ -1,8 +1,7 @@
 <?php 
-
 //if submit button is not sent
 if(!isset($_POST["submit"])){
-    header("location: login.php?msg=1");
+    header('location: login.php?msg=1');
     exit; 
 }
 

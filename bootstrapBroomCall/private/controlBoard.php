@@ -36,7 +36,7 @@
                                     <li><b>Phone: </b> <?php echo $row->phoneNumber; ?></li>
                                     <li><b>Clean level: </b><?php echo $row->levelName.': '.$row->priceCoeficient; ?></li>
                                     <li><b>Service: </b><?php echo $row->serviceName.': '.$row->price; ?> €</li>
-                                    <li><b>Chose a squad:</b></li>
+                                    <li><b>Chose squad:</b></li>
                                     <li>
                                         <div class="input-group mb-3 justify-content-center" id="approveItem">
                                             <?php
