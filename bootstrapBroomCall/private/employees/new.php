@@ -14,10 +14,7 @@ if(isset($_POST["add"])){
    $error["email"] = inputErrorHandling($_POST, "email");
    $error["passwrd"] = inputErrorHandling($_POST, "passwrd");
 
-   if(empty($error["firstName"]) && empty($error["lastName"]) && empty($error["IBAN"]) 
-      && empty($error["phoneNumber"])  && empty($error["email"]) && empty($error["passwrd"])){
-
-            if($_POST["department"] === "0"){	    
+    if($_POST["department"] === "0"){	    
                 $error["department"] = "Please select the department";	        
             }else {	    
                 $query = $conn->prepare("select count(id) from department where id=:id");	       
@@ -26,9 +23,13 @@ if(isset($_POST["add"])){
                 ));	      
                 $result = $query->fetchColumn(); 	       
                 if($result == 0){	       
-                    $erro["department"] = "rofl"; 	           
+                    $error["department"] = "rofl"; 	           
                 }	       
             }
+
+   if(empty($error["firstName"]) && empty($error["lastName"]) && empty($error["IBAN"]) 
+      && empty($error["phoneNumber"])  && empty($error["email"]) && empty($error["passwrd"])
+      && empty($error["department"])){
 
             try{
                 $hash = password_hash($_POST["passwrd"],PASSWORD_BCRYPT,array("cost"=>12));
