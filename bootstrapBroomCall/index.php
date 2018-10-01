@@ -17,6 +17,7 @@ include_once "checkAgreement.php";
     <body>
         <?php include_once "template/navigation.php"; ?>
         <br> <hr>
+        <?php print_r($_SESSION);   ?>
         <div class="grid-container">
             <div class="row justify-content-center">
                 <div class="col col-md-3">

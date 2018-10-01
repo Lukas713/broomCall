@@ -64,13 +64,12 @@ if(isset($_POST["submit"])){
             $query->bindValue(":email", $email, PDO::PARAM_STR);
             $query->execute();
             $personID = $query->fetchColumn();
-        
+            
             $query = $conn->prepare("SELECT id from users where person=:person");
             $query->execute(array(
                 "person" => $personID
             ));
-            $userID = $query->fetchColumn();
-                
+            $userID = $query->fetchColumn();   
             $query = $conn->prepare("INSERT INTO agreement(orderDate, city, adress, users, cleanLevel, services)
                                     values (:orderDate, :city, :adress, :users, :cleanLevel, :services)");
             
@@ -81,11 +80,10 @@ if(isset($_POST["submit"])){
                 "users" => $userID,
                 "cleanLevel" => $_POST["cleanLevel"],
                 "services" => $_POST["services"]    
-            ));  
-        
+            ));
+
             $conn->commit();
-            echo "good job"; 
-        }catch(PDOexeption $e){
+          }catch(PDOexeption $e){
             $conn->rollBack();
         }
     }
