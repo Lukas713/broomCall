@@ -153,6 +153,9 @@ insert into users (phoneNumber, person) values ('351-678-7276', 8);
 insert into users (phoneNumber, person) values ('740-298-5119', 9);
 insert into users (phoneNumber, person) values ('806-271-3412', 7);
 insert into users (phoneNumber, person) values ('806-271-3412', 10);
+insert into users (person) values (11);
+insert into users (person) values (12);
+insert into users (person) values (13);
 
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 1, 1, 3, true, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 2, 1, 3, true, false);

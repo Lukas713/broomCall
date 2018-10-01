@@ -19,10 +19,10 @@ function menuItem($pathAPP, $currentPage, $label){
 
 /**
  * 
- * 2 params
- * $_POST array and KEY value
- * checks if input is ok
- * no return value 
+ * 2 params.
+ * $_POST array and KEY value.
+ * checks if input is ok.
+ * no return value. 
  */
 function inputErrorHandling(array $post, $key){
 

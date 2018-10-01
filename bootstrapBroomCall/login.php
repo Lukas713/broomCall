@@ -1,4 +1,8 @@
-<?php include_once "config.php"; ?>
+<?php 
+include_once "config.php"; 
+include_once "checkRegistration.php"; 
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -60,7 +64,7 @@
                 <div>
             </div>
         </div>
-        <?php include_once "registration.php";  ?>
+        <?php include_once "registrationModal.php";  ?>
         <?php include_once "template/footer.php"; ?>
         <?php include_once "template/scripts.php"; ?>
         <script>
@@ -72,34 +76,6 @@
                     x.type = "password";
                 }
             }
-        </script>
-        <script>
-            function catchRegistration(){
-                var array = new Array(); 
-
-                $("#submitRegistration").click(function(){
-                    
-                    array.push($("#registerFirstName").val());   
-                    array.push($("#registerLastName").val()); 
-                    array.push($("#registerEmail").val());
-                    array.push($("#registerPassword").val());
-                    array.push($("#registerPhoneNumber").val());
-                    array.push($("#submitRegistration").val());
-
-                    $.ajax({
-                        type: "POST",
-                        url: "checkRegistration.php",
-                        data: "firstName="+array[0]+"&lastName="+array[1]+
-                              "&email="+array[2]+"&password="+array[3]+
-                              "&phoneNumber="+array[4]+"&submit="+array[5],
-                        success: function(serverReturn){
-                               console.log(serverReturn.item(0));
-                        }
-                    });
-                
-                });
-            }
-            catchRegistration(); 
         </script>
     </body>
 </html>
