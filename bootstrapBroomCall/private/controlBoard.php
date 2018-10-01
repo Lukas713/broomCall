@@ -67,7 +67,6 @@
         <?php include_once "../template/footer.php"; ?>
 
         <script>
-
             $(".squadColor").click(function(){
                 var o = $(this); 
                 var x = $(this).attr('id');
@@ -79,16 +78,12 @@
                     data: "squadNumber=" + x[0] + "& agreementID=" + x[1], 
                     success: function(serverReturn){
                         if(serverReturn === "good job"){
-                        
                             o.parent().parent().parent().parent().parent().remove(); 
                         }
                     }
                 });
 
             });
-
-            
-
         </script>
     </body>
 </html>
