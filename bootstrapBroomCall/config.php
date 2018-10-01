@@ -1,5 +1,6 @@
 <?php
-session_start(); 
+session_start();
+print_r($_SESSION);  
 
 include_once "functions.php";
 

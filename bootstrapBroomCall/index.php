@@ -1,11 +1,6 @@
 <?php 
-    include_once "config.php"; 
-
-    if(isset($_POST["submit"])){
-
-        $error["city"] =  inputErrorHandling($_POST, "city");
-
-    }
+include_once "config.php"; 
+include_once "checkAgreement.php"; 
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,19 +40,22 @@
                                 <h5>You have to login first</h5><br>
                                 <a href="login.php" class="btn btn-primary popover-test" data-content="Popover body content is set in this attribute.">Login</a>
                                 <?php else:  ?>
-                                    <form method="post"> 
-                                        <div class="form-group">
-                                            <label for="city">City</label>
-                                            <input type="text" class="form-control" id="city" aria-describedby="emailHelp" name="city">
+                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" id="agreementForm"> 
+                                        <div class="form-group">	
+                                            <label for="city">City</label>	
+                                            <input type="text" id="city" name="city" <?php echo empty($error["city"]) ?  'class="form-control required"' : ' class="form-control is-invalid" ' ;?>>
+                                            <?php echo empty($error["city"])? "" : ' <div class="invalid-feedback"> '.$error["city"].'</div>' ;?>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="adress">Adress</label>
-                                            <input type="text" class="form-control" id="adress" name="adress">
+                                        <div class="form-group">	
+                                            <label for="adress">Adress</label>	
+                                            <input type="text" id="adress" name="adress" <?php echo empty($error["adress"]) ?  'class="form-control required"' : ' class="form-control is-invalid" ' ;?>>
+                                            <?php echo empty($error["adress"])? "" : ' <div class="invalid-feedback"> '.$error["adress"].'</div>' ;?>
                                         </div>
                                         <div class="form-group">
                                                 <label for="service">Service</label>
                                                 <a class="helper" href="#" title="Pick one service, how many rooms do we need to clean."><i class="fas fa-question-circle"></i></a>
-                                                <select class="form-control" id="services" name="services">	                       
+                                                <select class="form-control <?php if(isset($error["services"]))	                        
+                                                    echo ' is-invalid'; ?>" id="services" name="services">	                       
                                                     <option value="0">pick service</option>	                       
                                                     <?php	                         
                                                     $query = $conn->prepare("SELECT a.id, a.serviceName, a.price
@@ -68,13 +66,17 @@
                                                     <option value=<?php echo $row->id;?>><?php echo $row->serviceName." ".$row->price." €";?></option>  	            
                                                     <?php endforeach; ?>	                         
                                                 </select>
+                                                <?php  if(isset($error["services"])){                        
+                                                    echo '<div class="invalid-feedback">'.$error["services"].'</div>';} 	                               
+                                                ?>	
                                         </div>
                                         <div class="form-group">
                                             <label for="cleanLevel">Clean level</label>	
                                             <a class="helper" href="#" title="Clean level tells us how thoroughly your service shoud be.
                                                                              Notice that every level have different price coeficient.
                                                                              (ex. 100€ * 1.45 = 145€)"><i class="fas fa-question-circle"></i></a>                        
-                                                <select class="form-control" id="cleanLevel" name="cleanLevel">	                       
+                                                <select class="form-control <?php if(isset($error["cleanLevel"]))	                        
+                                                    echo ' is-invalid'; ?>" id="cleanLevel" name="cleanLevel">	                       
                                                     <option value="0">pick clean level</option>	                       
                                                     <?php	                         
                                                     $query = $conn->prepare("SELECT a.id, a.levelName, a.priceCoeficient
@@ -85,8 +87,11 @@
                                                     <option value=<?php echo $row->id;?>><?php echo $row->levelName." ".$row->priceCoeficient;?></option>  	            
                                                     <?php endforeach; ?>	                         
                                                 </select>
+                                                <?php  if(isset($error["cleanLevel"])){                        
+                                                    echo '<div class="invalid-feedback">'.$error["cleanLevel"].'</div>';} 	                               
+                                                ?>
                                             </div>
-                                        <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Submit" data-dismiss="modal">
+                                            <input type="submit" class="btn btn-primary" value="Submit" name="submit">
                                     </form>
                                 <?php endif; ?>
                                 </div>
@@ -106,34 +111,6 @@
                 $(document).tooltip();
             } );
 
-            /*
-            *
-            *catch parameters from form
-            *sends to check values
-            *no params
-            *no return
-            */
-            function catchParameters(){
-                var array = new Array();
-
-                $("#submit").click(function(){
-
-                     array.push($("#city").val());
-                     array.push($("#adress").val());
-                     array.push($("#cleanLevel").val());
-                     array.push($("#services").val());    
-
-                    $.ajax({
-                        type: "POST",
-                        url: "checkAgreement.php",
-                        data: "city="+array[0]+"&adress="+array[1]+"&cleanLevel="+array[2]+"&services="+array[3],
-                        success: function(serverReturn){
-                            alert(serverReturn);
-                        }
-                    });  
-                });
-            }
-            catchParameters(); 
         </script>
     </body>
 </html>

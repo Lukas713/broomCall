@@ -1,7 +1,4 @@
-<?php include_once "config.php"; 
-print_r($_POST);
-echo "good job"; 
-?>
+<?php include_once "config.php"; ?>
 <!DOCTYPE html>
 <html>
     <head>

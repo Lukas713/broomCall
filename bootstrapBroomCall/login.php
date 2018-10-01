@@ -93,7 +93,7 @@
                               "&email="+array[2]+"&password="+array[3]+
                               "&phoneNumber="+array[4]+"&submit="+array[5],
                         success: function(serverReturn){
-                                console.log(serverReturn);    
+                               console.log(serverReturn.item(0));
                         }
                     });
                 

@@ -11,19 +11,19 @@
         <form method="post">
             <div class="form-group">
                 <label for="registerFirstName">First name</label>
-                <input type="text" class="form-control" id="registerFirstName">
+                <input type="text" class="form-control registerInput" id="registerFirstName">
             </div>
             <div class="form-group">
                 <label for="registerLastName">Last name</label>
-                <input type="text" class="form-control" id="registerLastName">
+                <input type="text" class="form-control registerInput" id="registerLastName">
             </div>
             <div class="form-group">
                 <label for="registerEmail">Email</label>
-                <input type="text" class="form-control" id="registerEmail">
+                <input type="text" class="form-control registerInput" id="registerEmail">
             </div>
             <div class="form-group">
                 <label for="registerPassword">Password</label>
-                <input type="password" class="form-control" id="registerPassword" autocomplete="new-password">
+                <input type="password" class="form-control registerInput" id="registerPassword" autocomplete="new-password">
             </div>
             <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input" id="showPassword" onclick="displayPassword()">
@@ -31,8 +31,9 @@
             </div>
             <div class="form-group">
                 <label for="registerPhoneNumber">Phone number</label>
-                <input type="text" class="form-control" id="registerPhoneNumber" autocomplete="new-password">
+                <input type="text" class="form-control registerInput" id="registerPhoneNumber" autocomplete="new-password">
             </div>
+            <p id="warning"></p>
            <button type="button" class="btn btn-primary" id="submitRegistration" value="submit">Submit</button>
         </form>
       </div>

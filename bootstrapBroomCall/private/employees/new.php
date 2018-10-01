@@ -66,7 +66,7 @@ if(isset($_POST["add"])){
             }catch(PDOexeption $e){
                 $conn->rollBack();
             }
-            }
+    }
 
 }
 ?>
