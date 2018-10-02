@@ -41,7 +41,7 @@ include_once "checkAgreement.php";
                                 <h5>You have to login first</h5><br>
                                 <a href="login.php" class="btn btn-primary popover-test" data-content="Popover body content is set in this attribute.">Login</a>
                                 <?php else:  ?>
-                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" id="agreementForm"> 
+                                    <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" id="agreementForm" enctype="multipart/form-data"> 
                                         <div class="form-group">	
                                             <label for="city">City</label>	
                                             <input type="text" id="city" name="city" <?php echo empty($error["city"]) ?  'class="form-control required"' : ' class="form-control is-invalid" ' ;?>>
@@ -92,6 +92,11 @@ include_once "checkAgreement.php";
                                                     echo '<div class="invalid-feedback">'.$error["cleanLevel"].'</div>';} 	                               
                                                 ?>
                                             </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="image">Image</label>
+                                            <input accept="image/jpg" autocomplete="off" type="file" name="image" id="image">            
+                                        </div>
                                             <input type="submit" class="btn btn-primary" value="Submit" name="submit">
                                     </form>
                                 <?php endif; ?>

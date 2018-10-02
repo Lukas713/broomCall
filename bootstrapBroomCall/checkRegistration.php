@@ -33,12 +33,13 @@ if(empty($error["registerFirstName"]) && empty($error["registerLastName"])
         try{
             $conn->beginTransaction();
 
-            $query = $conn->prepare("INSERT INTO person(firstName, lastName, email, passwrd)
-                                    VALUES (:firstName, :lastName, :email, :passwrd)"); 
+            $query = $conn->prepare("INSERT INTO person(firstName, lastName, email, passwrd, roles)
+                                    VALUES (:firstName, :lastName, :email, :passwrd, :roles)"); 
             $query->bindParam(":firstName", $_POST["registerFirstName"], PDO::PARAM_STR);
             $query->bindParam(":lastName", $_POST["registerLastName"], PDO::PARAM_STR);
             $query->bindParam(":email", $_POST["registerEmail"], PDO::PARAM_STR);
             $query->bindValue(":passwrd", $hash, PDO::PARAM_STR);
+            $query->bindValue(":roles", 3, PDO::PARAM_INT); 
             $personID = $conn->lastInsertId();
 
             $query->execute();

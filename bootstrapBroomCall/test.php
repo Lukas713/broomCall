@@ -1,15 +1,16 @@
 <?php
-
-
-$hash = password_hash("a",PASSWORD_BCRYPT,array("cost"=>12));
-
-if($hash==password_verify("a",$hash)){
-    echo "OK";
+if(isset($_POST["submit"])){
+    print_r($_FILES); 
 }
 
-echo "<hr>"; 
 
-echo date("Y-m-d H:i:s");
+?>
 
-
-echo "<hr>";
+<form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>" enctype="multipart/form-data">
+          <div class="form-group">	
+             <label for="image"></label>
+             <input accept="image" type="file" name="imagesss" type="file">
+          </div>
+    
+        <input type="submit" class="btn btn-primary" name="submit" value="submit">
+</form>

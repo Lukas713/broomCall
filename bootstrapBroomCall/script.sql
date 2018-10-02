@@ -20,7 +20,7 @@ create table person
     lastName varchar(50) not null,
     email varchar(50) not null,
     passwrd varchar(255) not null,
-    roles int
+    roles int not null
   );
 
 create table roles
@@ -157,7 +157,6 @@ insert into users (person) values (11);
 insert into users (person) values (12);
 insert into users (person) values (13);
 
-insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 1, 1, 3, true, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-03-03 04:38:01', 'Loa Janan', '3011 Atwood Trail', 1, 2, 1, 3, true, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-11-21 18:09:03', 'Honoria', '72394 Sunfield Alley', 2, 3, 2, 1, true, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-01-12 05:58:41', 'Студеничани', '6999 Superior Plaza', 1, 4, 3, 1, false, true);
@@ -168,5 +167,5 @@ insert into agreement (orderDate, city, adress, squad, users, cleanLevel, servic
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-05-07 17:26:28', 'Antes', '41326 Lindbergh Street', 2, 4, 1, 2, false, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2018-07-02 11:56:16', 'Kwangju', '1 Anzinger Way', 2, 4, 3, 2, true, false);
 insert into agreement (orderDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-10-11 18:58:15', 'Changshan', '177 Menomonie Hill', 1, 3, 1, 2, false, false);
-insert into agreement (orderDate, serviceDate, city, adress, squad, users, cleanLevel, services, approved, checked) values ('2017-10-11 18:58:15', '2017-10-11 18:58:15', 'Changshan', '177 Menomonie Hill', 1, 3, 1, 2, false, false);
+
 

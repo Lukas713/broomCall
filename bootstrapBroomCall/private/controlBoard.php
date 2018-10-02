@@ -11,7 +11,7 @@
         <div class="container">
             <h3>Pending agreements</h3><hr>
                 <?php
-                $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.orderDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
+                $query = $conn->prepare("SELECT a.id, c.id as personId, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.orderDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
                                             from agreement a
                                             inner join users b on a.users = b.id
                                             inner join person c on b.person = c.id
@@ -26,7 +26,7 @@
                     <div class="card-deck mb-4 text-center">
                             <div class="card md-4 shadow-sm">
                                 <div class="card-header">
-                                    <h4 class="my-0 font-weight-normal"><?php echo $row->person;?></h4>
+                                    <h4 class="my-0 font-weight-normal"><?php echo $row->person;?> <i class="fas fa-images"></i></h4>
                                 </div>
                                 <div class="card-body">
                                     <h1 class="card-title pricing-card-title"><?php echo $row->total;?> €</h1>
