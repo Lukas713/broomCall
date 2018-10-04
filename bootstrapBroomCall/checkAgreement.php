@@ -88,8 +88,7 @@ if(isset($_POST["submit"])){
 
             if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){
                 move_uploaded_file($_FILES["image"]["tmp_name"], 'img/agreementImages/'.$agreementId.'.jpg');
-            }
-            print_r($_FILES); 
+            } 
             $conn->commit(); 
           }catch(PDOexeption $e){
             $conn->rollBack();

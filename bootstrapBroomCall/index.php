@@ -92,9 +92,8 @@ include_once "checkAgreement.php";
                                                     echo '<div class="invalid-feedback">'.$error["cleanLevel"].'</div>';} 	                               
                                                 ?>
                                             </div>
-                                        
                                         <div class="form-group">
-                                            <label for="image">Image</label>
+                                            <label for="image">Image</label> <a class="helper" href="#" title="(dont have to) Upload image of your object where squad will do the cleaning service."><i class="fas fa-question-circle"></i></a><br>
                                             <input accept="image/jpg" autocomplete="off" type="file" name="image" id="image">            
                                         </div>
                                             <input type="submit" class="btn btn-primary" value="Submit" name="submit">
@@ -116,7 +115,6 @@ include_once "checkAgreement.php";
             $(function() {
                 $(document).tooltip();
             } );
-
         </script>
     </body>
 </html>
