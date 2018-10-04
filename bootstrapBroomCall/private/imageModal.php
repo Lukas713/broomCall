@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="<?php echo '../img/agreementImages/'.$row->id.'.jpg'; ?>" width="100%" height="auto" alt="image">
+        <img id="zoom_08" src='<?php echo '../img/agreementImages/'.$row->id.'.jpg'; ?>'  width="100%" height="auto" alt="image" data-zoom-image="<?php echo '../img/agreementImages/'.$row->id.'.jpg'; ?>"/>
       </div>
     </div>
   </div>

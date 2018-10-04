@@ -79,6 +79,7 @@
         <?php include_once "../template/footer.php"; ?>
         <?php include_once "../template/scripts.php"; ?>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="../js/jquery.elevatezoom.js"></script>
         <script>
             $(".squadColor").click(function(){
                 var o = $(this); 
@@ -97,11 +98,17 @@
                 });
 
             });
-        </script>
-        <script>
+
             $(function() {
                 $(document).tooltip();
             } );
-        </script>
+
+            $("#zoom_08").elevateZoom({
+                zoomWindowFadeIn: 500,
+                zoomWindowFadeOut: 500,
+                lensFadeIn: 500,
+                lensFadeOut: 500
+            });
+    </script>
     </body>
 </html>
