@@ -59,9 +59,7 @@ if(!isset($_SESSION[$appID."admin"])){
           </tbody>
       </table>
 </div>
-    <?php include_once "../../template/scripts.php"; ?>
-
     <?php include_once "../../template/footer.php"; ?>
-  
+    <?php include_once "../../template/scripts.php"; ?>                      
   </body>
 </html>
