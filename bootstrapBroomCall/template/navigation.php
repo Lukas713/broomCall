@@ -24,7 +24,7 @@
             <a class="dropdown-item" href="<?php echo $pathAPP.'private/employees/index.php'?>">Employees</a>
             <a class="dropdown-item" href="<?php echo $pathAPP.'private/users/index.php'?>">Users</a>
             <a class="dropdown-item" href="<?php echo $pathAPP.'private/agreements/index.php'?>">Agreements</a>
-            <a class="dropdown-item" href="<?php echo $pathAPP.'private/statistics.php'?>">Statistics</a>
+            <a class="dropdown-item" href="<?php echo $pathAPP.'private/statistics/statistics.php'?>">Statistics</a>
           </div>
         </li>
         <?php 
