@@ -45,9 +45,14 @@ if(!isset($_SESSION[$appID."admin"])){
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
     <script>
+    /*
+    *
+    *takig id from chart options
+    *sends data to checkChartId.php
+    *calls createHighChart(data)
+    *no ret val
+     */
         function whichChartParameters() {
-            
-            
 
             $(".chartID").click(function(){
 
@@ -68,10 +73,13 @@ if(!isset($_SESSION[$appID."admin"])){
 
         whichChartParameters();
 
+        /*
+         *takes json from server
+         *creates highshart (plugin)
+         *no ret value
+         */
+        function createHighChart(serverReturn){
 
-          function createHighChart(serverReturn){
-
-              console.log(serverReturn);
             Highcharts.chart('container', {
                 chart: {
                     plotBackgroundColor: null,
@@ -106,7 +114,7 @@ if(!isset($_SESSION[$appID."admin"])){
             });
 
 
-          }   
+        }   
         </script>
     </body>
 </html>
