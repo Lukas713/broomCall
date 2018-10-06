@@ -62,11 +62,11 @@ if(!isset($_SESSION[$appID."admin"])){
                     name: 'Clean levels',
                     colorByPoint: true,
                     data: <?php
-                        $query = $conn->prepare("select b.levelName as name, count(a.cleanLevel) as y, sum(a.cleanLevel),
-                                                (sum(a.cleanLevel) / (select sum(a.cleanLevel) from agreement a))*100 as x 
-                                                from cleanlevel b 
-                                                inner join agreement a on a.cleanLevel = b.id
-                                                group by name
+                        $query = $conn->prepare("select b.cleanLevel as o, sum(b.cleanLevel) as y, 
+                                                    ((sum(b.cleanLevel)/(select sum(cleanlevel) from agreement))*100) as x
+                                                    from cleanLevel a 
+                                                    inner join agreement b on a.id = b.cleanLevel
+                                                    group by o
                                                 ");
                         $query->execute();
                         $result = $query->fetchAll(PDO::FETCH_OBJ);
