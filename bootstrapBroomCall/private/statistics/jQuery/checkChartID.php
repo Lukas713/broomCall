@@ -8,7 +8,7 @@ if(isset($_SESSION["admin"]) || !isset($_POST["chartID"])){
          
 if($_POST["chartID"] == 1){
 
-    $query = $conn->prepare("select b.levelName as o, b.levelName as z, (a.cleanLevel) as y,
+    $query = $conn->prepare("select b.levelName as o, b.levelName as z, count(a.cleanLevel) as y,
                             (count(a.cleanLevel)/(select count(cleanlevel) from agreement)) * 100 as x,
                             (select count(a.cleanLevel) from agreement a) as t
                             from agreement a
