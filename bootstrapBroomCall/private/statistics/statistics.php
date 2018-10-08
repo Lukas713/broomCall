@@ -31,11 +31,14 @@ if(!isset($_SESSION[$appID."admin"])){
             <div class="row justify-content-center">
 
                 <div class="col col-md-6">
+
                     <div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
 
                 </div>
                 <div class="col col-md-6">
-                <div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
+
+                    <div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
+                
                 </div>
             </div><hr>
         </div>
@@ -60,7 +63,8 @@ if(!isset($_SESSION[$appID."admin"])){
     *calls createHighChart(data)
     *no ret val
      */
-        function whichChartParameters() {
+        function whichChartParameters(){
+
 
             $(".chartID").click(function(){
 
@@ -72,11 +76,22 @@ if(!isset($_SESSION[$appID."admin"])){
                     data: "chartID="+chartID.attr("id").split("_")[1],
                     success: function(serverReturn){ 
                         createHighChart(serverReturn);
+                        
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "jQuery/checkLineChart.php",
+                    data: "chartID="+chartID.attr("id").split("_")[1],
+                    success: function(serverReturn){ 
                         createLineChart(serverReturn);
                     }
                 });
-            });
-        }
+        });
+                
+        
+    }
 
         whichChartParameters();
 
@@ -87,8 +102,7 @@ if(!isset($_SESSION[$appID."admin"])){
          */
         function createHighChart(serverReturn){
 
-        var  serverReturn = JSON.parse(serverReturn);
-        console.log(serverReturn);
+            var  serverReturn = JSON.parse(serverReturn);
         
             Highcharts.chart('container1', {
                 chart: {
@@ -123,6 +137,73 @@ if(!isset($_SESSION[$appID."admin"])){
             });
 
         }   
+
+         function createLineChart(serverReturn){
+
+            var  serverReturn = JSON.parse(serverReturn);
+            console.log(serverReturn);
+
+            Highcharts.chart('container2', {
+
+                chart: {
+                    scrollablePlotArea: {
+                        minWidth: 700
+                    }
+                },
+
+                title: {
+                    text: 'Agreements over the last year'
+                },
+
+                subtitle: {
+                    text: 'Source: BroomCall'
+                },
+
+                data: {
+                    formatter: function(){
+
+                        return moment(new Date(this.value)).format('YYYY-MM-DDT hh:mm:ss'); // example for moment.js date library
+
+                        //return this.value;
+                    },
+                },
+
+                xAxis: {
+                    min:Date.UTC(2018, 0, 0),
+                    max:Date.UTC(2018, 11, 1),
+                    allowDecimals: false,
+                    type           : 'datetime',
+                    tickInterval   : 24 * 3600 * 1000*30, //one day
+                    labels         : {
+                        rotation : 0
+                    },
+                },
+
+                yAxis: { 
+                    title: {
+                        text: 'Total spent  ( € )'
+                        },          
+                    min: 100,
+                    max:600
+                },
+
+                legend: {
+                    align: 'left',
+                    verticalAlign: 'top',
+                    borderWidth: 0
+                },
+
+                tooltip: {
+                    shared: true,
+                    crosshairs: true
+                },
+
+                series: [{
+                    data: serverReturn,
+                }]
+            });
+        }
+
         
         </script>
     </body>
