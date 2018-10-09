@@ -42,25 +42,33 @@
                                         <li><b>Phone: </b> <?php echo $row->phoneNumber; ?></li>
                                         <li><b>Clean level: </b><?php echo $row->levelName.': '.$row->priceCoeficient; ?></li>
                                         <li><b>Service: </b><?php echo $row->serviceName.': '.$row->price; ?> €</li>
-                                        <li><b>Chose squad:</b></li>
+                                        <?php if(isset($_SESSION[$appID."operater"])): ?>
+                                        <hr>
                                         <li>
-                                            <div class="input-group mb-3 justify-content-center" id="approveItem">
-                                                <?php
-                                                
-                                                    $query = $conn->prepare("select * from squad");
+                                            <div class="input-group mb-3 justify-content-center" id="changeCheck">
+                                                <button class="btn btn-success" title="Press for checked agreement"><i class="fas fa-check-circle"></i></button>
+                                            </div>
+                                        </li>
+                                        <?php elseif(isset($_SESSION[$appID."admin"])): ?>
+                                        
+                                        <?php
+                                        $query = $conn->prepare("select * from squad");
                                                     $query->execute();
-                                                    $result = $query->fetchAll(PDO::FETCH_OBJ); 
+                                                    $result = $query->fetchAll(PDO::FETCH_OBJ);
+                                                    echo '<li><b>Chose the squad:</b></li>'; 
                                                     foreach($result as $li){  
                                                         
                                                         if($li->squadNumber == 4){
                                                             echo "";
                                                         }else {
                                                             echo '<input type="button" class="btn btn-secondary squadColor" style=background-color:'.$li->squadColor.' value='.$li->squadNumber.' id='.$li->squadNumber.'-'.$row->id.'>';
+                                                            
                                                         }
                                                     } 
-                                                ?>
-                                            </div>
-                                        </li>
+                                                    echo '<hr>';
+                                                endif;
+                                        ?>
+                                        
                                         <?php if(file_exists('../img/agreementImages/' . $row->id . '.jpg')):?>
                                         <li>
                                         <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-2x fa-image"></i></button>
