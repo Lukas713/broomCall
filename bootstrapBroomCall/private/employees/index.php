@@ -37,21 +37,14 @@ if($pages == 0){
   <?php include_once "../../template/navigation.php"; ?><br>
 
     <!-- prepare sql query, execute, fetch as object and display the result  -->
-  <?php
-   $query =  $conn->prepare("SELECT b.id, concat(a.firstName, ' ', a.lastName) as person, a.email, b.phoneNumber, c.depName, d.squadColor, b.squad
-                            from person a 
-                            inner join employees b on a.id=b.person
-                            left outer join department c on c.id=b.department
-                            left outer join squad d on d.id=b.squad limit :pages,10"
-                          ); 
-   $query->bindValue("pages", ($pages * 10) - 10, PDO::PARAM_INT);
-   $query->execute(); 
-   $result = $query->fetchAll(PDO::FETCH_OBJ);  
-  ?>
+
 
  <div class="container">
     <h3>Employees</h3><hr>
     <a href="new.php" class="btn btn-success mb-3">Create new</a>
+
+    <input type="text" class="form-control" id="condition"><br>
+<a href="#" class="btn btn-primary btn-md btn-block" id="search">Search</a>
 
     <table class="table table-striped">
           <thead>
@@ -64,28 +57,8 @@ if($pages == 0){
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            <?php foreach($result as $row): ?>
-              <tr>
-                <td><?php echo $row->person; ?></td>
-                <td><?php echo $row->email; ?></td>
-                <td><?php echo $row->phoneNumber; ?></td>
-                <td><?php echo $row->depName; ?></td>
-                   <?php if($row->squad === null): ?>
-                <td></td> 
-                        <?php else:?>
-                <td><?php echo ($row->squad == 4) ? '<i class="far fa-circle"' : '<i class="fas fa-circle ?>';?><i class="fas fa-circle" style="color:<?php echo $row->squadColor?>"></i></td>
-                        <?php endif; ?>
-                <td>
-                  <a onclick="return confirm('Are you sure?')" href="delete.php?id=<?php echo $row->id; ?>">
-                    <i class="fas fa-2x fa-trash-alt text-danger"></i>
-                  </a>  
-                  <a href="rewrite.php?id=<?php echo $row->id; ?>">
-                    <i class="fas fa-2x text-dark fa-edit"></i>
-                  </a>
-                </td>
-              </tr>
-          <?php endforeach; ?>
+          <tbody id="data">
+            
           </tbody>
       </table>
       <div class="row justify-content-center">
@@ -96,16 +69,97 @@ if($pages == 0){
         ?>
         <nav aria-label="pagination">
           <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages-1;?>">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#"><?php echo $pages.'/'.$totalPages;?></a></li>
-            <li class="page-item"><a class="page-link" href="index.php?pages=<?php echo $pages+1;?>">Next</a></li>
+            <li class="page-item"><a class="page-link" href="" id="previous">Previous</a></li>
+            <li class="page-item"><a class="page-link" href=""> <span id="current">da</span>/<span id="total"></span></a></li>
+            <li class="page-item"><a class="page-link" href="" id="next">Next</a></li>
           </ul>
         </nav>
       </div>
 </div>
-    <?php include_once "../../template/scripts.php"; ?>
-
     <?php include_once "../../template/footer.php"; ?>
+    <?php include_once "../../template/scripts.php"; ?>
+    <script>
+      var page = 1 ;
+
+$("#current").html(page); 
+
+$("#next").click(function(){
+  page ++ ;
+  if(page > parseInt($("#total").html())){
+
+    page = parseInt($("#total").html());
+  }
+  fetchData(page, $("#condition").val());
+  return false; 
+});
+
+$("#previous").click(function(){
+  page --;
+  if(page == 0){
+    page = 1;
+  }
+  fetchData(page, $("#condition").val()); 
+  return false;
+});
+
+$("#search").click(function(){
+  page = 1;
+
+  fetchData(page, $("#condition").val()); 
+  return false;
+});
+
+function fetchData(page, condition){
+  $.ajax({
+    type: "POST",
+    url: "jQuery/findEmployee.php",
+    data: "pages=" + page + "&condition=" + condition,
+    success: function(serverReturn){
+      var allWeNeed = JSON.parse(serverReturn);
+      $("#total").html(allWeNeed.totalPages);
+
+      var tbody = document.getElementById("data");
+      while(tbody.firstChild){
+        tbody.removeChild(tbody.firstChild);
+      }
+      $("#current").html(allWeNeed.totalPages);
+
+      $.each(allWeNeed.data, function(key, value){
+        var tr = document.createElement("tr"); 
+
+        tr.appendChild(createTableData(value.firstName));
+        tr.appendChild(createTableData(value.lastName));
+        tr.appendChild(createTableData(value.email));
+        tr.appendChild(createTableData(value.phoneNumber));
+        tr.appendChild(createTableData(value.squad));
+        
+
+        var td = document.createElement("td");
+        var a = document.createElement("a");
+        var i = document.createElement("i");
+
+        a.setAttribute("href", "rewrite.php?id=" + value.id);
+        i.setAttribute("class", "fas fa-2x text-dark fa-edit");
+        a.appendChild(i);
+        td.appendChild(a);
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+      })
+    }
+
+  });
+}
+
+fetchData(page, "");
+  
+  function createTableData(tekst){
+    var td = document.createElement("td");
+    var tekst = document.createTextNode(tekst==null ? "" : tekst);
+
+    td.appendChild(tekst);
+    return td;
+  }
+    </script>
   
   </body>
 </html>

@@ -16,7 +16,7 @@ if(!isset($_SESSION[$appID."admin"])){
         <br><hr>
         
         <div class="container">
-            <h3>Usage and progress chart</h3><hr>
+        <h3>Usage and progress chart</h3><hr>
             <div class="dropdown show">
                 <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menu
@@ -35,10 +35,11 @@ if(!isset($_SESSION[$appID."admin"])){
                     <div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
 
                 </div>
+
                 <div class="col col-md-6">
 
                     <div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
-                
+
                 </div>
             </div><hr>
         </div>
@@ -65,7 +66,6 @@ if(!isset($_SESSION[$appID."admin"])){
      */
         function whichChartParameters(){
 
-
             $(".chartID").click(function(){
 
                 chartID = $(this);
@@ -79,21 +79,26 @@ if(!isset($_SESSION[$appID."admin"])){
                         
                     }
                 });
+        });  
+    }
+
+    whichChartParameters();
+
+        function lineChart(){
+            $(document).ready(function(){
 
                 $.ajax({
                     type: "POST",
                     url: "jQuery/checkLineChart.php",
-                    data: "chartID="+chartID.attr("id").split("_")[1],
                     success: function(serverReturn){ 
                         createLineChart(serverReturn);
                     }
                 });
-        });
-                
-        
-    }
+            });
+        }
 
-        whichChartParameters();
+        lineChart(); 
+    
 
         /*
          *takes json from server
@@ -112,8 +117,9 @@ if(!isset($_SESSION[$appID."admin"])){
                     type: 'pie'
                 },
                 title: {
-                    text: 'Total: ' + serverReturn[1].t
+                    text: undefined
                 },
+
                 tooltip: {
                     pointFormat: '<b>{point.z}:</b> {point.y} per unit'
                 },
@@ -141,70 +147,70 @@ if(!isset($_SESSION[$appID."admin"])){
          function createLineChart(serverReturn){
 
             var  serverReturn = JSON.parse(serverReturn);
-            console.log(serverReturn);
+
+            var processedJson = new Array();
+            for (i = 0; i < serverReturn.length; i++){
+                processedJson.push([serverReturn[i].o, serverReturn[i].t]);
+            }
+            console.log(processedJson);
 
 
             Highcharts.chart('container2', {
 
-                chart: {
-                    scrollablePlotArea: {
-                        minWidth: 700
-                    }
-                },
-
                 title: {
-                    text: 'Agreements over the last year'
+                    text: 'Solar Employment Growth by Sector, 2010-2016'
                 },
 
                 subtitle: {
-                    text: 'Source: BroomCall'
+                    text: 'Source: thesolarfoundation.com'
                 },
 
-                data: {
-                    formatter: function(){
-
-                        return moment(new Date(this.value)).format('YYYY-MM-DDT hh:mm:ss'); // example for moment.js date library
-
-                        //return this.value;
-                    },
-                },
-
-                xAxis: {
-                    min:Date.UTC(2018, 0, 0),
-                    max:Date.UTC(2018, 11, 1),
-                    allowDecimals: false,
-                    type           : 'datetime',
-                    tickInterval   : 24 * 3600 * 1000*30, //one day
-                    labels         : {
-                        rotation : 0
-                    },
-                },
-
-                yAxis: { 
+                yAxis: {
                     title: {
-                        text: 'Total spent  ( € )'
-                        },          
-                    min: 100,
-                    max:600
+                        text: 'Number of Employees',
+                        max: 1000,
+                        min: 100
+                    }
                 },
-
                 legend: {
-                    align: 'left',
-                    verticalAlign: 'top',
-                    borderWidth: 0
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
                 },
 
-                tooltip: {
-                    shared: true,
-                    crosshairs: true
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        pointStart: 2018
+                    }
                 },
 
                 series: [{
-                    name: 'Other',
-                    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-                }]
+                    name: 'Project Development',
+                    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
             });
-        }
+         }
+         
+        
 
         
         </script>
