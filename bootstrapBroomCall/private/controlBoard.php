@@ -17,13 +17,25 @@
         <div class="container">
             <h3>Pending agreements</h3><hr>
                 <?php
-                $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.orderDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
-                                            from agreement a
-                                            inner join users b on a.users = b.id
-                                            inner join person c on b.person = c.id
-                                            inner join cleanlevel d on a.cleanlevel = d.id
-                                            inner join services e on a.services = e.id
-                                            where approved = false;");
+                if(isset($_SESSION[$appID."admin"])){
+                    $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.orderDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
+                    from agreement a
+                    inner join users b on a.users = b.id
+                    inner join person c on b.person = c.id
+                    inner join cleanlevel d on a.cleanlevel = d.id
+                    inner join services e on a.services = e.id
+                    where approved = false;");
+
+                }else if(isset($_SESSION[$appID."operater"])){
+                    $query = $conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person, a.approved, a.orderDate, a.city, a.adress, b.phoneNumber, d.levelName, d.priceCoeficient, e.serviceName, e.price, (d.priceCoeficient * e.price) as total
+                    from agreement a
+                    inner join users b on a.users = b.id
+                    inner join person c on b.person = c.id
+                    inner join cleanlevel d on a.cleanlevel = d.id
+                    inner join services e on a.services = e.id
+                    where a.checked = false and a.approved = true;");
+                }
+
                 $query->execute();
                 $result=$query->fetchAll(PDO::FETCH_OBJ);  
                 ?>
@@ -45,8 +57,8 @@
                                         <?php if(isset($_SESSION[$appID."operater"])): ?>
                                         <hr>
                                         <li>
-                                            <div class="input-group mb-3 justify-content-center" id="changeCheck">
-                                                <button class="btn btn-success" title="Press for checked agreement"><i class="fas fa-check-circle"></i></button>
+                                            <div class="input-group mb-3 justify-content-center" >
+                                                <button class="btn btn-success changeCheck" id="id_<?php echo $row->id; ?>" title="Press for checked agreement"><i class="fas fa-check-circle"></i></button>
                                             </div>
                                         </li>
                                         <?php elseif(isset($_SESSION[$appID."admin"])): ?>
@@ -116,6 +128,23 @@
                 zoomWindowFadeOut: 500,
                 lensFadeIn: 500,
                 lensFadeOut: 500
+            });
+
+
+            $(".changeCheck").click(function(){
+
+                var x = $(this);
+
+                $.ajax({
+                    type: "POST",
+                    url: "checkedAgreement.php",
+                    data: "id="+x.attr("id").split("_")[1],
+                    success: function(serveReturn){
+                        if(serveReturn == "good job"){
+                            x.parent().parent().parent().parent().parent().remove();
+                        }
+                    }
+                });
             });
     </script>
     </body>

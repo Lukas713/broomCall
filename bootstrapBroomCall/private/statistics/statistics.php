@@ -143,6 +143,7 @@ if(!isset($_SESSION[$appID."admin"])){
             var  serverReturn = JSON.parse(serverReturn);
             console.log(serverReturn);
 
+
             Highcharts.chart('container2', {
 
                 chart: {
@@ -199,7 +200,8 @@ if(!isset($_SESSION[$appID."admin"])){
                 },
 
                 series: [{
-                    data: serverReturn,
+                    name: 'Other',
+                    data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
                 }]
             });
         }
