@@ -150,7 +150,7 @@ if(!isset($_SESSION[$appID."admin"])){
 
             var processedJson = new Array();
             for (i = 0; i < serverReturn.length; i++){
-                processedJson.push([serverReturn[i].o, serverReturn[i].t]);
+                processedJson.push(serverReturn[i].data);
             }
             console.log(processedJson);
 
@@ -189,7 +189,7 @@ if(!isset($_SESSION[$appID."admin"])){
 
                 series: [{
                     name: 'Project Development',
-                    data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
+                    data: processedJson
                 }],
 
                 responsive: {

@@ -4,6 +4,7 @@ if(!isset($_SESSION)){
 }
  
 
+
 if(isset($_POST["submit"])){
     
      $error["city"] =  inputErrorHandling($_POST, "city");
@@ -58,7 +59,7 @@ if(isset($_POST["submit"])){
         
             $email = $_SESSION[$appID."user"]; 
         }
-    
+
         try{
             $conn->beginTransaction();
         
@@ -66,7 +67,7 @@ if(isset($_POST["submit"])){
             $query->bindValue(":email", $email, PDO::PARAM_STR);
             $query->execute();
             $personID = $query->fetchColumn();
-            
+
             $query = $conn->prepare("SELECT id from users where person=:person");
             $query->execute(array(
                 "person" => $personID
@@ -83,7 +84,7 @@ if(isset($_POST["submit"])){
                 "cleanLevel" => $_POST["cleanLevel"],
                 "services" => $_POST["services"]    
             ));
-
+            
             $agreementId = $conn->lastInsertId(); 
 
             if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0){

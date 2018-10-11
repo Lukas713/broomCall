@@ -109,8 +109,9 @@ include_once "checkAgreement.php";
                 </div>
             </div>
         <?php include_once "template/footer.php"; ?>
-        <?php include_once "template/scripts.php"; ?>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <?php include_once "template/scripts.php"; ?>
+
         <script>
             $(function() {
                 $(document).tooltip();

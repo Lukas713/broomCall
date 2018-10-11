@@ -5,11 +5,10 @@ if(!isset($_SESSION[$appID."admin"])){
     return;
 }
 
-$query = $conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, c.squad
-                        from person a 
-                        inner join users b on a.id=b.person
-                        inner join agreement c on b.id = c.users
-                        inner join services e on e.id = c.services
+$query = $conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, c.squadColor
+                        from employees b 
+                        inner join person a on a.id=b.person
+                        inner join squad c on c.id=b.squad
                         where concat(a.firstName, ' ', a.lastName) like :condition
                         group by b.id
                         order by a.firstName desc

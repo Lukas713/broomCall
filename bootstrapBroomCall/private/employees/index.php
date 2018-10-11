@@ -136,13 +136,22 @@ function fetchData(page, condition){
 
         var td = document.createElement("td");
         var a = document.createElement("a");
-        var i = document.createElement("i");
-
         a.setAttribute("href", "rewrite.php?id=" + value.id);
+        var i = document.createElement("i");
         i.setAttribute("class", "fas fa-2x text-dark fa-edit");
         a.appendChild(i);
         td.appendChild(a);
+
+        a = document.createElement("a");
+        a.setAttribute("onclick","return confirm('Sure delete " + value.firstName + " " + value.lastName + " ?')");
+        a.setAttribute("href", "delete.php?id=" + value.id);
+        i = document.createElement("i");
+        i.setAttribute("class","fas fa-2x fa-trash-alt text-danger");
+        i.setAttribute("style","color: red;");
+        a.appendChild(i);
+        td.appendChild(a);
         tr.appendChild(td);
+
         tbody.appendChild(tr);
       })
     }

@@ -32,7 +32,7 @@ if(empty($error["registerFirstName"]) && empty($error["registerLastName"])
         
         try{
             $conn->beginTransaction();
-
+            /*insert into person */
             $query = $conn->prepare("INSERT INTO person(firstName, lastName, email, passwrd, roles)
                                     VALUES (:firstName, :lastName, :email, :passwrd, :roles)"); 
             $query->bindParam(":firstName", $_POST["registerFirstName"], PDO::PARAM_STR);
@@ -40,10 +40,12 @@ if(empty($error["registerFirstName"]) && empty($error["registerLastName"])
             $query->bindParam(":email", $_POST["registerEmail"], PDO::PARAM_STR);
             $query->bindValue(":passwrd", $hash, PDO::PARAM_STR);
             $query->bindValue(":roles", 3, PDO::PARAM_INT); 
-            $personID = $conn->lastInsertId();
 
             $query->execute();
+            $personID = $conn->lastInsertId();/*take person id */
 
+            
+            /*insert person into user */
             $query = $conn->prepare("INSERT INTO users(phoneNumber, person)
                                     VALUES (:phoneNumber, :person)");
             $query->bindParam(":phoneNumber", $_POST["registerPhoneNumber"], PDO::PARAM_STR);
@@ -52,7 +54,7 @@ if(empty($error["registerFirstName"]) && empty($error["registerLastName"])
 
             $conn->commit();
 
-            $_SESSION[$appID."user"]= $_POST["registerEmail"];
+            $_SESSION[$appID."user"]= $_POST["registerEmail"]; 
             header("location: index.php");
         }catch(PDOexeption $e){
             $conn->rollBack();
