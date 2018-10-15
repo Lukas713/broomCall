@@ -96,7 +96,7 @@ include_once "checkAgreement.php";
                                             <label for="image">Image</label> <a class="helper" href="#" title="(dont have to) Upload image of your object where squad will do the cleaning service."><i class="fas fa-question-circle"></i></a><br>
                                             <input accept="image/jpg" autocomplete="off" type="file" name="image" id="image">            
                                         </div>
-                                            <input type="submit" class="btn btn-primary" value="Submit" name="submit">
+                                            <button type="submit" class="btn btn-primary" id="submit" name="submit">Submit</button>
                                     </form>
                                 <?php endif; ?>
                                 </div>
@@ -109,13 +109,26 @@ include_once "checkAgreement.php";
                 </div>
             </div>
         <?php include_once "template/footer.php"; ?>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
         <?php include_once "template/scripts.php"; ?>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <script>
             $(function() {
                 $(document).tooltip();
             } );
+        </script>
+        <script>
+            //checig input values
+            
+          $("#submit").click(function(){
+            var x = new Array();
+            x[0] = $("#city").val();
+            x[1] = $("#adress").val();
+            x[2] = $("#service").val();
+            x[3] = $("#cleanLevel").val();
+
+          });
         </script>
     </body>
 </html>

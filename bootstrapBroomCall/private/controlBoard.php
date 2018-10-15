@@ -83,8 +83,8 @@
                                         
                                         <?php if(file_exists('../img/agreementImages/' . $row->id . '.jpg')):?>
                                         <li>
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-2x fa-image"></i></button>
-                                        <?php include_once "imageModal.php"; ?>
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal_<?php echo $row->id;?>"><i class="fas fa-2x fa-image"></i></button>
+                                            <?php include "imageModal.php"; ?>
                                         </li>
                                         <?php else: ?>
                                         <li><button class="btn btn-danger noImage" disabled><i class="fas fa-2x fa-times-circle" title="There is no image"></i></button></li> 
