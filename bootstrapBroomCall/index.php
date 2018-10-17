@@ -1,6 +1,7 @@
 <?php 
 include_once "config.php"; 
 include_once "checkAgreement.php"; 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,7 +97,8 @@ include_once "checkAgreement.php";
                                             <label for="image">Image</label> <a class="helper" href="#" title="(dont have to) Upload image of your object where squad will do the cleaning service."><i class="fas fa-question-circle"></i></a><br>
                                             <input accept="image/jpg" autocomplete="off" type="file" name="image" id="image">            
                                         </div>
-                                            <button type="submit" class="btn btn-primary" id="submit" name="submit">Submit</button>
+                                            <!--<a href="#" class="btn btn-primary" id="submit">Submitt</a>-->
+                                             <button type="submit" class="btn btn-primary" id="submit" name="submit">Submit</button>
                                     </form>
                                 <?php endif; ?>
                                 </div>
@@ -117,18 +119,20 @@ include_once "checkAgreement.php";
             $(function() {
                 $(document).tooltip();
             } );
-        </script>
-        <script>
-            //checig input values
-            
-          $("#submit").click(function(){
-            var x = new Array();
-            x[0] = $("#city").val();
-            x[1] = $("#adress").val();
-            x[2] = $("#service").val();
-            x[3] = $("#cleanLevel").val();
 
-          });
+        $("#submit").click(function( event ) {
+
+            var array = new Array();
+
+            array[0] = $("#city").val()
+            array[1] = $("#adress").val()
+            array[2] = $("#services").val()
+            array[3] = $("#cleanLevel").val()
+            
+            event.preventDefault();
+        });
+
         </script>
+
     </body>
 </html>
