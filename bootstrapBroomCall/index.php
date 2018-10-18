@@ -12,6 +12,9 @@ include_once "checkAgreement.php";
             .helper{
                 color: black;
             }
+            .warningBorder {
+                border: 1px solid red;
+            }
         </style>
     </head>
 
@@ -111,6 +114,10 @@ include_once "checkAgreement.php";
             $(function() {
                 $(document).tooltip();
             } );
+
+
+
+
             /*
                 string as parameter
                 returns string if...
@@ -125,6 +132,23 @@ include_once "checkAgreement.php";
             }
             return ""; 
         }
+            /*
+                param string
+                creates text node
+                append to div
+                set class
+                return div
+             */
+        function invalidFeedback(errorString){
+                
+                var div = document.createElement("div");
+                var tekst = document.createTextNode(errorString);
+                div.appendChild(tekst);
+                div.setAttribute("class", "invalid-feedback");
+                return div;
+        }
+
+
         /**
         on submiting form
          */
@@ -140,50 +164,33 @@ include_once "checkAgreement.php";
             /*
             *iterate through array and call function to check errors
              */
-            $.each(array, function( index, value ) {
-                error[index] = errorHanding(value);
-                if(error[index] != ""){
+              
+            $.each(array, function(value) {
+                error[value] = errorHanding(array[value]); 
+                
+                if(error[value] != ""){
                     event.preventDefault(); //dont close modal
-                    return false;
                 }
                 return true; //close moda, evrything is fine
             }); 
             
             //if there is errors in array
-            var div = new Array();
-            var tekst = new Array();
 
             if(error[0] != ""){ //create invalid class and apend it to cityControl id
-                div[0] = document.createElement("div");
                 $("#city").addClass("is-invalid");
-                tekst[0] = document.createTextNode(error[0]);
-                div[0].appendChild(tekst[0]);
-                div[0].setAttribute("class", "invalid-feedback");
-                $("#cityControl").append(div[0]);  
+                $("#cityControl").append(invalidFeedback(error[0]));   
             }
             if(error[1] != ""){
-                div[1] = document.createElement("div");
                 $("#adress").addClass("is-invalid");
-                tekst[1] = document.createTextNode(error[0]);
-                div[1].appendChild(tekst[1]);
-                div[1].setAttribute("class", "invalid-feedback");
-                $("#adressControl").append(div[1]);
+                $("#adressControl").append(invalidFeedback(error[1]));
             }
             if(error[2] != ""){
-                div[2] = document.createElement("div");
                 $("#services").addClass("is-invalid");
-                tekst[2] = document.createTextNode(error[0]);
-                div[2].appendChild(tekst[2]);
-                div[2].setAttribute("class", "invalid-feedback");
-                $("#servicesControl").append(div[2]);
+                $("#servicesControl").append(invalidFeedback(error[2]));
             }
             if(error[3] != ""){
-                div[3] = document.createElement("div");
                 $("#cleanLevel").addClass("is-invalid");
-                tekst[3] = document.createTextNode(error[0]);
-                div[3].appendChild(tekst[3]);
-                div[3].setAttribute("class", "invalid-feedback");
-                $("#cleanLevelControl").append(div[3]);
+                $("#cleanLevelControl").append(invalidFeedback(error[3]));
             }
 
         });
