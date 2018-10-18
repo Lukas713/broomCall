@@ -76,6 +76,85 @@ include_once "checkRegistration.php";
                     x.type = "password";
                 }
             }
+
+        function errorHanding(string){
+            if(string == ""){
+                return "Input is empty!" ;
+            }else if(string.length > 50){
+                return "You entered "+string.length+" characters, maximum is 50!"; 
+            }
+
+            return ""; 
+        }
+        /**
+        on submiting form
+         */
+        $("#registrationForm").submit(function( event ) {
+            var error = new Array();
+            var array = new Array();
+            //push inputs in array
+            array[0] = $("#registerFirstName").val()
+            array[1] = $("#registerLastName").val()
+            array[2] = $("#registerEmail").val()
+            array[3] = $("#registerPassword").val()
+            array[4] = $("#registerPhoneNumber").val()
+
+            /*
+            *iterate through array and call function to check errors
+             */
+            $.each(array, function( index, value ) {
+                error[index] = errorHanding(value);
+                if(error[index] != ""){
+                    event.preventDefault(); //dont close modal
+                }
+                return true; //close moda, evrything is fine
+            }); 
+            console.log(error); 
+            //if there is errors in array
+            var div = new Array();
+            var tekst = new Array();
+            if(error[0] != ""){ //create invalid class and apend it to cityControl id
+                div[0] = document.createElement("div");
+                $("#registerFirstName").addClass("is-invalid");
+                tekst[0] = document.createTextNode(error[0]);
+                div[0].appendChild(tekst[0]);
+                div[0].setAttribute("class", "invalid-feedback");
+                $("#firstNameControl").append(div[0]);  
+            }
+            if(error[1] != ""){
+                div[1] = document.createElement("div");
+                $("#registerLastName").addClass("is-invalid");
+                tekst[1] = document.createTextNode(error[1]);
+                div[1].appendChild(tekst[1]);
+                div[1].setAttribute("class", "invalid-feedback");
+                $("#lastNameControl").append(div[1]);
+            }
+            if(error[2] != ""){
+                div[2] = document.createElement("div");
+                $("#registerEmail").addClass("is-invalid");
+                tekst[2] = document.createTextNode(error[2]);
+                div[2].appendChild(tekst[2]);
+                div[2].setAttribute("class", "invalid-feedback");
+                $("#emailControl").append(div[2]);
+            }
+            if(error[3] != ""){
+                div[3] = document.createElement("div");
+                $("#registerPassword").addClass("is-invalid");
+                tekst[3] = document.createTextNode(error[3]);
+                div[3].appendChild(tekst[3]);
+                div[3].setAttribute("class", "invalid-feedback");
+                $("#passwordControl").append(div[3]);
+            }
+            if(error[4] != ""){
+                div[4] = document.createElement("div");
+                $("#registerPhoneNumber").addClass("is-invalid");
+                tekst[4] = document.createTextNode(error[4]);
+                div[4].appendChild(tekst[4]);
+                div[4].setAttribute("class", "invalid-feedback");
+                $("#phoneControl").append(div[3]);
+            }
+
+        });
         </script>
     </body>
 </html>
