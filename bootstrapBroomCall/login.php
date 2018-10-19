@@ -86,6 +86,21 @@ include_once "checkRegistration.php";
 
             return ""; 
         }
+        /*
+                param string
+                creates text node
+                append to div
+                set class
+                return div
+             */
+        function invalidFeedback(errorString){
+                
+            var div = document.createElement("div");
+            var tekst = document.createTextNode(errorString);
+            div.appendChild(tekst);
+            div.setAttribute("class", "invalid-feedback");
+            return div;
+        }
         /**
         on submiting form
          */
@@ -109,49 +124,28 @@ include_once "checkRegistration.php";
                 }
                 return true; //close moda, evrything is fine
             }); 
-            console.log(error); 
+
             //if there is errors in array
-            var div = new Array();
-            var tekst = new Array();
+
             if(error[0] != ""){ //create invalid class and apend it to cityControl id
-                div[0] = document.createElement("div");
                 $("#registerFirstName").addClass("is-invalid");
-                tekst[0] = document.createTextNode(error[0]);
-                div[0].appendChild(tekst[0]);
-                div[0].setAttribute("class", "invalid-feedback");
-                $("#firstNameControl").append(div[0]);  
+                $("#firstNameControl").append(invalidFeedback(error[0]));
             }
             if(error[1] != ""){
-                div[1] = document.createElement("div");
                 $("#registerLastName").addClass("is-invalid");
-                tekst[1] = document.createTextNode(error[1]);
-                div[1].appendChild(tekst[1]);
-                div[1].setAttribute("class", "invalid-feedback");
-                $("#lastNameControl").append(div[1]);
+                $("#lastNameControl").append(invalidFeedback(error[1]));
             }
             if(error[2] != ""){
-                div[2] = document.createElement("div");
                 $("#registerEmail").addClass("is-invalid");
-                tekst[2] = document.createTextNode(error[2]);
-                div[2].appendChild(tekst[2]);
-                div[2].setAttribute("class", "invalid-feedback");
-                $("#emailControl").append(div[2]);
+                $("#emailControl").append(invalidFeedback(error[2]));
             }
             if(error[3] != ""){
-                div[3] = document.createElement("div");
                 $("#registerPassword").addClass("is-invalid");
-                tekst[3] = document.createTextNode(error[3]);
-                div[3].appendChild(tekst[3]);
-                div[3].setAttribute("class", "invalid-feedback");
-                $("#passwordControl").append(div[3]);
+                $("#passwordControl").append(invalidFeedback(error[3]));
             }
             if(error[4] != ""){
-                div[4] = document.createElement("div");
                 $("#registerPhoneNumber").addClass("is-invalid");
-                tekst[4] = document.createTextNode(error[4]);
-                div[4].appendChild(tekst[4]);
-                div[4].setAttribute("class", "invalid-feedback");
-                $("#phoneControl").append(div[3]);
+                $("#phoneControl").append(invalidFeedback(error[4]));
             }
 
         });
