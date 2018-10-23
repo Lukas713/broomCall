@@ -153,6 +153,13 @@ include_once "checkAgreement.php";
         on submiting form
          */
         $("#agreementForm").submit(function( event ) {
+
+            if($("#city").hasClass("is-invalid")){
+                $("#city").removeClass("is-invalid"); 
+                $("#cityControl").remove("invalid-feedback");
+            }
+
+            
             var error = new Array();
             var array = new Array();
             //push inputs in array
