@@ -8,6 +8,17 @@ if(!isset($_SESSION[$appID."admin"])){
 <html>
     <head>
         <?php include_once "../../template/head.php";  ?>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <style>
+                #help {
+                    margin-left: 3rem;
+                    color: #999; 
+                }
+
+                #help:hover{
+                    color: #000; 
+                }
+            </style>
         
         <link rel="stylesheet" type="text/css" href="https://www.highcharts.com/media/com_demo/css/highslide.css" />
     </head>
@@ -16,7 +27,8 @@ if(!isset($_SESSION[$appID."admin"])){
         <br><hr>
         
         <div class="container">
-        <h3>Usage and progress chart</h3><hr>
+        <h3>Usage and progress chart <a class="helper" id="help" href="#" title="Chose on menu dropdown specific chart"><i class="fas fa-question-circle"></i></a></h3>
+        <hr> 
             <div class="dropdown show">
                 <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Menu
@@ -41,9 +53,13 @@ if(!isset($_SESSION[$appID."admin"])){
 
         <?php include_once "../../template/footer.php"; ?>
         <?php include_once "../../template/scripts.php";  ?>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/data.js"></script>
     <script>
+                $(function() {
+                $(document).tooltip();
+            } );
     /*
     *
     *takig id from chart options
