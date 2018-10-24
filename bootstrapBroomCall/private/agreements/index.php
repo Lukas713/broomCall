@@ -37,6 +37,15 @@ if($pages == 0){
 <html class="no-js" lang="en" dir="ltr">
   <head>
   <?php include_once "../../template/head.php"; ?>
+  <style>
+    #export {
+          color: blue; 
+          size: 2rem; 
+        }
+    #export:hover {
+          text-decoration: underline; 
+        }
+  </style>
   </head>
   <body>
 
@@ -54,6 +63,7 @@ if($pages == 0){
                             inner join services e on a.services = e.id
                             inner join squad f on a.squad = f.id
                             where concat(c.firstName, ' ', c.lastName, ' ', a.orderDate, ' ', concat(a.city, '-',a.adress)) like :condition
+                            and a.checked = 1
                             order by total desc
                             limit :pages, 10"
                             ); 
@@ -107,6 +117,7 @@ if($pages == 0){
           <?php endforeach; ?>
           </tbody>
       </table>
+      <a href="exportPDF.php" id="export">Export PDF</a>
       <div class="row justify-content-center">
         <?php
           if($totalPages == 0){

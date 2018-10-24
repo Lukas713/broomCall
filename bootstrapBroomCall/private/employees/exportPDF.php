@@ -30,14 +30,12 @@
 include_once "../../config.php";
 
 
-$query=$conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, sum((d.priceCoeficient * e.price)) as total
-                        from person a 
-                        inner join users b on a.id=b.person
-                        inner join agreement c on b.id = c.users
-                        inner join cleanlevel d on d.id = c.cleanlevel
-                        inner join services e on e.id = c.services
+$query=$conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, c.squadNumber, c.squadColor 
+                        from employees b 
+                        inner join person a on a.id=b.person
+                        inner join squad c on c.id=b.squad
                         group by b.id
-                        order by total desc");
+                        order by a.firstName desc");
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -107,7 +105,7 @@ $html =  '<table border="1" cellspacing="1" cellpadding="4" width="100%" >'.
                     "<th>"."Last name"."</th>".
                     "<th>"."Email"."</th>".
                     "<th>"."Phone number"."</th>".
-                    "<th>"."Amount spent"."</th>".
+                    "<th>"."Squad"."</th>".
                 "</tr>";	
 					foreach ($result as $row){
 				
@@ -125,7 +123,7 @@ $html =  '<table border="1" cellspacing="1" cellpadding="4" width="100%" >'.
                                             $row->phoneNumber.
                                         "</td>".
                                         "<td>".
-                                            $row->total.
+                                            $row->squadNumber.
                                         "</td>".
                                     "</tr>";
                                     

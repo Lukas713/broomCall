@@ -112,7 +112,7 @@
                     data: "squadNumber=" + x[0] + "& agreementID=" + x[1], 
                     success: function(serverReturn){
                         if(serverReturn === "good job"){
-                            o.parent().parent().parent().parent().parent().remove(); 
+                            o.parent().parent().parent().parent().remove(); 
                         }
                     }
                 });

@@ -30,14 +30,18 @@
 include_once "../../config.php";
 
 
-$query=$conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, sum((d.priceCoeficient * e.price)) as total
-                        from person a 
-                        inner join users b on a.id=b.person
-                        inner join agreement c on b.id = c.users
-                        inner join cleanlevel d on d.id = c.cleanlevel
-                        inner join services e on e.id = c.services
-                        group by b.id
-                        order by total desc");
+$query=$conn->prepare("SELECT a.id, concat(c.firstName, ' ', c.lastName) as person,  a.orderDate, a.serviceDate,
+                    concat(a.city, '-',a.adress) as adress, f.squadNumber, (d.priceCoeficient * e.price) as total,
+                    e.serviceName, d.levelName
+                    from agreement a
+                    inner join users b on a.users = b.id
+                    inner join person c on b.person = c.id
+                    inner join cleanlevel d on a.cleanlevel = d.id
+                    inner join services e on a.services = e.id
+                    inner join squad f on a.squad = f.id
+                    where a.checked = 1
+                    order by total desc
+                    ");
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -103,30 +107,43 @@ $pdf->AddPage();
 // Set some content to print
 $html =  '<table border="1" cellspacing="1" cellpadding="4" width="100%" >'.
                 "<tr>".
-                    "<th>"."First name"."</th>".
-                    "<th>"."Last name"."</th>".
-                    "<th>"."Email"."</th>".
-                    "<th>"."Phone number"."</th>".
-                    "<th>"."Amount spent"."</th>".
+                    "<th>"."Person"."</th>".
+                    "<th>"."Order date"."</th>".
+                    "<th>"."Service date"."</th>".
+                    "<th>"."Adress"."</th>".
+                    "<th>"."Squad number"."</th>".
+                    "<th>"."Total"."</th>".
+                    "<th>"."Service name"."</th>".
+                    "<th>"."Level name"."</th>".
                 "</tr>";	
 					foreach ($result as $row){
 				
                         $html = $html .   "<tr>".
                                         "<td>".
-                                            $row->firstName.
+                                            $row->person.
                                         "</td>".
                                         "<td>".
-                                            $row->lastName.
+                                            $row->orderDate.
                                         "</td>".
                                         "<td>".
-                                            $row->email.
+                                            $row->serviceDate.
                                         "</td>".
                                         "<td>".
-                                            $row->phoneNumber.
+                                            $row->adress.
+                                        "</td>".
+                                        "<td>".
+                                            $row->squadNumber.
                                         "</td>".
                                         "<td>".
                                             $row->total.
                                         "</td>".
+                                        "<td>".
+                                            $row->serviceName.
+                                        "</td>".
+                                        "<td>".
+                                            $row->levelName.
+                                        "</td>".
+
                                     "</tr>";
                                     
                     }

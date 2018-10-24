@@ -31,6 +31,15 @@ if($pages == 0){
 <html class="no-js" lang="en" dir="ltr">
   <head>
   <?php include_once "../../template/head.php"; ?>
+  <style>
+    #export {
+          color: blue; 
+          size: 2rem; 
+        }
+    #export:hover {
+          text-decoration: underline; 
+        }
+  </style>
   </head>
   <body>
 
@@ -61,12 +70,14 @@ if($pages == 0){
             
           </tbody>
       </table>
+      <a href="exportPDF.php" id="export">Export PDF</a>
       <div class="row justify-content-center">
         <?php
           if($totalPages == 0){
             $totalPages = 1; 
           }
         ?>
+        
         <nav aria-label="pagination">
           <ul class="pagination">
             <li class="page-item"><a class="page-link" href="" id="previous">Previous</a></li>
@@ -131,16 +142,22 @@ function fetchData(page, condition){
         tr.appendChild(createTableData(value.lastName));
         tr.appendChild(createTableData(value.email));
         tr.appendChild(createTableData(value.phoneNumber));
-        tr.appendChild(createTableData(value.squad));
+        var i = document.createElement("i");
+        i.setAttribute("class", "fas fa-circle");
+        i.style.color = value.squadColor;  //.css() is not working
+        var td = document.createElement("td");
+        td.appendChild(i);
+        tr.appendChild(td); 
         
 
-        var td = document.createElement("td");
+        td = document.createElement("td");
         var a = document.createElement("a");
         a.setAttribute("href", "rewrite.php?id=" + value.id);
-        var i = document.createElement("i");
+        i = document.createElement("i");
         i.setAttribute("class", "fas fa-2x text-dark fa-edit");
         a.appendChild(i);
         td.appendChild(a);
+      
 
         a = document.createElement("a");
         a.setAttribute("onclick","return confirm('Sure delete " + value.firstName + " " + value.lastName + " ?')");
@@ -151,6 +168,7 @@ function fetchData(page, condition){
         a.appendChild(i);
         td.appendChild(a);
         tr.appendChild(td);
+
 
         tbody.appendChild(tr);
       })

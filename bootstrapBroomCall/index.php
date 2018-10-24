@@ -49,7 +49,6 @@ include_once "checkAgreement.php";
                                         <div class="form-group" id="cityControl">	
                                             <label for="city">City</label>	
                                             <input class="form-control" type="text" id="city" name="city" >
-                                            
                                         </div>
                                         <div class="form-group" id="adressControl">	
                                             <label for="adress">Adress</label>	
@@ -152,6 +151,8 @@ include_once "checkAgreement.php";
         /**
         on submiting form
          */
+    $(document).ready(function(){
+
         $("#agreementForm").submit(function( event ) {
 
             if($("#city").hasClass("is-invalid")){
@@ -159,7 +160,6 @@ include_once "checkAgreement.php";
                 $("#cityControl").remove("invalid-feedback");
             }
 
-            
             var error = new Array();
             var array = new Array();
             //push inputs in array
@@ -182,25 +182,32 @@ include_once "checkAgreement.php";
             }); 
             
             //if there is errors in array
-
+            
+        
+        
+        
             if(error[0] != ""){ //create invalid class and apend it to cityControl id
                 $("#city").addClass("is-invalid");
-                $("#cityControl").append(invalidFeedback(error[0]));   
-            }
-            if(error[1] != ""){
-                $("#adress").addClass("is-invalid");
-                $("#adressControl").append(invalidFeedback(error[1]));
-            }
-            if(error[2] != ""){
-                $("#services").addClass("is-invalid");
-                $("#servicesControl").append(invalidFeedback(error[2]));
-            }
-            if(error[3] != ""){
-                $("#cleanLevel").addClass("is-invalid");
-                $("#cleanLevelControl").append(invalidFeedback(error[3]));
+                $("#cityControl").append(invalidFeedback(error[0]));    
             }
 
+            if(error[1] != ""){
+                $("#adress").addClass("is-invalid");
+                $("#adressControl").append(invalidFeedback(error[1]));   
+            }
+
+            if(error[2] != ""){
+                $("#services").addClass("is-invalid");
+                $("#servicesControl").append(invalidFeedback(error[2])); 
+            }
+
+            if(error[3] != ""){
+                $("#cleanLevel").addClass("is-invalid");
+                $("#cleanLevelControl").append(invalidFeedback(error[3]));  
+            }
         });
+    });
+       
         </script>
 
     </body>

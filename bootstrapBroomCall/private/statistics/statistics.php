@@ -35,12 +35,6 @@ if(!isset($_SESSION[$appID."admin"])){
                     <div id="container1" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
 
                 </div>
-
-                <div class="col col-md-6">
-
-                    <div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: auto"></div>
-
-                </div>
             </div><hr>
         </div>
 
@@ -49,13 +43,6 @@ if(!isset($_SESSION[$appID."admin"])){
         <?php include_once "../../template/scripts.php";  ?>
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/modules/data.js"></script>
-        <script src="https://code.highcharts.com/modules/series-label.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-        <script src="https://www.highcharts.com/media/com_demo/js/highslide-full.min.js"></script>
-        <script src="https://www.highcharts.com/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
-
-
     <script>
     /*
     *
@@ -143,75 +130,6 @@ if(!isset($_SESSION[$appID."admin"])){
             });
 
         }   
-
-         function createLineChart(serverReturn){
-
-            var  serverReturn = JSON.parse(serverReturn);
-
-            var processedJson = new Array();
-            for (i = 0; i < serverReturn.length; i++){
-                processedJson.push(serverReturn[i].data);
-            }
-            console.log(processedJson);
-
-
-            Highcharts.chart('container2', {
-
-                title: {
-                    text: 'Solar Employment Growth by Sector, 2010-2016'
-                },
-
-                subtitle: {
-                    text: 'Source: thesolarfoundation.com'
-                },
-
-                yAxis: {
-                    title: {
-                        text: 'Number of Employees',
-                        max: 1000,
-                        min: 100
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        pointStart: 2018
-                    }
-                },
-
-                series: [{
-                    name: 'Project Development',
-                    data: processedJson
-                }],
-
-                responsive: {
-                    rules: [{
-                        condition: {
-                            maxWidth: 500
-                        },
-                        chartOptions: {
-                            legend: {
-                                layout: 'horizontal',
-                                align: 'center',
-                                verticalAlign: 'bottom'
-                            }
-                        }
-                    }]
-                }
-
-            });
-         }
-         
-        
-
         
         </script>
     </body>

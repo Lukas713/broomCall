@@ -9,7 +9,16 @@ if(!isset($_SESSION[$appID."admin"])){
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
-  <?php include_once "../../template/head.php"; ?>
+    <?php include_once "../../template/head.php"; ?>
+    <style>
+      #export {
+        color: blue; 
+        size: 2rem; 
+      }
+      #export:hover {
+        text-decoration: underline; 
+      }
+    </style>
   </head>
   <body>
 
@@ -38,6 +47,7 @@ if(!isset($_SESSION[$appID."admin"])){
             
           </tbody>
       </table>
+      <a href="exportPDF.php" id="export">Export PDF</a>
       <div class="row justify-content-center">
         <nav aria-label="pagination">
           <ul class="pagination">
