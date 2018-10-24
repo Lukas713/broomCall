@@ -61,7 +61,6 @@ if($pages == 0){
               <th>Person</th>
               <th>Email</th>
               <th>Phone number</th>
-              <th>Department</th>
               <th>Squad</th>
               <th>Action</th>
             </tr>
@@ -133,18 +132,22 @@ function fetchData(page, condition){
       while(tbody.firstChild){
         tbody.removeChild(tbody.firstChild);
       }
-      $("#current").html(allWeNeed.totalPages);
+      $("#current").html(page);
 
       $.each(allWeNeed.data, function(key, value){
         var tr = document.createElement("tr"); 
 
-        tr.appendChild(createTableData(value.firstName));
-        tr.appendChild(createTableData(value.lastName));
+        tr.appendChild(createTableData(value.person));
         tr.appendChild(createTableData(value.email));
         tr.appendChild(createTableData(value.phoneNumber));
         var i = document.createElement("i");
-        i.setAttribute("class", "fas fa-circle");
-        i.style.color = value.squadColor;  //.css() is not working
+        if(value.squadColor === "-"){
+          i.setAttribute("class", "far fa-circle");
+        }else {
+          i.setAttribute("class", "fas fa-circle");
+          i.style.color = value.squadColor;  //.css() is not working
+        }
+
         var td = document.createElement("td");
         td.appendChild(i);
         tr.appendChild(td); 
@@ -153,7 +156,7 @@ function fetchData(page, condition){
         td = document.createElement("td");
         var a = document.createElement("a");
         a.setAttribute("href", "rewrite.php?id=" + value.id);
-        i = document.createElement("i");
+        var i = document.createElement("i");
         i.setAttribute("class", "fas fa-2x text-dark fa-edit");
         a.appendChild(i);
         td.appendChild(a);

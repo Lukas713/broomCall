@@ -111,7 +111,7 @@ $html =  '<table border="1" cellspacing="1" cellpadding="4" width="100%" >'.
                 "</tr>";	
 					foreach ($result as $row){
 				
-                        $html = $html .   "<tr>".
+                        $html = $html .   '<tr nobr="true">'.
                                         "<td>".
                                             $row->firstName.
                                         "</td>".

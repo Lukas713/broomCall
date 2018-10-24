@@ -5,7 +5,7 @@ if(!isset($_SESSION[$appID."admin"])){
     return;
 }
 
-$query = $conn->prepare("SELECT  b.id, a.firstName, a.lastName, a.email, b.phoneNumber, c.squadColor
+$query = $conn->prepare("SELECT  b.id, concat(a.firstName, ' ', a.lastName) as person, a.email, b.phoneNumber, c.squadColor
                         from employees b 
                         inner join person a on a.id=b.person
                         inner join squad c on c.id=b.squad

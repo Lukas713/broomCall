@@ -52,7 +52,7 @@ if(!isset($_SESSION[$appID."admin"])){
         <nav aria-label="pagination">
           <ul class="pagination">
             <li class="page-item"><a class="page-link" href="" id="previous">Previous</a></li>
-            <li class="page-item"><a class="page-link" href=""> <span id="current">da</span>/<span id="total"></span></a></li>
+            <li class="page-item"><a class="page-link" href=""> <span id="current"></span>/<span id="total"></span></a></li>
             <li class="page-item"><a class="page-link" href="" id="next">Next</a></li>
           </ul>
         </nav>
@@ -66,6 +66,15 @@ if(!isset($_SESSION[$appID."admin"])){
 
         $("#current").html(page); 
 
+        $("#previous").click(function(){
+          page --;
+          if(page == 0){
+            page = 1;
+          }
+          fetchData(page, $("#condition").val()); 
+          return false;
+        });
+
         $("#next").click(function(){
           page ++ ;
           if(page > parseInt($("#total").html())){
@@ -74,15 +83,6 @@ if(!isset($_SESSION[$appID."admin"])){
           }
           fetchData(page, $("#condition").val());
           return false; 
-        });
-
-        $("#previous").click(function(){
-          page --;
-          if(page == 0){
-            page = 1;
-          }
-          fetchData(page, $("#condition").val()); 
-          return false;
         });
 
         $("#search").click(function(){
@@ -99,13 +99,14 @@ if(!isset($_SESSION[$appID."admin"])){
             data: "pages=" + page + "&condition=" + condition,
             success: function(serverReturn){
               var allWeNeed = JSON.parse(serverReturn);
+              console.log(allWeNeed); 
               $("#total").html(allWeNeed.totalPages);
 
               var tbody = document.getElementById("data");
               while(tbody.firstChild){
                 tbody.removeChild(tbody.firstChild);
               }
-              $("#current").html(allWeNeed.totalPages);
+              $("#current").html(page);
 
               $.each(allWeNeed.data, function(key, value){
                 var tr = document.createElement("tr"); 
